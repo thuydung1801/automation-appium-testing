@@ -13,7 +13,6 @@ public class SeleniumTest {
         driver = new SafariDriver();
         driver.navigate().to("https://www.glamira.co.uk/");
     }
-
     @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();

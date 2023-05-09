@@ -176,7 +176,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -198,6 +197,7 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${config.file}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                     </argLine>
@@ -226,6 +226,7 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>config/sample-local-test.testng.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <!--suppress UnresolvedMavenProperty -->
                             <argLine>
                                 -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                             </argLine>
@@ -246,6 +247,7 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>config/sample-test.testng.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <!--suppress UnresolvedMavenProperty -->
                             <argLine>
                                 -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                             </argLine>

@@ -3,7 +3,12 @@
 <suite name="Cross-Platform">
     <test name="BStackDemo">
         <classes>
-            <class name="com.browserstack.BStackDemoTest" />
+            <class name="com.browserstack.SignUp.SignUpTest">
+                <methods>
+                    <include name="NSU_02"/>
+                    <include name="NSU_03"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
