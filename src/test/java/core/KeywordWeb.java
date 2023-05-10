@@ -1,7 +1,9 @@
 package core;
 
+import io.appium.java_client.PerformsTouchActions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.TouchAction;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
@@ -727,6 +729,20 @@ public class KeywordWeb {
         untilJqueryIsDone(30L);
         act.moveToElement(ele2).click().keyDown(Keys.CONTROL).sendKeys("v");
         act.keyUp(Keys.CONTROL).build().perform();
+    }
+    public void clickAction(String ele, int x, int y){
+//        logger.info("click" + ele);
+//        Actions builder = new Actions(driver);
+//        builder.moveByOffset(x, y).click().build().perform();
+//        logger.info("click" + ele);
+        String xPathElement = PropertiesFile.getPropValue(ele);
+        if (xPathElement == null) {
+            xPathElement = ele;
+        }
+        WebElement element = driver.findElement(By.xpath(xPathElement));
+        Actions builder = new Actions(driver);
+//        builder.moveToElement(element, x, y).click().build().perform();
+        builder.moveToElement(element).build().perform();
     }
 
     public String getAttribute(String element) {
