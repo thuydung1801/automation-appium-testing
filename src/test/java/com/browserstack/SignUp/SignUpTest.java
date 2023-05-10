@@ -26,9 +26,11 @@ public class SignUpTest extends BaseTest {
         setup();
         objSignup.createCustomerExistData();
     }
+
     @Test(priority = 2, description = "Create new customer and input invalid data for email form")
     public void NSU_03() throws Exception {
 //        setup();
         objSignup.createCustomerEmailInvalid();
     }
+
 }

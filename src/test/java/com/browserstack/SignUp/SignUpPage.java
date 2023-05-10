@@ -70,15 +70,17 @@ public class SignUpPage extends BasePage {
     }
 
     public void createCustomerExistData() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
         createInformationStep1(false, "", false,
                 false, "", true, "EMAIL_SIGNUP", true, "EMAIL_SIGNUP");
         keyword.untilJqueryIsDone(50L);
         keyword.assertEquals("CONTENT_REQUIRED_FAILED", "MESSAGE_REQUIRED_FAILED_FRIST_NAME");
         keyword.assertEquals("CONTENT_REQUIRED_FAILED", "MESSAGE_REQUIRED_FAILED_LAST_NAME");
     }
-
     public void createCustomerEmailInvalid() throws InterruptedException {
         keyword.reLoadPage();
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
         createInformationStep1(true, "Nguyen", true,
                 false, "", true, "EMAIL_SIGNUP_INVALID", true, "EMAIL_SIGNUP_INVALID");
@@ -86,4 +88,5 @@ public class SignUpPage extends BasePage {
 //        keyword.assertEquals("","");
 //        keyword.assertEquals("","");
     }
+
 }
