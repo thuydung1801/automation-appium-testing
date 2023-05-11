@@ -32,5 +32,41 @@ public class SignUpTest extends BaseTest {
 //        setup();
         objSignup.createCustomerEmailInvalid();
     }
+    @Test(priority = 3, description = "Create new customer and input confirm email not same email form")
+    public void NSU_04() throws Exception {
+//        setup();
+        objSignup.createCustomerEmailNotSame();
+    }
+    @Test(priority = 4, description = "Create new customer and input email exist on database")
+    public void NSU_05() throws Exception {
+//        setup();
+        objSignup.createCustomerEmailExist();
+    }
+    @Test(priority = 5, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_07() throws Exception {
+//        setup();
+        objSignup.passwordAtLeast8character ();
+    }
+    @Test(priority = 6, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_08() throws Exception {
+//        setup();
+        objSignup.passwordAtLeastNumber ();
+    }
 
+    @Test(priority = 7, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_09() throws Exception {
+//        setup();
+        objSignup.confirmPasswordEntryConditionLowerLetter ();
+    }
+
+    @Test(priority = 8, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_010() throws Exception {
+//        setup();
+        objSignup.confirmPasswordEntryConditionLowerUpper ();
+    }
+    @Test(priority = 9, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_011() throws Exception {
+//        setup();
+        objSignup.confirmPasswordEntryConditionCharactersLike ();
+    }
 }

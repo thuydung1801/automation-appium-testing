@@ -175,6 +175,11 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openqa.selenium.grid</groupId>
+            <artifactId>selenium-grid-remote-control</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
