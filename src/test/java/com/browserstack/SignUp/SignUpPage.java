@@ -72,10 +72,12 @@ public class SignUpPage extends BasePage {
         keyword.assertEquals("SIGNUP_EXPECTED_MESSAGE_PASSWORD_07", charactersLike);
         keyword.webDriverWaitForElementPresent(checkElement, 10);
     }
+
     public void clearTextAndSendKey(String clearText, String inputSendKey, String dataSendKey) throws InterruptedException {
         keyword.clearText(clearText);
         keyword.sendKeys(inputSendKey, dataSendKey);
     }
+
     public void createCustomerExistData() throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
@@ -114,14 +116,15 @@ public class SignUpPage extends BasePage {
     }
 
     public void passwordAtLeast8character() throws InterruptedException {
-        keyword.sendKeys("PASSWORD_SIGNUP","PASSWORD_LEAST_8_CHARACTER");
+        keyword.sendKeys("PASSWORD_SIGNUP", "PASSWORD_LEAST_8_CHARACTER");
         confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
                 "SIGNUP_ACTUAL_MESSAGE01", "SIGNUP_ACTUAL_MESSAGE04", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_NUMBER",
                 "SIGNUP_ACTUAL_MESSAGE_AT_LAST_LOWER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_UPPER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_CHARACTERS",
                 "SIGNUP_ACTUAL_MESSAGE04"
         );
     }
-    public void passwordAtLeastNumber()throws InterruptedException {
+
+    public void passwordAtLeastNumber() throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         clearTextAndSendKey("SIGNUP_PASSWORD_INFORMATION", "SIGNUP_PASSWORD_INFORMATION", "SIGNUP_CREATE_PASSWORD_FAIL_02");
         keyword.untilJqueryIsDone(50L);
@@ -131,6 +134,7 @@ public class SignUpPage extends BasePage {
                 "SIGNUP_MESSAGE_ERROR_NUMBER"
         );
     }
+
     public void confirmPasswordEntryConditionLowerLetter() throws InterruptedException {
         clearTextAndSendKey("SIGNUP_PASSWORD_INFORMATION", "SIGNUP_PASSWORD_INFORMATION", "SIGNUP_CREATE_PASSWORD_FAIL_04");
         confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
@@ -139,6 +143,7 @@ public class SignUpPage extends BasePage {
                 "SIGNUP_MESSAGE_ERROR_LOWER_LETTER"
         );
     }
+
     public void confirmPasswordEntryConditionLowerUpper() throws InterruptedException {
         clearTextAndSendKey("SIGNUP_PASSWORD_INFORMATION", "SIGNUP_PASSWORD_INFORMATION", "SIGNUP_CREATE_PASSWORD_FAIL_05");
         confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
@@ -147,6 +152,7 @@ public class SignUpPage extends BasePage {
                 "SIGNUP_MESSAGE_ERROR_UPPER_LETTER"
         );
     }
+
     public void confirmPasswordEntryConditionCharactersLike() throws InterruptedException {
         clearTextAndSendKey("SIGNUP_PASSWORD_INFORMATION", "SIGNUP_PASSWORD_INFORMATION", "SIGNUP_CREATE_PASSWORD_FAIL_06");
         confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
@@ -155,6 +161,7 @@ public class SignUpPage extends BasePage {
                 "SIGNUP_MESSAGE_ERROR_CHARACTERS_LIKE"
         );
     }
+
     public void createCustomerPasswordSameEmail() throws InterruptedException {
         keyword.reLoadPage();
         Thread.sleep(5000);
@@ -167,5 +174,27 @@ public class SignUpPage extends BasePage {
         createInformationSFormPassword("SIGNUP_EMAIL_SIGNUP");
         keyword.untilJqueryIsDone(30L);
         keyword.assertEquals("CONTENT_MESSAGE_PASSWORD_SAME_EMAIL", "MESSAGE_PASSWORD_SAME_EMAIL");
+        keyword.untilJqueryIsDone(30L);
+        keyword.verifyElementVisible("BTN_RESEND_CODE");
+        keyword.click("BTN_RESEND_CODE");
+    }
+
+    public void wrongCodeSendEmail() throws InterruptedException {
+        keyword.reLoadPage();
+        Thread.sleep(5000);
+        createInformationStep1(true, "Nguyen", true,
+                false, "", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
+        createInformationSFormPassword("PASSWORD_CREATE_CUSTOMER");
+        keyword.untilJqueryIsDone(30L);
+        keyword.sendKeys("INPUT_VERIFY_CODE", "DATA_SEND_SEND_CODE");
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("BTN_ACTIVE_ACCOUNT");
+        keyword.untilJqueryIsDone(50L);
+        keyword.assertEquals("CONTENT_MESSAGE_CODE_INVALID", "MESSAGE_INVALID_CODE");
+    }
+
+    public void resendCodeAndCreateAccountSuccess() throws InterruptedException {
+
+
     }
 }

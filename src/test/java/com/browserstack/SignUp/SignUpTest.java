@@ -69,9 +69,19 @@ public class SignUpTest extends BaseTest {
 //        setup();
         objSignup.confirmPasswordEntryConditionCharactersLike ();
     }
-    @Test(priority = 10, description = "\"Create a new account with password # email register and has:\n")
+    @Test(priority = 10, description = "Create an account with the same password as the register email")
+    public void NSU_016() throws Exception {
+//        setup();
+        objSignup.createCustomerPasswordSameEmail();
+    }
+    @Test(priority = 11, description = "Enter the wrong code sent to the email")
     public void NSU_012() throws Exception {
 //        setup();
-        objSignup.confirmPasswordEntryConditionCharactersLike ();
+        objSignup.wrongCodeSendEmail();
+    }
+    @Test(priority = 12, description = "Resend the code to email")
+    public void NSU_013_01() throws Exception {
+//        setup();
+        objSignup.resendCodeAndCreateAccountSuccess();
     }
 }
