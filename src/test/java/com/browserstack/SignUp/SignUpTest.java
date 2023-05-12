@@ -69,4 +69,9 @@ public class SignUpTest extends BaseTest {
 //        setup();
         objSignup.confirmPasswordEntryConditionCharactersLike ();
     }
+    @Test(priority = 10, description = "\"Create a new account with password # email register and has:\n")
+    public void NSU_012() throws Exception {
+//        setup();
+        objSignup.confirmPasswordEntryConditionCharactersLike ();
+    }
 }
