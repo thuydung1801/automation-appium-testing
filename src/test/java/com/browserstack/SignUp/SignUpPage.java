@@ -61,6 +61,7 @@ public class SignUpPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click("BTN_CREATE_ACCOUNT");
         keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
     }
 
     public void confirmPasswordEntryCondition(String titleError, String Message, String characters, String number, String lowerLetter, String upperLetter, String charactersLike, String checkElement) throws InterruptedException {
@@ -73,13 +74,49 @@ public class SignUpPage extends BasePage {
         keyword.webDriverWaitForElementPresent(checkElement, 10);
     }
 
+    public void loginAdmin(String userName, String passWord) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("USER_NAME_BE", userName);
+        keyword.sendKeys("PASS_WORD", passWord);
+        keyword.click("LOGIN_FORM_BTN_SUBMIT_BACKEND");
+    }
+
     public void clearTextAndSendKey(String clearText, String inputSendKey, String dataSendKey) throws InterruptedException {
         keyword.clearText(clearText);
         keyword.sendKeys(inputSendKey, dataSendKey);
     }
-
-    public void createCustomerExistData() throws InterruptedException {
+    public void chooseItemCustomer(String scrollToElement, String clickItem, String verifyItem, String clickItemSub, String verifyItemSub) throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.scrollToPosition();
+        keyword.scrollDownToElement(scrollToElement);
+        keyword.click(clickItem);
+        keyword.webDriverWaitForElementPresent(verifyItem, 20);
         keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click(clickItemSub);
+        keyword.webDriverWaitForElementPresent(verifyItemSub, 20);
+    }
+    public void selectActionEmailLog(String selectAction, String verifySelectForm, String selectView, String verifyForm) throws InterruptedException {
+        keyword.imWait(30);
+        keyword.click(selectAction);
+        keyword.webDriverWaitForElementPresent(verifySelectForm, 20);
+        keyword.untilJqueryIsDone(30L);
+        keyword.click(selectView);
+        keyword.webDriverWaitForElementPresent(verifyForm, 20);
+    }
+    public void getCodeEnterTextInField(String iframe, String getTextInPutVerify, String dataInput, String btnSubmit) throws InterruptedException {
+        keyword.untilJqueryIsDone(20L);
+        keyword.switchToIFrameByXpath(iframe);
+        String text = keyword.getText(getTextInPutVerify);
+        keyword.closeWindowByIndex(1);
+        keyword.switchToTab(0);
+        keyword.sendKeys(dataInput, text);
+        System.out.println("value copied");
+        keyword.untilJqueryIsDone(20L);
+        keyword.click(btnSubmit);
+    }
+    public void createCustomerExistData() throws InterruptedException {
+//        keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
         createInformationStep1(false, "", false,
                 false, "", true, "EMAIL_SIGNUP", true, "EMAIL_SIGNUP");
@@ -117,6 +154,7 @@ public class SignUpPage extends BasePage {
 
     public void passwordAtLeast8character() throws InterruptedException {
         keyword.sendKeys("PASSWORD_SIGNUP", "PASSWORD_LEAST_8_CHARACTER");
+        keyword.untilJqueryIsDone(50L);
         confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
                 "SIGNUP_ACTUAL_MESSAGE01", "SIGNUP_ACTUAL_MESSAGE04", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_NUMBER",
                 "SIGNUP_ACTUAL_MESSAGE_AT_LAST_LOWER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_UPPER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_CHARACTERS",
@@ -174,9 +212,6 @@ public class SignUpPage extends BasePage {
         createInformationSFormPassword("SIGNUP_EMAIL_SIGNUP");
         keyword.untilJqueryIsDone(30L);
         keyword.assertEquals("CONTENT_MESSAGE_PASSWORD_SAME_EMAIL", "MESSAGE_PASSWORD_SAME_EMAIL");
-        keyword.untilJqueryIsDone(30L);
-        keyword.verifyElementVisible("BTN_RESEND_CODE");
-        keyword.click("BTN_RESEND_CODE");
     }
 
     public void wrongCodeSendEmail() throws InterruptedException {
@@ -186,15 +221,43 @@ public class SignUpPage extends BasePage {
                 false, "", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
         createInformationSFormPassword("PASSWORD_CREATE_CUSTOMER");
         keyword.untilJqueryIsDone(30L);
-        keyword.sendKeys("INPUT_VERIFY_CODE", "DATA_SEND_SEND_CODE");
+        keyword.verifyElementPresent("SIGNUP_BTN_RESEND_CODE");
+//        keyword.untilJqueryIsDone(50L);
+//        keyword.sendKeys("INPUT_VERIFY_CODE", "DATA_SEND_SEND_CODE");
         keyword.untilJqueryIsDone(50L);
-        keyword.click("BTN_ACTIVE_ACCOUNT");
+//        keyword.click("BTN_ACTIVE_ACCOUNT");
+//        keyword.untilJqueryIsDone(50L);
+//        keyword.assertEquals("CONTENT_MESSAGE_CODE_INVALID", "XPATH_MESSAGE_INVALID_CODE");
+        getCodeVerify();
+    }
+
+    public void getCodeVerify() throws InterruptedException {
+        keyword.untilJqueryIsDone(20L);
+        keyword.navigateToUrl("URL_STAGE_BE");
+        keyword.untilJqueryIsDone(20L);
+        loginAdmin("LOGIN_DATA_USER_NAME", "LOGIN_DATA_PASS_WORD");
         keyword.untilJqueryIsDone(50L);
-        keyword.assertEquals("CONTENT_MESSAGE_CODE_INVALID", "MESSAGE_INVALID_CODE");
+        keyword.untilJqueryIsDone(50L);
+        chooseItemCustomer(
+                "LOGIN_BTN_CUSTOMER",
+                "LOGIN_BTN_CUSTOMER",
+                "SIGNUP_VERIFY_CUSTOMER",
+                "LOGIN_BTN_EMAIL_LOG",
+                "SIGNUP_VERIFY_EMAIL_LOG"
+        );
+       selectActionEmailLog("LOGIN_CHECK_EMAIL_LOG_ACTION_SELECT",
+                "LOGIN_SELECT_ACTIVE",
+                "LOGIN_SELECT_VIEW_CHECK_EMAIL_LOG",
+                "LOGIN_POPUP_MESSAGE_PASSWORD_RESET");
+      getCodeEnterTextInField("IFRAME_STAGE",
+                "LOGIN_INPUT_VERIFY_CODE",
+                "SIGNUP_INPUT_VERIFY_CODE", "SIGNUP_BTN_SUBMIT_ACCOUNT");
+        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
     }
 
     public void resendCodeAndCreateAccountSuccess() throws InterruptedException {
-
-
+//        Thread.sleep(120000);
+//        keyword.click("BTN_RESEND_CODE");
     }
 }

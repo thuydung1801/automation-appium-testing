@@ -4,11 +4,11 @@
     <test name="BStackDemo">
         <classes>
             <class name="com.browserstack.SignUp.SignUpTest">
-<!--                <methods>-->
+                <methods>
 <!--                    <include name="NSU_02"/>-->
 <!--                    <include name="NSU_03"/>-->
 <!--                    <include name="NSU_04"/>-->
-<!--                </methods>-->
+                </methods>
             </class>
         </classes>
     </test>

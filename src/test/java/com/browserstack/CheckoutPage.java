@@ -8,14 +8,14 @@ import org.slf4j.Logger;
 public class CheckoutPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
 
-    public CheckoutPage(KeywordWeb keywordWeb){
+    public CheckoutPage(KeywordWeb keywordWeb) {
         super(keywordWeb);
     }
 
 
     public void login(String email, String password) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.click("LOGIN_MENULEFT");
         Thread.sleep(2000);
         keyword.untilJqueryIsDone(50L);
@@ -30,6 +30,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public void acceptAllCookies() throws InterruptedException {
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(60L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.untilJqueryIsDone(60L);
