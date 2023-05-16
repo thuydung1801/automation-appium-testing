@@ -1,8 +1,10 @@
 #userName: sukru4
 #accessKey: vaqAnv8yG2CAi4hsX2Uk
-userName: dungthy_PMkTzR
-accessKey: 7QshhrQRD46gPPnQvJC2
+#userName: dungthy_PMkTzR
+#accessKey: 7QshhrQRD46gPPnQvJC2
+userName: ngcnguynth_2N0aCP
+accessKey: Zo2BFAmhgBkzaTEJDEDF
 platforms:
   - platformName: ios
     deviceName: iPhone 11
-    platformVersion: 14
+    platformVersion: 13

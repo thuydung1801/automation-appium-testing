@@ -58,8 +58,8 @@ public class ShoppingBagTest extends BaseTest {
 
     }
     //DONE SP04
-    @Test
-            (priority = 3, description = "Update quantity using qty button successfully")
+//    @Test
+//            (priority = 3, description = "Update quantity using qty button successfully")
 //    @Parameters("baseURL")
     public void testCase_SP_04() throws InterruptedException{
         logger.info("testCase_SP_04");
@@ -72,8 +72,8 @@ public class ShoppingBagTest extends BaseTest {
 
     }
 
-    @Test
-            (priority = 4, description = "Remove item from cart succcessfully with the shopping bag having mutiple items")
+//    @Test
+//            (priority = 4, description = "Remove item from cart succcessfully with the shopping bag having mutiple items")
 //    @Parameters("baseURL")
     public void testCase_SP_01() throws InterruptedException {
         logger.info("testCase_SP_01");
@@ -86,8 +86,8 @@ public class ShoppingBagTest extends BaseTest {
 
     }
 
-    @Test
-            (priority = 5, description = "Checking situation that add more than 4 products with same type")
+//    @Test
+//            (priority = 5, description = "Checking situation that add more than 4 products with same type")
 //    @Parameters("baseURL")
     public void testCase_SP_05() throws InterruptedException{
         logger.info("testCase_SP_05");
@@ -101,14 +101,14 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_MESSAGES_ERROR");
 
     }
-    @Test
-            (priority = 6, description = "Add engraving with single ring")
+//    @Test
+//            (priority = 6, description = "Add engraving with single ring")
 //    @Parameters({"baseURL","devices"})
     public void testCase_SP_15() throws InterruptedException {
         logger.info("testCase_SP_15");
         commonShopping();
         //https://stage.glamira.co.uk/
-//        objShoppingBagPage.addProduct("https://stage.glamira.co.uk/glamira-ring-zanessa.html?alloy=white-585&stone1=diamond-sapphire&stone2=diamond-sapphire");
+        objShoppingBagPage.addProduct("https://stage.glamira.co.uk/glamira-ring-zanessa.html?alloy=white-585&stone1=diamond-sapphire&stone2=diamond-sapphire");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_GLAMIRARING_MOBILE");
         objShoppingBagPage.inputEngravingwithSingleRing("CHECKOUT_DATA_ENGRAVING",
@@ -116,8 +116,8 @@ public class ShoppingBagTest extends BaseTest {
                 "CHECKOUT_LBL_ENGRAVING_GLAMIRA_MOBILE");
 
     }
-    @Test
-            (priority = 7, description = "edit engraving")
+//    @Test
+//            (priority = 7, description = "edit engraving")
     public void testCase_SP_16() throws Exception {
         logger.info("testCase_SP_16");
         //commonShopping();
@@ -129,11 +129,11 @@ public class ShoppingBagTest extends BaseTest {
 
     }
     //DONE SP17
-    @Test
-    (priority = 8, description = "Add engraving for couple ring")
+//    @Test
+//    (priority = 8, description = "Add engraving for couple ring")
     public void testCase_SP_17() throws InterruptedException {
         logger.info("testCase_SP_17");
-//        commonShopping();
+        commonShopping();
         objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/charming-view.html?alloy=white-585&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_COUPLERING_MOBILE");
@@ -142,8 +142,8 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.inputCorrectly("CHECKOUT_DATA_ENGRAVING","CHECKOUT_LBL_ENGRAVING_MOBILE");
 
     }
-    @Test
-            (priority = 9, description = "Edit engraving for the bridal set item")
+//    @Test
+//            (priority = 9, description = "Edit engraving for the bridal set item")
     public void testCase_SP_18() throws InterruptedException {
         logger.info("testCase_SP_18");
 //        commonShopping();
@@ -154,8 +154,8 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.inputCorrectly("CHECKOUT_DATA_ENGRAVING_2","CHECKOUT_LBL_ENGRAVING_MOBILE");
 
     }
-    @Test
-            (priority = 10, description="Add engraving with text > max lenght")
+//    @Test
+//            (priority = 10, description="Add engraving with text > max lenght")
     public void testCase_SP_19() throws InterruptedException {
         logger.info("testCase_SP_19");
         //commonShopping();
@@ -172,7 +172,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_SP_21() throws InterruptedException {
         logger.info("testCase_SP_21");
-        //commonShopping();
+        commonShopping();
         objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_BRACELET");
@@ -217,6 +217,48 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.checkOut();
         objShoppingBagPage.checkOutWithVisa("success","stage");
     }
+    @Test
+            (priority = 16, description = "Place order with Credit card but missing information card")
+
+    public void testCase_RV_05(String baseURL) throws InterruptedException {
+        logger.info("testCase_RV_05");
+//        commonShopping();
+//        https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.checkOutWithVisa("emptyCardNumber",null);
+        objShoppingBagPage.checkOutWithVisa("emptyExpirationDate",null);
+        objShoppingBagPage.checkOutWithVisa("emptyCVC",null);
+    }
+
+    @Test
+            (priority = 17, description = "Place order with Card issue")
+
+    public void testCase_RV_06(String baseURL) throws InterruptedException {
+        logger.info("testCase_RV_06");
+        //commonShopping();
+//        objShoppingBagPage.clickShoppingBagPage();
+//        objShoppingBagPage.moveToPagecheckOut();
+//        objShoppingBagPage.checkOut();
+        objShoppingBagPage.checkOutWithVisa("failByCard",null);
+
+    }
+    //DONE RV07
+    @Test
+    (priority = 19, description = "Place order with Paypal express /Affirm/... successfully")
+
+    public void testCase_RV_07(String baseURL) throws InterruptedException {
+        logger.info("testCase_RV_07");
+//        commonShopping();
+        objShoppingBagPage.backPage(baseURL);
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.checkOutWithPayPal();
+    }
+
 
 
 

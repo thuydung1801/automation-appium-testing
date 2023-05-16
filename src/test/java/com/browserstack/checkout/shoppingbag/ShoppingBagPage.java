@@ -133,6 +133,7 @@ public class ShoppingBagPage extends BasePage {
     public void viewDetail(String typeOfProduct) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(2000);
         keyword.click(typeOfProduct);
 
     }
@@ -147,13 +148,14 @@ public class ShoppingBagPage extends BasePage {
 //        keyword.clearText("CHECKOUT_TXT_ENGRAVING");
         Thread.sleep(2000);
         keyword.untilJqueryIsDone(30L);
-        keyword.click("CHECKOUT_TXT_ENGRAVING");
+        keyword.doubleClick("CHECKOUT_TXT_ENGRAVING");
 
-        Thread.sleep(5000);
+        Thread.sleep(8000);
         keyword.untilJqueryIsDone(50L);
         keyword.sendKeys("CHECKOUT_TXT_ENGRAVING", data);
         logger.info("send key done...");
         keyword.untilJqueryIsDone(30L);
+        Thread.sleep(2000);
         keyword.click("CHECKOUT_VIEWDETAIL_BTN_SAVE");
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -182,8 +184,10 @@ public class ShoppingBagPage extends BasePage {
         keyword.imWait(10);
         keyword.clearText(txtWomen);
         keyword.imWait(3);
+        Thread.sleep(5000);
         keyword.sendKeys(txtWomen, data);
         keyword.imWait(20);
+        Thread.sleep(5000);
         keyword.clearText(txtMen);
         keyword.sendKeys(txtMen, data);
         Thread.sleep(2000);
@@ -399,6 +403,24 @@ public class ShoppingBagPage extends BasePage {
                 keyword.verifyElementVisible("CHECKOUT_MESSAGES_VISA_2");
                 break;
         }
+    }
+    //check out with paypal payment method
+    public void checkOutWithPayPal() throws InterruptedException {
+        Thread.sleep(5000);
+        keyword.click("CHECKOUT_CBX_CHECKOUT_PAYPAL");
+        Thread.sleep(2000);
+        keyword.click("CHECKOUT_BTN_ORDER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        keyword.clearText("PAYPAL_EMAIL");
+        keyword.sendKeys("PAYPAL_EMAIL", "PAYPAL_DATA_EMAIL");
+        keyword.sendKeys("PAYPAL_PASSWORD", "PAYPAL_DATA_PASSWORD");
+        keyword.click("PAYPAL_BTN_LOGIN");
+        keyword.webDriverWaitForElementPresent("PAYPAL_BTN_COMPLETE",10);
+        keyword.click("PAYPAL_BTN_COMPLETE");
+        keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
+        keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
     }
 
 
