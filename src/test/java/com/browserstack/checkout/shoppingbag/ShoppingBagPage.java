@@ -5,6 +5,7 @@ import core.KeywordWeb;
 import core.LogHelper;
 import core.PropertiesFile;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 
@@ -422,6 +423,132 @@ public class ShoppingBagPage extends BasePage {
         keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
         keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
     }
+    public Float calculateMoney(float total, float storeCredit){
+        return total - storeCredit;
+    }
+    //calculate the discount
+    public void discount(boolean flag) throws InterruptedException {
+        if (flag){
+            Float rawPrice = Float.valueOf(keyword.getTextWithOutCharacters("CHECKOUT_LBL_PRICE","£"));
+            logger.info(String.valueOf(rawPrice));
+            String totalPrice = String.valueOf(calculateMoney(rawPrice, 1));
+            logger.info("totalPrice==="+totalPrice);
+            keyword.untilJqueryIsDone(50L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            String actualPrice = keyword.getTextWithOutCharacters("CHECKOUT_LBL_TOTAL_PRICE","£");
+            logger.info(actualPrice);
+            String lastPrice = keyword.removeLastChar(actualPrice);
+            PropertiesFile.serPropValue("CHECKOUT_TOTAL_AMOUNT",actualPrice);
+            keyword.simpleAssertEquals(totalPrice, lastPrice);
+        }else {
+            keyword.untilJqueryIsDone(50L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            String actualPrice = keyword.getTextWithOutCharacters("CHECKOUT_LBL_TOTAL_PRICE", "£");
+            String lastPrice = keyword.removeLastChar(actualPrice);
+            PropertiesFile.serPropValue("CHECKOUT_TOTAL_AMOUNT",actualPrice);
+            keyword.untilJqueryIsDone(50L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.simpleAssertEquals("0.0", lastPrice);
+        }
+    }
+    public void applyCoupon(String couponCode, boolean flag) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        if(keyword.verifyElementVisible("CHECKOUT_BTN_SHOW_COUPON")){
+            keyword.click("CHECKOUT_BTN_SHOW_COUPON");
+        }
+        Thread.sleep(5000);
+        keyword.click("CHECKOUT_LBL_COUPON");
+        keyword.sendKeys("CHECKOUT_TBX_COUPON",couponCode);
+        keyword.click("CHECKOUT_BTN_COUPON");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        discount(flag);
+        if (flag){
+            checkOutWithPayPal();
+        }else {
+            keyword.click("CHECKOUT_BTN_ORDER");
+            keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
+            keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
+        }
+
+
+    }
+    //get order number when the order is completed
+    public void getOrderNumber(){
+        String text = keyword.getTextWithOutCharacters("CHECKOUT_ORDER_NUMBER","Your order number is ");
+        logger.info("textIDorder====" + text);
+        PropertiesFile.serPropValue("CHECKOUT_DATA_ORDER_NUMBER",text);
+    }
+    //login admin BackEnd (shared functions)
+    public void loginAdmin(String userName, String passWord) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("LOGIN_FORM_USER_NAME_BACKEND", userName);
+        keyword.sendKeys("LOGIN_FORM_PASSWORD_BACKEND", passWord);
+        keyword.click("LOGIN_FORM_BTN_SUBMIT_BACKEND");
+    }
+    //open a new tab to login on admin site
+    public void openNewTab() throws InterruptedException {
+
+        keyword.openNewTabFromTabBase(1,"BE_URL");
+        keyword.maximizeWindow();
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        loginAdmin("LOGIN_DATA_USER_NAME_DUNG","LOGIN_DATA_PASS_WORD_DUNG");
+    }
+    //go to BE and verify order's status
+
+    public void verifyOrderStatus(String status) throws InterruptedException {
+        //go to BE
+        //https://dev3.glamira.com/
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/sales/order/");
+        //verify status
+        keyword.webDriverWaitForElementPresent("BE_ORDER_TBX_SEARCH",10);
+        keyword.clearText("BE_ORDER_TBX_SEARCH");
+        keyword.sendKeys("BE_ORDER_TBX_SEARCH","CHECKOUT_DATA_ORDER_NUMBER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(2000);
+        keyword.click("BE_ORDER_BTN_SEARCH");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.webDriverWaitForElementPresent("BE_ORDER_GRV",10);
+        Thread.sleep(5000);
+        logger.info("status====expected "+ PropertiesFile.getPropValue(status));
+        logger.info("actual===="+ keyword.getText("BE_ORDER_GRV_STATUS"));
+        keyword.assertEquals(status,"BE_ORDER_GRV_STATUS");
+    }
+    //check invoices for an order
+    public void checkInvoices() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("BE_ORDER_GRV_STATUS");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.webDriverWaitForElementPresent("BE_ORDER_BTN_INVOICE",10);
+        keyword.click("BE_ORDER_BTN_INVOICE");
+        Thread.sleep(2000);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        String amount = keyword.getTextWithOutCharacters("BE_ORDER_STATUS_AMOUNT","£");
+        keyword.simpleAssertEquals("CHECKOUT_TOTAL_AMOUNT",amount);
+    }
+    //check giftcard's status of a giftcode, that this giftcode's status is used
+    public void checkGiftCardStatus(String code) throws InterruptedException {
+        //go to giftcard screen
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/amgcard/account/");
+        //check status by searching code
+        keyword.webDriverWaitForElementPresent("GIFTCARD_HEADER",10);
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("GIFTCARD_BTN_FILTER");
+        keyword.webDriverWaitForElementPresent("GIFTCARD_TBX_CODE",10);
+        keyword.clearText("GIFTCARD_TBX_CODE");
+        keyword.sendKeys("GIFTCARD_TBX_CODE",code);
+        keyword.click("GIFTCARD_BTN_APPLY");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.assertEquals("Used", "GIFTCARD_LBL_STATUS");
+    }
+
 
 
 

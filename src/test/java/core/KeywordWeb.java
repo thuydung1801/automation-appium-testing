@@ -2,6 +2,7 @@ package core;
 
 import io.appium.java_client.PerformsTouchActions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.TouchAction;
 import org.openqa.selenium.safari.SafariDriver;
@@ -886,6 +887,12 @@ public class KeywordWeb {
         actions.sendKeys(Keys.ENTER);
 
     }
+    public void resizeBrowser(int width, int height) {
+        Dimension d = new Dimension(width, height);
+        //Resize the current window to the given dimension
+        driver.manage().window().setSize(d);
+    }
+
 
 
 }

@@ -220,7 +220,7 @@ public class ShoppingBagTest extends BaseTest {
     @Test
             (priority = 16, description = "Place order with Credit card but missing information card")
 
-    public void testCase_RV_05(String baseURL) throws InterruptedException {
+    public void testCase_RV_05() throws InterruptedException {
         logger.info("testCase_RV_05");
 //        commonShopping();
 //        https://stage.glamira.co.uk/
@@ -236,7 +236,7 @@ public class ShoppingBagTest extends BaseTest {
     @Test
             (priority = 17, description = "Place order with Card issue")
 
-    public void testCase_RV_06(String baseURL) throws InterruptedException {
+    public void testCase_RV_06() throws InterruptedException {
         logger.info("testCase_RV_06");
         //commonShopping();
 //        objShoppingBagPage.clickShoppingBagPage();
@@ -249,15 +249,55 @@ public class ShoppingBagTest extends BaseTest {
     @Test
     (priority = 19, description = "Place order with Paypal express /Affirm/... successfully")
 
-    public void testCase_RV_07(String baseURL) throws InterruptedException {
+    public void testCase_RV_07() throws InterruptedException {
         logger.info("testCase_RV_07");
 //        commonShopping();
-        objShoppingBagPage.backPage(baseURL);
+        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objShoppingBagPage.checkOut();
         objShoppingBagPage.checkOutWithPayPal();
     }
+    @Test
+//            (priority = 28, description = "Place order and apply full amount giftcard  successfully")
+
+
+    public void testCase_RV_17_19() throws InterruptedException {
+        logger.info("testCase_RV_17_19");
+//        commonShopping();
+        //https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.applyCoupon("AUTOTEST",false);
+        objShoppingBagPage.getOrderNumber();
+        objShoppingBagPage.openNewTab();
+        objShoppingBagPage.verifyOrderStatus("ORDER_STATUS_PROCESS");
+        objShoppingBagPage.checkInvoices();
+        keyword.resizeBrowser(319,848);
+    }
+
+    @Test
+//            (priority = 29, description = "Place order and apply partial giftcard  successfully")
+
+    public void testCase_RV_18() throws InterruptedException {
+        logger.info("testCase_RV_18");
+//        commonShopping();
+        //https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.applyCoupon("TNZ_491_FX63",true);
+        objShoppingBagPage.getOrderNumber();
+        objShoppingBagPage.openNewTab();
+        objShoppingBagPage.verifyOrderStatus("ORDER_STATUS_PENDING");
+        objShoppingBagPage.checkGiftCardStatus("TNZ_491_FX63");
+        keyword.resizeBrowser(319,848);
+    }
+
+
 
 
 
