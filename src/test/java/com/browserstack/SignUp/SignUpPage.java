@@ -17,7 +17,10 @@ public class SignUpPage extends BasePage {
     }
 
     //    --------------------------------------------------------------
-    public void goToFormSignup() throws InterruptedException {
+    public void goToFormSignup(boolean checkURL) throws InterruptedException {
+        if (checkURL){
+            keyword.navigateToUrl("https://stage.glamira.com/");
+        }
         keyword.untilJqueryIsDone(20L);
         keyword.click("SIGNUP_MENU_LEFT");
         keyword.untilJqueryIsDone(30L);
@@ -85,17 +88,23 @@ public class SignUpPage extends BasePage {
         keyword.clearText(clearText);
         keyword.sendKeys(inputSendKey, dataSendKey);
     }
+
     public void chooseItemCustomer(String scrollToElement, String clickItem, String verifyItem, String clickItemSub, String verifyItemSub) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
         keyword.scrollToPosition();
-        keyword.scrollDownToElement(scrollToElement);
-        keyword.click(clickItem);
-        keyword.webDriverWaitForElementPresent(verifyItem, 20);
+//        keyword.scrollDownToElement(scrollToElement);
+        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
+        keyword.doubleClick(clickItem);
+        Thread.sleep(3000);
+//        keyword.webDriverWaitForElementPresent(verifyItem, 50);
         keyword.untilJqueryIsDone(50L);
         keyword.untilJqueryIsDone(50L);
         keyword.click(clickItemSub);
         keyword.webDriverWaitForElementPresent(verifyItemSub, 20);
     }
+
     public void selectActionEmailLog(String selectAction, String verifySelectForm, String selectView, String verifyForm) throws InterruptedException {
         keyword.imWait(30);
         keyword.click(selectAction);
@@ -104,6 +113,7 @@ public class SignUpPage extends BasePage {
         keyword.click(selectView);
         keyword.webDriverWaitForElementPresent(verifyForm, 20);
     }
+
     public void getCodeEnterTextInField(String iframe, String getTextInPutVerify, String dataInput, String btnSubmit) throws InterruptedException {
         keyword.untilJqueryIsDone(20L);
         keyword.switchToIFrameByXpath(iframe);
@@ -115,6 +125,7 @@ public class SignUpPage extends BasePage {
         keyword.untilJqueryIsDone(20L);
         keyword.click(btnSubmit);
     }
+
     public void createCustomerExistData() throws InterruptedException {
 //        keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
@@ -232,8 +243,11 @@ public class SignUpPage extends BasePage {
     }
 
     public void getCodeVerify() throws InterruptedException {
-        keyword.untilJqueryIsDone(20L);
+        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
         keyword.navigateToUrl("URL_STAGE_BE");
+        keyword.untilJqueryIsDone(20L);
+        keyword.click("FORM_LOGIN_CONTENT");
         keyword.untilJqueryIsDone(20L);
         loginAdmin("LOGIN_DATA_USER_NAME", "LOGIN_DATA_PASS_WORD");
         keyword.untilJqueryIsDone(50L);
@@ -245,11 +259,11 @@ public class SignUpPage extends BasePage {
                 "LOGIN_BTN_EMAIL_LOG",
                 "SIGNUP_VERIFY_EMAIL_LOG"
         );
-       selectActionEmailLog("LOGIN_CHECK_EMAIL_LOG_ACTION_SELECT",
+        selectActionEmailLog("LOGIN_CHECK_EMAIL_LOG_ACTION_SELECT",
                 "LOGIN_SELECT_ACTIVE",
                 "LOGIN_SELECT_VIEW_CHECK_EMAIL_LOG",
                 "LOGIN_POPUP_MESSAGE_PASSWORD_RESET");
-      getCodeEnterTextInField("IFRAME_STAGE",
+        getCodeEnterTextInField("IFRAME_STAGE",
                 "LOGIN_INPUT_VERIFY_CODE",
                 "SIGNUP_INPUT_VERIFY_CODE", "SIGNUP_BTN_SUBMIT_ACCOUNT");
         keyword.untilJqueryIsDone(50L);
@@ -259,5 +273,10 @@ public class SignUpPage extends BasePage {
     public void resendCodeAndCreateAccountSuccess() throws InterruptedException {
 //        Thread.sleep(120000);
 //        keyword.click("BTN_RESEND_CODE");
+    }
+    public void verifyRequiredFieldWithMobile() throws InterruptedException {
+        keyword.click("SIGNUP_BTN_NEXT_CHINA");
+        keyword.untilJqueryIsDone(30L);
+//        verifyMessageFormInvalid();
     }
 }

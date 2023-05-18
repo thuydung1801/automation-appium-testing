@@ -5,7 +5,7 @@
         <classes>
             <class name="com.browserstack.SignUp.SignUpTest">
                 <methods>
-<!--                    <include name="NSU_02"/>-->
+                    <include name="NSU_014"/>
 <!--                    <include name="NSU_03"/>-->
 <!--                    <include name="NSU_04"/>-->
                 </methods>
