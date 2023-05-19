@@ -1,0 +1,1 @@
+{"uuid":"bbff3275-3537-4f30-9e91-96c3bee00b19","name":"Cross-Platform","children":["fbaad8d7-72d6-45ed-a400-d1c8b3f28d3f"],"befores":[{"name":"beforeSuite","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1684486063091,"stop":1684486063106}],"afters":[],"start":1684486062721,"stop":1684486129122}
