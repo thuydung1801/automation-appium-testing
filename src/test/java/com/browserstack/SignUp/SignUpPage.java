@@ -1,5 +1,6 @@
 package com.browserstack.SignUp;
 
+import com.browserstack.CheckoutPage;
 import core.BasePage;
 import core.KeywordWeb;
 import core.LogHelper;
@@ -11,22 +12,27 @@ import java.util.Date;
 
 public class SignUpPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
+    private CheckoutPage objCheckout;
+    private SignUpPage objSignup;
 
     public SignUpPage(KeywordWeb keywordWeb) {
         super(keywordWeb);
     }
 
     //    --------------------------------------------------------------
-    public void goToFormSignup(boolean checkURL) throws InterruptedException {
-        if (checkURL){
+    public void goToFormSignup(boolean checkURL, String iconLogin) throws InterruptedException {
+        if (checkURL) {
+            objCheckout = new CheckoutPage(this.keyword);
             keyword.navigateToUrl("https://stage.glamira.com/");
+            keyword.untilJqueryIsDone(50L);
+            objCheckout.acceptAllCookies();
         }
         keyword.untilJqueryIsDone(20L);
         keyword.click("SIGNUP_MENU_LEFT");
         keyword.untilJqueryIsDone(30L);
-        keyword.verifyElementVisible("ICON_LOGIN");
-        keyword.click("ICON_LOGIN");
-        keyword.verifyElementVisible("FORM_SIGNUP");
+        keyword.verifyElementVisible(iconLogin);
+        keyword.click(iconLogin);
+        keyword.untilJqueryIsDone(50L);
     }
 
     public void createInformationStep1(boolean checkFistName, String dataName, boolean checkLastName,
@@ -37,6 +43,8 @@ public class SignUpPage extends BasePage {
             keyword.click("BTN_CREATE_NEW_ACCOUNT");
         }
         keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(2000);
         if (checkFistName) {
             keyword.sendKeys("SIGNUP_FIST_NAME", dataName);
         }
@@ -44,7 +52,7 @@ public class SignUpPage extends BasePage {
             keyword.sendKeys("SIGNUP_LAST_NAME", dataName);
         }
         if (checkPhone) {
-            keyword.sendKeys("phone", dataPhone);
+            keyword.sendKeys("SIGNUP_WITH_PHONE", dataPhone);
         }
         if (checkEmail) {
             keyword.sendKeys("SIGNUP_EMAIL", dataEmail);
@@ -274,9 +282,19 @@ public class SignUpPage extends BasePage {
 //        Thread.sleep(120000);
 //        keyword.click("BTN_RESEND_CODE");
     }
+
     public void verifyRequiredFieldWithMobile() throws InterruptedException {
-        keyword.click("SIGNUP_BTN_NEXT_CHINA");
-        keyword.untilJqueryIsDone(30L);
-//        verifyMessageFormInvalid();
+        createInformationStep1(false, "Nguyen", false,
+                true, "DATA_PHONE_NUMBER", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
+        keyword.assertEquals("CONTENT_REQUIRED_FAILED", "MESSAGE_REQUIRED_FAILED_FRIST_NAME");
+        keyword.assertEquals("CONTENT_REQUIRED_FAILED", "MESSAGE_REQUIRED_FAILED_LAST_NAME");
+    }
+
+    public void enterDataSignUpWithMobile() throws InterruptedException {
+        keyword.reLoadPage();
+        keyword.untilJqueryIsDone(50L);
+        createInformationStep1(true, "Nguyen", true,
+                true, "DATA_PHONE_INVALID", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
+        keyword.assertEquals("MESSAGE_NUMBER_FAIL", "MOBILE_NUMBER_ERROR");
     }
 }
