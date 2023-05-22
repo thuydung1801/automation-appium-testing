@@ -296,6 +296,58 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.checkGiftCardStatus("TNZ_491_FX63");
         keyword.resizeBrowser(319,848);
     }
+    @Test
+//            (priority = 30, description = "Apply a gift card having status Expired or Used")
+
+    public void testCase_RV_20() throws InterruptedException {
+        logger.info("testCase_RV_20");
+//        commonShopping();
+        //https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.applyUsedCoupon("TNZ_491_FX63");
+        keyword.resizeBrowser(319,848);
+    }
+    @Test
+//            (priority = 32, description = "Place order with shipping label successfully")
+
+    public void testCase_RV_31() throws InterruptedException {
+        logger.info("testCase_RV_31");
+//        commonShopping();
+        //https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.addShippingLabel("https://stage.glamira.co.uk/",false);
+
+    }
+
+    @Test
+//            (priority = 33, description = "Place order and unchecked I have read and accepted the Terms & Conditions")
+
+    public void testCase_RV_32() throws InterruptedException {
+        logger.info("testCase_RV_32");
+        //commonShopping();
+        //https://stage.glamira.co.uk/
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objShoppingBagPage.checkOut();
+        objShoppingBagPage.notAccpectConditions();
+
+    }
+    @Test
+//            (priority = 34, description = "Place order with shipping label successfully")
+
+    public void testCase_RV_33() throws InterruptedException {
+        logger.info("testCase_RV_31");
+//        commonShopping();
+        //https://stage.glamira.co.uk/
+//        objShoppingBagPage.addProductWithOutOptions(baseURL+"glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.addShippingLabel("https://stage.glamira.co.uk/",true);
+
+    }
+
 
 
 

@@ -548,6 +548,59 @@ public class ShoppingBagPage extends BasePage {
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.assertEquals("Used", "GIFTCARD_LBL_STATUS");
     }
+    //apply the coupon is used
+    public void applyUsedCoupon(String couponCode) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        if(keyword.verifyElementVisible("CHECKOUT_BTN_SHOW_COUPON")){
+            keyword.click("CHECKOUT_BTN_SHOW_COUPON");
+        }
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("CHECKOUT_LBL_COUPON");
+        keyword.sendKeys("CHECKOUT_TBX_COUPON",couponCode);
+        keyword.click("CHECKOUT_BTN_COUPON");
+        keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_COUPON_ERROR",10);
+    }
+    //common checkout
+    public void checkOutLbl() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(2000);
+        keyword.click("CHECKOUT_BTN_ORDER");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
+        keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
+    }
+    public void addShippingLabel(String url,Boolean flag) throws InterruptedException {
+        //https://dev3.glamira.com/glgb/
+        keyword.navigateToUrl(url+"catalog/product/view/id/103896");
+        keyword.click("CHECKOUT_ADDPRODUCT_BTN_ADD");
+        clickShoppingBagPage();
+        moveToPagecheckOut();
+        if(flag){
+            checkOutLbl();
+
+        }
+        else{
+            checkOut();
+            checkOutWithPayPal();
+        }
+
+    }
+    public void notAccpectConditions() throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("CHECKOUT_BTN_ACCEPT_CONDITIONS");
+        keyword.untilJqueryIsDone(30L);
+//        keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_CHECKOUT_BANK",10);
+//        keyword.click("CHECKOUT_CBX_CHECKOUT_BANK");
+        keyword.click("CHECKOUT_CBX_CHECKOUT_PAYPAL");
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("CHECKOUT_BTN_ORDER");
+        keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_ACCEPT_CONDITIONS", 20);
+    }
 
 
 
