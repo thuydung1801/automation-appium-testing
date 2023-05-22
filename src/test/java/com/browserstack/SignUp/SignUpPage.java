@@ -297,4 +297,44 @@ public class SignUpPage extends BasePage {
                 true, "DATA_PHONE_INVALID", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
         keyword.assertEquals("MESSAGE_NUMBER_FAIL", "MOBILE_NUMBER_ERROR");
     }
+
+    public void enterPhoneNumberAlreadyInSystem() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.reLoadPage();
+        createInformationStep1(true, "Nguyen", true,
+                true, "EMAIL_ONE_SYSTEM", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
+        keyword.untilJqueryIsDone(20L);
+        keyword.assertEquals("SIGNUP_MESSAGE_DUPLICATE", "MESSAGE_ERROR_PHONE_NUMBER");
+
+    }
+
+    public void passwordLessThan8Characters() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.reLoadPage();
+        String timestamp = new java.text.SimpleDateFormat("HHmmss").format(new Date());
+        String phone = "24" + timestamp + "6";
+        PropertiesFile.serPropValue("EMAIL_ONE_SYSTEM2", phone);
+        createInformationStep1(true, "Nguyen", true,
+                true, "EMAIL_ONE_SYSTEM2", true, "SIGNUP_EMAIL_SIGNUP", true, "SIGNUP_EMAIL_SIGNUP");
+        keyword.untilJqueryIsDone(50L);
+        passwordAtLeast8character();
+        confirmPasswordEntryCondition("SIGNUP_MESSAGE_PASSWORD_FAIL01",
+                "SIGNUP_ACTUAL_MESSAGE01", "SIGNUP_ACTUAL_MESSAGE04", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_NUMBER",
+                "SIGNUP_ACTUAL_MESSAGE_AT_LAST_LOWER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_UPPER", "SIGNUP_ACTUAL_MESSAGE_AT_LAST_CHARACTERS",
+                "SIGNUP_ACTUAL_MESSAGE04"
+        );
+        keyword.untilJqueryIsDone(50L);
+    }
+
+    public void checkConditionAEmailExisted() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        if (keyword.verifyElementPresent("BTN_BACK")) {
+            keyword.click("BTN_BACK");
+        }
+        keyword.reLoadPage();
+        createInformationStep1(true, "Nguyen", true,
+                true, "EMAIL_ONE_SYSTEM2", true, "EMAIL_CUSTOMER_EXIST", true, "EMAIL_CUSTOMER_EXIST");
+        keyword.assertEquals("SIGNUP_MESSAGE_DUPLICATE", "MESSAGE_ERROR_PHONE_NUMBER");
+    }
+
 }

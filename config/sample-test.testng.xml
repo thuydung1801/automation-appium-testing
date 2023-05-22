@@ -7,7 +7,13 @@
                 <methods>
                     <include name="testCase_SU015"/>
                     <include name="testCase_SU016"/>
-<!--                    <include name="NSU_04"/>-->
+                    <include name="testCase_SU017"/>
+                    <include name="testCase_SU018"/>
+                    <include name="testCase_SU019"/>
+                    <include name="testCase_SU020"/>
+                    <include name="testCase_SU021"/>
+                    <include name="testCase_SU022"/>
+                    <include name="testCase_SU024"/>
                 </methods>
             </class>
         </classes>
