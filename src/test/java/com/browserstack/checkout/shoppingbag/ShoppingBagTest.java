@@ -347,6 +347,14 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.addShippingLabel("https://stage.glamira.co.uk/",true);
 
     }
+    //DONE
+    @Test
+
+    public void testCase_Myorder_Return(String baseURL) throws InterruptedException {
+        logger.info("testCase_Myorder_Return");
+        commonShopping();
+        objShoppingBagPage.stepReturn();
+    }
 
 
 

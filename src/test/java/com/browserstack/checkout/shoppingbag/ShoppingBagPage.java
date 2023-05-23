@@ -8,6 +8,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
+import org.testng.Assert;
 
 import static core.BaseTest.driver;
 
@@ -224,7 +225,9 @@ public class ShoppingBagPage extends BasePage {
     public void addProductWithOutOptions(String url) throws InterruptedException {
         Thread.sleep(5000);
         keyword.navigateToUrl(url);
-        keyword.scrollDownToElement("CHECKOUT_ADDPRODUCT_BTN_ADD");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(5000);
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         Thread.sleep(5000);
@@ -253,7 +256,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.click("CHECKOUT_LBL_METAL");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_METAL",10);
-        keyword.scrollDownToElement("CHECKOUT_BTN_UPDATE");
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.click("CHECKOUT_CBX_METAL");
         keyword.click("CHECKOUT_BTN_UPDATE");
         keyword.untilJqueryIsDone(50L);
@@ -264,14 +267,14 @@ public class ShoppingBagPage extends BasePage {
         keyword.click("CHECKOUT_LBL_STONE");
         keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_DIAMOND",10);
         keyword.click("CHECKOUT_CBX_DIAMOND");
-        keyword.scrollDownToElement("CHECKOUT_LBL_PROFILE");
+        keyword.scrollToPositionByScript("window.scrollBy(0,400)");
         keyword.click("CHECKOUT_LBL_PROFILE");
         keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_PROFILE_B",10);
         keyword.click("CHECKOUT_CBX_PROFILE_B");
         keyword.webDriverWaitForElementPresent("CHECKOUT_DDL_SIZE",5);
         keyword.click("CHECKOUT_DDL_SIZE");
         keyword.click("CHECKOUT_CBX_SIZE_L");
-        keyword.scrollDownToElement("CHECKOUT_BTN_UPDATE");
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.click("CHECKOUT_BTN_UPDATE");
         //keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_UPDATE_23",10);
     }
@@ -287,7 +290,9 @@ public class ShoppingBagPage extends BasePage {
     public void compareData(String expect, String actual){
         keyword.assertEquals(expect, actual);
     }
-    public void missingFillSize(){
+    public void missingFillSize() throws InterruptedException {
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
+        Thread.sleep(2000);
         keyword.click("CHECKOUT_DDL_SIZE");
         keyword.click("CHECKOUT_CBX_SIZE_CUSTOM");
         keyword.click("CHECKOUT_BTN_UPDATE");
@@ -600,6 +605,73 @@ public class ShoppingBagPage extends BasePage {
         keyword.untilJqueryIsDone(30L);
         keyword.click("CHECKOUT_BTN_ORDER");
         keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_ACCEPT_CONDITIONS", 20);
+    }
+
+    public void stepReturn() throws InterruptedException {
+
+//        viewReturn();
+        boolean check;
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        String s = keyword.getText("MAC_MY_ORD_VERIFY_RETURN_GET_ID_ORDER2");
+        String id=s.substring(1,s.length());
+        System.out.printf("ID : " + id +"\n");
+        if(id.equalsIgnoreCase(PropertiesFile.getPropValue("KEY_ID_ORDER"))){
+            logger.info("Failed by id:" + id);
+            check=false;
+        }
+        else{
+            //PropertiesFile.serPropValue("KEY_ID_ORDER",id);
+            check= true;
+        }
+
+        //create new return
+        if(check){
+            keyword.untilJqueryIsDone(60L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.click("MAC_MY_ORD_RETURN_STEP1_CHECKBOX1");
+            keyword.keysBoardWithDOWN("MAC_MY_ORD_RETURN_STEP1_SELECT1");
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.click("MAC_MY_ORD_RETURN_STEP1_CHECKBOX2");
+
+            if(keyword.verifyElementVisible("MAC_MY_ORD_RETURN_STEP1_TEXTAREA")){
+                keyword.sendKeys("MAC_MY_ORD_RETURN_STEP1_TEXTAREA","MAC_MY_ORD_RETURN_STEP1_DATA_TEXTAREA");
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.sendKeys("MAC_MY_ORD_RETURN_STEP1_UPLOAD_IMG1","C:\\Users\\Thuy Dung\\Documents\\Kiến trúc và thiết kế phần mềm\\Assigntment45\\media\\images\\products\\main\\kemhop.jpg");
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.sendKeys("MAC_MY_ORD_RETURN_STEP1_UPLOAD_IMG2","C:\\Users\\Thuy Dung\\Documents\\Kiến trúc và thiết kế phần mềm\\Assigntment45\\media\\images\\products\\main\\kemly.jpg");
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.sendKeys("MAC_MY_ORD_RETURN_STEP1_UPLOAD_IMG3","C:\\Users\\Thuy Dung\\Documents\\Kiến trúc và thiết kế phần mềm\\Assigntment45\\media\\images\\products\\main\\kemque.jpg");
+
+            }
+            else{
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.click("MAC_MY_ORD_RETURN_STEP1_SELECT2");
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.doubleClick("MAC_MY_ORD_RETURN_STEP1_SELECT2_OPTION");
+                keyword.untilJqueryIsDone(60L);
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+                keyword.doubleClick("//div[@class='column main']");
+                keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            }
+
+            keyword.scrollDownToElement("MAC_MY_ORD_RETURN_STEP2");
+            keyword.doubleClick("MAC_MY_ORD_RETURN_STEP2");
+            keyword.untilJqueryIsDone(60L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+//            keyword.click("MAC_MY_ORD_RETURN_STEP2_CHECKBOX");
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.click("MAC_MY_ORD_RETURN_STEP3");
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.click("MAC_MY_ORD_RETURN_SUBMIT");
+            logger.info("done");
+            keyword.untilJqueryIsDone(60L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+            keyword.verifyElementVisible("MAC_MY_ORD_RETURN_SUCCESS");
+            PropertiesFile.serPropValue("KEY_ID_ORDER",id);
+        }else {
+            Assert.assertTrue(false);}
     }
 
 
