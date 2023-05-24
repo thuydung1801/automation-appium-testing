@@ -320,7 +320,8 @@ public class ShoppingBagPage extends BasePage {
         keyword.webDriverWaitForElementPresent("CHECKOUT_BTN_CHECKOUT_SHIPMENT",5);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.scrollDownToElement("CHECKOUT_BTN_CHECKOUT_SHIPMENT");
+        keyword.scrollToPositionByScript("window.scrollBy(0,400)");
+//        keyword.scrollDownToElement("CHECKOUT_BTN_CHECKOUT_SHIPMENT");
         keyword.click("CHECKOUT_BTN_CHECKOUT_SHIPMENT");
         //keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_CHECKOUT_PAYMENT",10);
     }
@@ -351,7 +352,8 @@ public class ShoppingBagPage extends BasePage {
                 keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_CVC", "CHECKOUT_DATA_CHECKOUT_CVC");
                 keyword.switchToDefaultContent();
 //                keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_NAME", "CHECKOUT_DATA_CHECKOUT_NAME");
-                keyword.scrollDownToElement("CHECKOUT_BTN_ORDER");
+//                keyword.scrollDownToElement("CHECKOUT_BTN_ORDER");
+                keyword.scrollToPositionByScript("window.scrollBy(0,400)");
                 keyword.click("CHECKOUT_BTN_ORDER");
 
                 keyword.untilJqueryIsDone(50L);
@@ -655,7 +657,8 @@ public class ShoppingBagPage extends BasePage {
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             }
 
-            keyword.scrollDownToElement("MAC_MY_ORD_RETURN_STEP2");
+//            keyword.scrollDownToElement("MAC_MY_ORD_RETURN_STEP2");
+            keyword.scrollToPositionByScript("window.scrollBy(0,500)");
             keyword.doubleClick("MAC_MY_ORD_RETURN_STEP2");
             keyword.untilJqueryIsDone(60L);
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
