@@ -33,4 +33,54 @@ public class LoginAddressTest extends BaseTest {
         objShoppingBagPage.login("COM_INP_DATA_EMAIL_STAGE", "COM_INP_DATA_PASS_STAGE");
         keyword.untilJqueryIsDone(50L);
     }
+    @Test
+//            (priority = 1,description = "Add new billing address with all valid data and next page successfully")
+
+    public void NLA_01_02() throws InterruptedException {
+        logger.info("NLA_02");
+        customerNotLogin();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_1",
+                "CHECKOUT_LA_DATA_CODE_1","CHECKOUT_LA_DATA_CITY_1");
+        objLoginAddress.verifyMelissa();
+
+    }
+    @Test
+    //(priority = 2, description = "Add new billing address using suggest address with store no state")
+
+
+    public void NLA_03_04() throws InterruptedException {
+        logger.info("NLA_03");
+        //customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(true, null, null, null);
+        objLoginAddress.verifyMelissa();
+        objLoginAddress.compareAddress("CHECKOUT_DATA_EXPECT_DATA_4","CHECKOUT_LBL_ADDRESS_INFO");
+
+    }
+
+    @Test
+    //(priority = 5, description = "Add new billing address and continue with your input options")
+
+    public void NLA_05() throws InterruptedException {
+        logger.info("NLA_05");
+        //customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS");
+        objLoginAddress.verifyMelissa();
+        objLoginAddress.compareAddress("CHECKOUT_DATA_EXPECT_DATA_5","CHECKOUT_LBL_ADDRESS_INFO");
+    }
 }

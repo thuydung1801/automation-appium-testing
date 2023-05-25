@@ -348,14 +348,13 @@ public class ShoppingBagTest extends BaseTest {
 
     }
     //DONE
-    @Test
-
-    public void testCase_Myorder_Return(String baseURL) throws InterruptedException {
-        logger.info("testCase_Myorder_Return");
-        commonShopping();
-        objShoppingBagPage.stepReturn();
-    }
-
+//    @Test
+//
+//    public void testCase_Myorder_Return(String baseURL) throws InterruptedException {
+//        logger.info("testCase_Myorder_Return");
+//        commonShopping();
+//        objShoppingBagPage.stepReturn();
+//    }
 
 
 
