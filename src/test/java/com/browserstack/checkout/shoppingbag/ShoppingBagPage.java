@@ -84,6 +84,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
 //        keyword.scrollDownToElement("CHECKOUT_BTN_MINICART");
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.click("CHECKOUT_BTN_MINICART");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");

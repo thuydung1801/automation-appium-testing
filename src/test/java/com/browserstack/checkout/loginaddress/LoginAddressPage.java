@@ -105,5 +105,46 @@ public class LoginAddressPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click(btnAdd);
     }
+    public void addNewAddress(boolean isSuggestion, String street,
+                              String code, String city, String btnAdd) throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(2000);
+        keyword.click(btnAdd);
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",20);
+        keyword.sendKeys("CHECKOUT_LA_TBX_FIRST_2","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_LAST_2","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_PHONE_2","AFFIRM_DATA_PHONE");
+        if (isSuggestion){
+            keyword.sendKeys("CHECKOUT_LA_TBX_STREET_2","CHECKOUT_LA_DATA_STREET_2");
+            Thread.sleep(2000);
+            keyword.sendKeys("CHECKOUT_LA_TBX_STREET_2"," ");
+//            keyword.keysBoardWithDOWN("/html/body/div[4]/aside[4]/div[2]/div/div/form/div/div/fieldset/div/div/div");
+//            keyword.pressEnter();
+            if(street != null){
+                keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SUGGESTLIST_45",10);
+                keyword.click("CHECKOUT_LA_SUGGESTLIST_45");
+
+            }else{
+                Thread.sleep(2000);
+                keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SUGGESTLIST_2",10);
+                keyword.click("CHECKOUT_LA_SUGGESTLIST_2");
+            }
+
+        }else {
+            keyword.sendKeys("CHECKOUT_LA_TBX_STREET_2",street);
+            keyword.sendKeys("CHECKOUT_LA_TBX_ZIP_2",code);
+            keyword.sendKeys("CHECKOUT_LA_TBX_CITY_2",city);
+        }
+        Thread.sleep(2000);
+        if(keyword.verifyElementPresent("CHECKOUT_LA_LBL_CODE")){
+            keyword.assertEquals("CHECKOUT_LA_MESSAGES_CODE","CHECKOUT_LA_LBL_CODE");
+        }else{
+            keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS");
+        }
+
+    }
+
 
 }

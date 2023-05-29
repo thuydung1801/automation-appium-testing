@@ -83,4 +83,38 @@ public class LoginAddressTest extends BaseTest {
         objLoginAddress.verifyMelissa();
         objLoginAddress.compareAddress("CHECKOUT_DATA_EXPECT_DATA_5","CHECKOUT_LBL_ADDRESS_INFO");
     }
+    @Test
+    //(priority = 3, description = "Add new billing address and continue with We Suggested option")
+
+    public void NLA_06() throws InterruptedException {
+        logger.info("NLA_06");
+        objLoginAddress.resetForNewCase();
+//        customerNotLogin();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS");
+        objLoginAddress.verifyMelissa();
+        objLoginAddress.compareAddress("CHECKOUT_DATA_EXPECT_DATA_2","CHECKOUT_LBL_ADDRESS_INFO");
+    }
+
+    @Test
+    //(priority = 4, description = "Add new another shipping address")
+
+    public void NLA_08() throws InterruptedException {
+        logger.info("NLA_08");
+        objLoginAddress.addNewAddress(true,null,null,null,"CHECKOUT_HPL_NEW_ADDRESS");
+    }
+
+    @Test
+    //(priority = 6, description = "Add new another shipping address")
+
+    public void NLA_07() throws InterruptedException {
+        logger.info("NLA_07");
+        objLoginAddress.addNewAddress(false,"CHECKOUT_LA_DATA_STREET_4",
+                "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_ADDRESS");
+    }
 }
