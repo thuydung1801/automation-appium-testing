@@ -7,11 +7,12 @@
         <classes>
             <class name="com.browserstack.checkout.shoppingbag.ShoppingBagTest" >
                 <methods>
-<!--                    <include name="testCase_SP_02"/>-->
+                    <include name="testCase_SP_02"/>
 <!--                    <include name="testCase_SP_03"/>-->
 <!--                    <include name="testCase_SP_15"/>-->
 <!--                    <include name="testCase_SP_01"/>-->
 <!--                    <include name="testCase_SP_04"/>-->
+<!--                    <include name="testCase_SP_05"/>-->
 <!--                    <include name="testCase_SP_21"/>-->
 <!--                    <include name="testCase_SP_24"/>-->
 <!--                    <include name="testCase_SP_25"/>-->

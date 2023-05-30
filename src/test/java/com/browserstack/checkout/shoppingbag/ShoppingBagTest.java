@@ -29,13 +29,13 @@ public class ShoppingBagTest extends BaseTest {
 //
 //
 //    }
-//    @Test
+    @Test
 //    (priority = 1, description = "Remove item from cart successfully with the shopping bag having 1 item")
 //    @Parameters("baseURL")
     public void testCase_SP_02() throws Exception{
         logger.info("testCase_SP_02");
 //        driver.get("https://stage.glamira.co.uk/mens-ring-smart-queen-skup7013.html?alloy=white-375&utm_widget=recommendation");
-        commonShopping();
+//        commonShopping();
 //        shoppingBagPageMobile.setup();
         objShoppingBagPage.addProduct("https://stage.glamira.co.uk/mens-ring-smart-queen-skup7013.html?alloy=white-375&utm_widget=recommendation");
         objShoppingBagPage.clickShoppingBagPage();
@@ -43,7 +43,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_MESSAGES_EMPTY");
     }
 
-//    @Test
+    @Test
 //            (priority = 2, description="Remove item from cart successfully with the shopping bag having 1 normal item and 1 free gift")
 //    @Parameters("baseURL")
     public void testCase_SP_03() throws InterruptedException{
@@ -58,12 +58,12 @@ public class ShoppingBagTest extends BaseTest {
 
     }
     //DONE SP04
-//    @Test
+    @Test
 //            (priority = 3, description = "Update quantity using qty button successfully")
 //    @Parameters("baseURL")
     public void testCase_SP_04() throws InterruptedException{
         logger.info("testCase_SP_04");
-        commonShopping();
+//        commonShopping();
         //commonShoppingWithOutCookies();
         objShoppingBagPage.addProduct("https://stage.glamira.co.uk/mens-ring-smart-queen-skup7013.html?alloy=white-375&utm_widget=recommendation");
         objShoppingBagPage.clickShoppingBagPage();
@@ -72,7 +72,7 @@ public class ShoppingBagTest extends BaseTest {
 
     }
 
-//    @Test
+    @Test
 //            (priority = 4, description = "Remove item from cart succcessfully with the shopping bag having mutiple items")
 //    @Parameters("baseURL")
     public void testCase_SP_01() throws InterruptedException {
@@ -86,7 +86,7 @@ public class ShoppingBagTest extends BaseTest {
 
     }
 
-//    @Test
+    @Test
 //            (priority = 5, description = "Checking situation that add more than 4 products with same type")
 //    @Parameters("baseURL")
     public void testCase_SP_05() throws InterruptedException{

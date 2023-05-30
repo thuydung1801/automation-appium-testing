@@ -25,7 +25,8 @@ public class LoginAddressPage extends BasePage {
 
     private LoginAddressPage objLoginAddress;
 
-    public void moveToAddressPage() {
+    public void moveToAddressPage() throws InterruptedException {
+        Thread.sleep(5000);
         keyword.webDriverWaitForElementPresent("CHECKOUT_BTN_CONTINUE_GUEST", 40);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.click("CHECKOUT_BTN_CONTINUE_GUEST");
@@ -36,14 +37,17 @@ public class LoginAddressPage extends BasePage {
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.verifyElementPresent("CHECKOUT_BTN_CHECKOUT");
+        System.out.printf("done===");
+        logger.info("DONE-1=======");
         keyword.click("CHECKOUT_BTN_CHECKOUT");
+        logger.info("DONE-=====");
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_LBL_CHECKOUT", 20);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
@@ -55,7 +59,7 @@ public class LoginAddressPage extends BasePage {
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",20);
         keyword.sendKeys("CHECKOUT_LA_TBX_FIRST","LOGIN_DATA_ALERT_USERNAME");
         keyword.sendKeys("CHECKOUT_LA_TBX_LAST","LOGIN_DATA_ALERT_USERNAME");
-        String mail = "linh"+timestamp+"@gmail.com";
+        String mail = "dung"+timestamp+"@gmail.com";
         PropertiesFile.serPropValue("CHECKOUT_LA_DATA_EMAIL",mail);
         keyword.sendKeys("CHECKOUT_LA_TBX_EMAIL","CHECKOUT_LA_DATA_EMAIL");
         keyword.untilJqueryIsDone(50L);
@@ -144,6 +148,10 @@ public class LoginAddressPage extends BasePage {
             keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS");
         }
 
+    }
+    public void isAddNewAddress(){
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_2",10);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_3",10);
     }
 
 

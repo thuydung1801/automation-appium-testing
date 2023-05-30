@@ -34,7 +34,7 @@ public class LoginAddressTest extends BaseTest {
         keyword.untilJqueryIsDone(50L);
     }
     @Test
-//            (priority = 1,description = "Add new billing address with all valid data and next page successfully")
+            (priority = 1,description = "Add new billing address with all valid data and next page successfully")
 
     public void NLA_01_02() throws InterruptedException {
         logger.info("NLA_02");
@@ -116,5 +116,24 @@ public class LoginAddressTest extends BaseTest {
         logger.info("NLA_07");
         objLoginAddress.addNewAddress(false,"CHECKOUT_LA_DATA_STREET_4",
                 "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_ADDRESS");
+    }
+    @Test
+    //(priority = 7, description = "Add new shipping address with invalid data and using Your input option")
+
+    public void NLA_10() throws InterruptedException {
+        logger.info("NLA_10");
+        //customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS");
+        objLoginAddress.addNewAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_ADDRESS");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.isAddNewAddress();
     }
 }

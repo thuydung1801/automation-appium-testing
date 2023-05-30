@@ -94,17 +94,16 @@ public class ShoppingBagPage extends BasePage {
         Thread.sleep(2000);
     }
     public void removeProduct(String typeOfProduct) throws InterruptedException {
-        Thread.sleep(6000);
-
+        Thread.sleep(7000);
 //        keyword.clickAction(typeOfProduct, 366, 294);
         keyword.click(typeOfProduct);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_REMOVE",10);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.click("CHECKOUT_BTN_CONFIRM_REMOVE");
-        if(!keyword.verifyElementPresent(typeOfProduct)){
-            logger.info("Passed");
-        }
+//        if(!keyword.verifyElementPresent(typeOfProduct)){
+//            logger.info("Passed");
+//        }
     }
     public void confirmMessage(String messages) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
