@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Local">
-    <test name="LocalTest">
+<!--    <test name="LocalTest">-->
+<!--        <classes>-->
+<!--            <class name="com.browserstack.BStackDemoTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test name="RunTest">
+        <parameter name="baseURL" value="https://stage.glamira.co.uk/"></parameter>
         <classes>
-            <class name="com.browserstack.LocalTest"/>
+
+            <class name="com.browserstack.checkout.ShoppingBagTest">
+                <methods>
+                    <include name="testCase_SP_15"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
