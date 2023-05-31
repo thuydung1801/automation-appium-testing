@@ -33,7 +33,7 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
 
-        driver.navigate().to("https://www.glamira.co.uk/");
+        driver.navigate().to("https://stage.glamira.co.uk/");
     }
 
     @AfterMethod(alwaysRun = true)
