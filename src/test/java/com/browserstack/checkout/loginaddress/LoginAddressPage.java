@@ -153,6 +153,23 @@ public class LoginAddressPage extends BasePage {
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_2",10);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_3",10);
     }
+    public void editAddress(String btnEdit) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.click(btnEdit);
+        keyword.untilJqueryIsDone(50L);
+        keyword.clearText("CHECKOUT_LA_TBX_ZIP_2");
+        keyword.sendKeys("CHECKOUT_LA_TBX_ZIP_2","BT62 4HB");
+        keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS");
+    }
+    public void goBack(String verifyElement) throws InterruptedException {
+        //a[@class="actions action-back-to-cart"]
+        keyword.scrollDownToElement("CHECKOUT_LA_BTN_BACK");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("CHECKOUT_LA_BTN_BACK");
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent(verifyElement,30);
+    }
 
 
 }

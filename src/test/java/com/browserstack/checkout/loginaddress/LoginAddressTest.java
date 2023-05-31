@@ -136,4 +136,36 @@ public class LoginAddressTest extends BaseTest {
         objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
         objLoginAddress.isAddNewAddress();
     }
+    @Test
+    //(priority = 8, description = "Add new shipping address with invalid data and using Your input option")
+
+    public void NLA_11() throws InterruptedException {
+        logger.info("NLA_11");
+//        customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS");
+        objLoginAddress.addNewAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_ADDRESS");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.isAddNewAddress();
+    }
+    @Test
+    //(priority = 9, description = "Edit shipping address same as billing")
+    @Parameters("baseURL")
+    public void NLA_12_16(String baseURL) throws InterruptedException {
+        objLoginAddress.editAddress("CHECKOUT_BTN_EDIT_ADDRESS");
+        objLoginAddress.compareAddress("CHECKOUT_DATA_EXPECT_DATA_12","CHECKOUT_LBL_ADDRESS_INFO_2");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.goBack("CHECKOUT_BTN_CONTINUE_GUEST");
+        objLoginAddress.moveToAddressPage();
+        //objLoginAddress.checkOutNotLogin();
+
+    }
+
 }
