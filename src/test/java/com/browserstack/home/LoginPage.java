@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 
 public class LoginPage extends BasePage {
     private static Logger logger = LogHelper.getLogger();
-    public LoginPage(){ super(); }
+
     public LoginPage(KeywordWeb key){
         super(key);
     }
@@ -16,7 +16,7 @@ public class LoginPage extends BasePage {
     public void login(String email, String password) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.click("LOGIN_MENULEFT");
+        keyword.click("LOGIN_MENU_LEFT");
         Thread.sleep(2000);
         keyword.untilJqueryIsDone(50L);
         keyword.click("LOGIN_BTN_LOGIN");

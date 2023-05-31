@@ -1,11 +1,9 @@
 package com.browserstack.returnForm;
 
+
 import core.BasePage;
-
 public class ReturnFormPage extends BasePage {
-
     public ReturnFormPage() {
-
         super();
     }
 
@@ -44,6 +42,34 @@ public class ReturnFormPage extends BasePage {
     public void confirmMessage(String messageExpected, String messageActual) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.assertEquals(messageExpected,messageActual);
+    }
+    public void createNewReturnOrder(String orderSelected,String typeReturn,boolean check) throws InterruptedException{
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(10000);
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10, "RETURN_FORM_LBL_NEW_RETURN_REQUEST");
+        keyword.click("RETURN_FORM_SELECT_ORDER_RETURN");
+        keyword.click(orderSelected);
+        keyword.untilJqueryIsDone(50L);
+        String getIdOrder = keyword.getText("RETURN_FORM_SELECT_ORDER_RETURN");
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("RETURN_FORM_BTN_RETURN_ORDER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
+        String idOrder=keyword.getText("RETURN_FORM_ID_ORDER_SELECTED");
+        getIdOrder.contains(idOrder);
+        keyword.click("RETURN_FORM_CONFIRM_ADDRESS");
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("RETURN_FORM_SELECT_TYPE_RETURN");
+        keyword.untilJqueryIsDone(30L);
+        if (keyword.verifyElementVisible(typeReturn) == check) {
+            System.out.println("pass");
+        }
+        else {
+            System.out.println("fail");
+        }
+
+
     }
 }
 
