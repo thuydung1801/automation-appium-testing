@@ -36,12 +36,3 @@ task sampleTest(type: Test) {
         jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
     }
 }
-
-task sampleLocalTest(type: Test) {
-    useTestNG() {
-        dependsOn cleanTest
-        useDefaultListeners = true
-        suites "config/sample-local-test.testng.xml"
-        jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
-    }
-}
