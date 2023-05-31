@@ -1,8 +1,7 @@
 package com.browserstack;
 
 import core.BaseTest;
-import core.LogHelper;
-import org.slf4j.Logger;
+
 import org.testng.annotations.Test;
 
 public class BStackDemoTest extends BaseTest {

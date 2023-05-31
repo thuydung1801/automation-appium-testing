@@ -11,14 +11,14 @@
 - Clone the repository
 - Replace YOUR_USERNAME and YOUR_ACCESS_KEY with your BrowserStack access credentials in browserstack.yml.
 - Install dependencies `mvn compile`
-- To run the test suite having cross-platform with parallelization, run `mvn test -P sample-test`
-- To run local tests, run `mvn test -P sample-local-test`
+- To run the com.browserstack.test suite having cross-platform with parallelization, run `mvn com.browserstack.test -P sample-com.browserstack.test`
+- To run local tests, run `mvn com.browserstack.test -P sample-local-com.browserstack.test`
 
 Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
-### Integrate your test suite
+### Integrate your com.browserstack.test suite
 
-This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your test suite and run tests on BrowserStack:
+This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your com.browserstack.test suite and run tests on BrowserStack:
 
 * Create sample browserstack.yml file with the browserstack related capabilities with your [BrowserStack Username and Access Key](https://www.browserstack.com/accounts/settings) and place it in your root folder.
 * Add maven dependency of browserstack-java-sdk in your pom.xml file
@@ -30,7 +30,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
     <scope>compile</scope>
 </dependency>
 ```
-* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies in the profiles `sample-test` and `sample-local-test`.
+* Modify your build plugin to run tests by adding argLine `-javaagent:${com.browserstack:browserstack-java-sdk:jar}` and `maven-dependency-plugin` for resolving dependencies in the profiles `sample-com.browserstack.test` and `sample-local-com.browserstack.test`.
 ```
             <plugin>
                <artifactId>maven-dependency-plugin</artifactId>
@@ -49,7 +49,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
                 <version>3.0.0-M5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>config/sample-local-test.testng.xml</suiteXmlFile>
+                        <suiteXmlFile>config/sample-local-com.browserstack.test.testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
@@ -68,14 +68,14 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
 
 - Clone the repository
 - Install dependencies `gradle build`
-- To run the test suite having cross-platform with parallelization, run `gradle sampleTest`
+- To run the com.browserstack.test suite having cross-platform with parallelization, run `gradle sampleTest`
 - To run local tests, run `gradle sampleLocalTest`
 
 Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 
-### Integrate your test suite
+### Integrate your com.browserstack.test suite
 
-This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your test suite and run tests on BrowserStack:
+This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow the steps below to install the SDK in your com.browserstack.test suite and run tests on BrowserStack:
 
 * Following are the changes required in `gradle.build` -
     * Add `compileOnly 'com.browserstack:browserstack-java-sdk:latest.release'` in dependencies
@@ -87,7 +87,7 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
     useTestNG() {
       dependsOn cleanTest
       useDefaultListeners = true
-      suites "config/sample-test.testng.xml"
+      suites "config/sample-com.browserstack.test.testng.xml"
       jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
     }
   }
@@ -97,4 +97,4 @@ This repository uses the BrowserStack SDK to run tests on BrowserStack. Follow t
 
 
 ## Notes
-* You can view your test results on the [BrowserStack Automate dashboard](https://www.browserstack.com/automate)
+* You can view your com.browserstack.test results on the [BrowserStack Automate dashboard](https://www.browserstack.com/automate)

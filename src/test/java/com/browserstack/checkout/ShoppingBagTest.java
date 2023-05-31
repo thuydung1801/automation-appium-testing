@@ -14,7 +14,8 @@ public class ShoppingBagTest extends BaseTest {
     private ShoppingBagPage objShoppingBagPage;
     private LoginPage objLogin;
 
-    public ShoppingBagTest(){ super();
+    public ShoppingBagTest(){
+        super();
         objShoppingBagPage = new ShoppingBagPage(this.keyword);
         objLogin = new LoginPage(this.keyword);
     }

@@ -1,4 +1,4 @@
-# This job is to test different maven profiles in sdk branch again Pull Request raised
+# This job is to com.browserstack.test different maven profiles in sdk branch again Pull Request raised
 # This workflow targets Java with Maven execution
 
 name: TestNG SDK Test workflow for Maven on workflow_dispatch
@@ -56,15 +56,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
-      - name: Run mvn test
+      - name: Run mvn com.browserstack.test
         run: |
           mvn compile
           mvn test
-      - name: Run mvn profile sample-local-test
+      - name: Run mvn profile sample-local-com.browserstack.test
         run: |
           mvn compile
           mvn test -P sample-local-test
-      - name: Run mvn profile sample-test
+      - name: Run mvn profile sample-com.browserstack.test
         run: |
           mvn compile
           mvn test -P sample-test

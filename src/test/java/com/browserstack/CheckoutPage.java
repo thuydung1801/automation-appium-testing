@@ -31,7 +31,9 @@ public class CheckoutPage extends BasePage {
 
     public void acceptAllCookies() throws InterruptedException {
         keyword.untilJqueryIsDone(60L);
+        keyword.untilJqueryIsDone(60L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
+        keyword.untilJqueryIsDone(60L);
         keyword.untilJqueryIsDone(60L);
         chooseLanguages();
         keyword.webDriverWaitForElementPresent("BTN_COOKIES", 50);
@@ -44,9 +46,10 @@ public class CheckoutPage extends BasePage {
 
     public void chooseLanguages() throws InterruptedException {
         logger.info("choose language");
-        Thread.sleep(7000);
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(10000);
         if (keyword.verifyElementPresent("LOGIN_BTN_LANGUAGE")) {
-            Thread.sleep(7000);
+            Thread.sleep(10000);
             keyword.click("LOGIN_BTN_LANGUAGE");
         }
     }

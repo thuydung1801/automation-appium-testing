@@ -490,11 +490,11 @@ public class KeywordWeb {
         }
         try {
             driver.findElement(By.xpath(xPathElement));
-            //I want to fail the test here if above element is found
+            //I want to fail the com.browserstack.test here if above element is found
             Assert.assertTrue(false);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            //pass the test if element is not found in try statement
+            //pass the com.browserstack.test if element is not found in try statement
             Assert.assertTrue(true);
         }
     }
@@ -508,11 +508,11 @@ public class KeywordWeb {
         }
         try {
             driver.findElement(By.xpath(xPathElement));
-            //I want to pass the test here if above element is found
+            //I want to pass the com.browserstack.test here if above element is found
             Assert.assertTrue(true);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            //fail the test if element is not found in try statement
+            //fail the com.browserstack.test if element is not found in try statement
             Assert.assertTrue(false);
         }
     }
