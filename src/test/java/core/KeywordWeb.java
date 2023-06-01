@@ -453,6 +453,22 @@ public class KeywordWeb {
         dropDownList.selectByVisibleText(xPathElement2);
 
     }
+    public void selectRadioByValue( String element) {
+        logger.info("select radio by value");
+        String xPathElement = PropertiesFile.getPropValue(element);
+        if (xPathElement == null) {
+            xPathElement = element;
+        }
+        Boolean isSelected = driver.findElement(By.xpath(xPathElement)).isSelected();
+        if(isSelected == false)
+        {
+            driver.findElement(By.xpath(xPathElement)).click();
+        }
+        else {
+            System.out.println("radio selected");
+        }
+
+    }
 
     public void switchToCurrentTab() {
         logger.info("switchToCurrentTabSuccess");
@@ -516,19 +532,33 @@ public class KeywordWeb {
             Assert.assertTrue(false);
         }
     }
+    public boolean checkElementIsSelected(String element) {
+        logger.info("checkElementIsSelectedOrNot: " + element);
+        String xPathElement = PropertiesFile.getPropValue(element);
+        if (xPathElement == null) {
+            xPathElement = element;
+        }
+        boolean stt = driver.findElement(By.xpath(xPathElement)).isSelected();
+        if (!stt) {
+            System.out.println("Not selected");
+        } else {
+            System.out.println("Checkbox selected");
+        }
+        return stt;
+    }
 
     public boolean CheckIsDisplayElement(String element) {
-        logger.info("Check status element btn radio");
+        logger.info("Check element is displayed or not: " + element);
         String xPathElement = PropertiesFile.getPropValue(element);
         if (xPathElement == null) {
             xPathElement = element;
         }
         boolean stt = driver.findElement(By.xpath(xPathElement)).isDisplayed();
         if (!stt) {
-            System.out.println("Not selected");
+            System.out.println("Not display");
         } else {
             driver.navigate().back();
-            System.out.println("Checkbox selected");
+            System.out.println("element displayed");
         }
         return stt;
     }

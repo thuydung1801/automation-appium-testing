@@ -3,7 +3,12 @@
 <suite name="Cross-Platform">
     <test name="BStackDemo">
         <classes>
-            <class name="com.browserstack.returnForm.ReturnFormTest" />
+
+            <class name="com.browserstack.returnForm.ReturnFormTest">
+                <methods>
+                    <include name="testCase_SC_06"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

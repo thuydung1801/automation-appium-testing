@@ -14,7 +14,6 @@ public class LoginTest extends BaseTest {
     @Test
     public void login() throws InterruptedException {
         objLogin = new LoginPage(this.keyword);
-        objLogin.chooseLanguages();
         objLogin.acceptAllCookies();
         objLogin.login("LOGIN_DATA_EMAIL", "LOGIN_DATA_PASSWORD");
     }

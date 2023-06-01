@@ -31,6 +31,7 @@ public class LoginPage extends BasePage {
     public void acceptAllCookies() throws InterruptedException {
         Thread.sleep(10000);
         logger.info("accept All Cookies");
+        chooseLanguages();
         keyword.untilJqueryIsDone(60L);
         keyword.webDriverWaitForElementPresent("BTN_COOKIES", 50);
         if (keyword.verifyElementPresent("BTN_COOKIES")) {
