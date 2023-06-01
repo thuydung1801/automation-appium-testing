@@ -41,23 +41,23 @@ public class LoginScreenTest extends BaseTest {
         loginScreen.loginOnReturnFormSuccess();
     }
 
-//    @Test(priority = 1, description = "Submit return form, login successfully")
-//    public void TestCase_LS01() throws InterruptedException {
-//        login();
-//        myReturn.goToReturnFormPage();
-//        Assert.assertTrue(returnForm.isReTurnFormPresent(),"Return form not display ");
-//    }
-//    @Test(priority = 2, description = "Input email or order having space")
-//    public void TestCase_LS03() throws InterruptedException {
-//        setReturnLoginScreen();
-//        Assert.assertTrue(loginScreen.inputEmailWithSpace(), "Input email with space unsuccessfully");
-//    }
-//
-//    @Test(priority = 3, description = "Customer valid but don't have any order")
-//    public void TestCase_LS05() throws InterruptedException {
-//        setReturnLoginScreen();
-//        Assert.assertTrue(loginScreen.isLoginAccWithoutReturn(),"Don't display message when input account without return order ");
-//    }
+    @Test(priority = 1, description = "Submit return form, login successfully")
+    public void TestCase_LS01() throws InterruptedException {
+        login();
+        myReturn.goToReturnFormPage();
+        Assert.assertTrue(returnForm.isReTurnFormPresent(),"Return form not display ");
+    }
+    @Test(priority = 2, description = "Input email or order having space")
+    public void TestCase_LS03() throws InterruptedException {
+        setReturnLoginScreen();
+        Assert.assertTrue(loginScreen.inputEmailWithSpace(), "Input email with space unsuccessfully");
+    }
+
+    @Test(priority = 3, description = "Customer valid but don't have any order")
+    public void TestCase_LS05() throws InterruptedException {
+        setReturnLoginScreen();
+        Assert.assertTrue(loginScreen.isLoginAccWithoutReturn(),"Don't display message when input account without return order ");
+    }
 
     @Test(priority = 4,description = "Return order with order > 60 day")
     public void TestCase_LS07() throws InterruptedException {
@@ -66,10 +66,10 @@ public class LoginScreenTest extends BaseTest {
         Assert.assertTrue(returnForm.isTypeReturnWithoutWithdrawal(),"Return type don't show withdrawal type");
     }
 
-//    @Test(description = "Return order with the order haven't the item available engraving")
-//    public void TestCase_LS09() throws InterruptedException {
-//        login();
-//        myReturn.chooseReturnNotEngraving();
-//        Assert.assertTrue(returnForm.isTypeReturnWithoutEngraving(),"Return type don't show engraving type");
-//    }
+    @Test(description = "Return order with the order haven't the item available engraving")
+    public void TestCase_LS09() throws InterruptedException {
+        login();
+        myReturn.chooseReturnNotEngraving();
+        Assert.assertTrue(returnForm.isTypeReturnWithoutEngraving(),"Return type don't show engraving type");
+    }
 }
