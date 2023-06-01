@@ -25,7 +25,7 @@ public class LoginPage extends BasePage {
     }
 
     public void acceptAllCookies() throws InterruptedException {
-        Thread.sleep(7000);
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(60L);
         keyword.scrollToPositionByScript("window.scrollBy(0,250)");
         keyword.untilJqueryIsDone(60L);

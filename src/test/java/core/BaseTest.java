@@ -19,13 +19,15 @@ public class BaseTest {
     public BaseTest() {
         keyword = new KeywordWeb();
     }
+//    public BaseTest(KeywordWeb keyword) {
+//        this.keyword = keyword;
+//    }
 
     @BeforeSuite
     public void beforeSuite() throws Exception {
         PropertiesFile.setPropertiesFile();
     }
     public static WebDriver driver = new SafariDriver();
-
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {

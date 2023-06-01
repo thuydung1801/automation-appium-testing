@@ -31,7 +31,18 @@ public class KeywordWeb {
 
     }
 
+    public void enter(String xpath){
+        Actions act = new Actions(driver);
+        WebElement element = driver.findElement(By.xpath(xpath));
+        act.keyDown(element, Keys.ENTER).perform();
+        act.keyUp(element, Keys.ENTER).perform();
+    }
 
+
+    public List<WebElement> findElements(String element){
+        List<WebElement> elements = driver.findElements(By.xpath(element));
+        return elements;
+    }
     public void clearText(String element) {
 
         logger.info("clearText");
@@ -92,7 +103,10 @@ public class KeywordWeb {
         }
         return driver.findElement(By.xpath(text)).getText();
     }
-
+    public void selectByText(String xpath, String text){
+        Select singleSelect = new Select(driver.findElement(By.xpath(xpath)));
+        singleSelect.selectByVisibleText(text);
+    }
     public void sendKeys(String element, String content) {
         logger.info("send keys" + element + "with " + content);
         String xPathElement1 = PropertiesFile.getPropValue(element);
