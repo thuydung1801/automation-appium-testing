@@ -35,7 +35,7 @@ public class ShoppingBagTest extends BaseTest {
     public void testCase_SP_02() throws Exception{
         logger.info("testCase_SP_02");
 //        driver.get("https://stage.glamira.co.uk/mens-ring-smart-queen-skup7013.html?alloy=white-375&utm_widget=recommendation");
-//        commonShopping();
+        commonShopping();
 //        shoppingBagPageMobile.setup();
         objShoppingBagPage.addProduct("https://stage.glamira.co.uk/mens-ring-smart-queen-skup7013.html?alloy=white-375&utm_widget=recommendation");
         objShoppingBagPage.clickShoppingBagPage();
@@ -101,7 +101,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_MESSAGES_ERROR");
 
     }
-//    @Test
+    @Test
 //            (priority = 6, description = "Add engraving with single ring")
 //    @Parameters({"baseURL","devices"})
     public void testCase_SP_15() throws InterruptedException {

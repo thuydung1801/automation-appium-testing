@@ -167,5 +167,12 @@ public class LoginAddressTest extends BaseTest {
         //objLoginAddress.checkOutNotLogin();
 
     }
+    @Test
+    //(priority = 1, description = "Edit billing address ")
+//    @Parameters("baseURL")
+    public void NLA_13_14_15() throws InterruptedException {
+        objLoginAddress.editBillingAddress();
+    }
+
 
 }

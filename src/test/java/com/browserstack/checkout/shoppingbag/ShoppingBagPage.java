@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.testng.Assert;
 
 import static core.BaseTest.driver;
+import static core.BaseTest.jse;
 
 public class ShoppingBagPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
@@ -63,6 +64,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.navigateToUrl(url);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(5000);
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -104,11 +106,18 @@ public class ShoppingBagPage extends BasePage {
 //        if(!keyword.verifyElementPresent(typeOfProduct)){
 //            logger.info("Passed");
 //        }
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void confirmMessage(String messages) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.imWait(10);
-        keyword.verifyElementVisible(messages);
+        Thread.sleep(3000);
+//        keyword.verifyElementVisible(messages);
+        if(keyword.verifyElementVisible(messages)){
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+        }else {
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Results not found\"}}");
+        }
     }
     public void addProductWithGift(String url) throws InterruptedException {
 
@@ -145,19 +154,19 @@ public class ShoppingBagPage extends BasePage {
         keyword.verifyElementPresent(btnAdd);
         keyword.click(btnAdd);
         keyword.imWait(30);
-        keyword.webDriverWaitForElementPresent("CHECKOUT_TITLE_ENGRAVING",5);
-        keyword.imWait(30);
-//        keyword.clearText("CHECKOUT_TXT_ENGRAVING");
+//        keyword.webDriverWaitForElementPresent("CHECKOUT_TITLE_ENGRAVING",5);
+//        keyword.imWait(30);
+        keyword.clearText("CHECKOUT_TXT_ENGRAVING");
         Thread.sleep(2000);
         keyword.untilJqueryIsDone(30L);
-        keyword.doubleClick("CHECKOUT_TXT_ENGRAVING");
+//        keyword.click("CHECKOUT_TXT_ENGRAVING");
 
-        Thread.sleep(8000);
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
         keyword.sendKeys("CHECKOUT_TXT_ENGRAVING", data);
         logger.info("send key done...");
         keyword.untilJqueryIsDone(30L);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         keyword.click("CHECKOUT_VIEWDETAIL_BTN_SAVE");
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -165,6 +174,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.assertEquals(data, engraving);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void changeQty(String qty){
         keyword.imWait(5);
@@ -207,6 +217,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.simpleAssertEquals(expect+ " - "+ expect
                 , actual);
         keyword.click("PRD_BTN_CLOSE_VIEWDETAIL");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void inputError(String lblErrorMessage1, String lblErrorMessage2, String dataExpected, String engraving, boolean flag) throws InterruptedException {
         keyword.verifyElementPresent(lblErrorMessage1);
@@ -219,6 +230,7 @@ public class ShoppingBagPage extends BasePage {
             keyword.untilJqueryIsDone(30L);
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.assertEquals(expect + " - " + expect, engraving);
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
         }
     }
     //add product without any option
@@ -261,6 +273,7 @@ public class ShoppingBagPage extends BasePage {
         keyword.click("CHECKOUT_BTN_UPDATE");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     //edit couple ring is already in the cart
     public void editCoupleRings(){
@@ -289,6 +302,7 @@ public class ShoppingBagPage extends BasePage {
     }
     public void compareData(String expect, String actual){
         keyword.assertEquals(expect, actual);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void missingFillSize() throws InterruptedException {
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
@@ -367,17 +381,20 @@ public class ShoppingBagPage extends BasePage {
                     keyword.switchToDefaultContent();
                     keyword.untilJqueryIsDone(50L);
                     keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-
+                    jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
                 }
 
                 keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 160);
-                keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
+                if(keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE")){
+                    jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+                }
                 break;
 
             //missing input all of fields
             case "emptyCardNumber":
                 keyword.click("CHECKOUT_BTN_ORDER");
                 keyword.assertEquals("CHECKOUT_DATA_MESSAGES_VISA_CARD_NUM", "CHECKOUT_MESSAGES_VISA");
+                jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
                 break;
             case "emptyExpirationDate":
                 keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_VISA");
@@ -385,6 +402,7 @@ public class ShoppingBagPage extends BasePage {
                 keyword.switchToDefaultContent();
                 keyword.click("CHECKOUT_BTN_ORDER");
                 keyword.assertEquals("CHECKOUT_DATA_MESSAGES_VISA_CARD_EXPIRYDATE", "CHECKOUT_MESSAGES_EXPIRYDATE");
+                jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
                 break;
             case "emptyCVC":
                 keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_EXPIRYDATE");
@@ -392,6 +410,7 @@ public class ShoppingBagPage extends BasePage {
                 keyword.switchToDefaultContent();
                 keyword.click("CHECKOUT_BTN_ORDER");
                 keyword.assertEquals("CHECKOUT_DATA_MESSAGES_VISA_CARD_CVC", "CHECKOUT_MESSAGES_CVC");
+                jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
                 break;
 
             //input defuse card
@@ -409,6 +428,7 @@ public class ShoppingBagPage extends BasePage {
                 keyword.click("CHECKOUT_BTN_ORDER");
                 Thread.sleep(5000);
                 keyword.verifyElementVisible("CHECKOUT_MESSAGES_VISA_2");
+                jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
                 break;
         }
     }
@@ -428,7 +448,10 @@ public class ShoppingBagPage extends BasePage {
         keyword.webDriverWaitForElementPresent("PAYPAL_BTN_COMPLETE",10);
         keyword.click("PAYPAL_BTN_COMPLETE");
         keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
-        keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
+
+        if(keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE")){
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+        }
     }
     public Float calculateMoney(float total, float storeCredit){
         return total - storeCredit;

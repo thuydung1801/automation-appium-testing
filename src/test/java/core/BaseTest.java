@@ -1,5 +1,6 @@
 package core;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ public class BaseTest {
         PropertiesFile.setPropertiesFile();
     }
     public static WebDriver driver = new SafariDriver();
-
+    public static JavascriptExecutor jse = (JavascriptExecutor)driver;
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {

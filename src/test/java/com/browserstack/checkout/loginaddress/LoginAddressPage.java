@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 
 import java.util.Date;
 
+import static core.BaseTest.jse;
+
 public class LoginAddressPage extends BasePage {
     private static Logger logger = LogHelper.getLogger();
 
@@ -37,12 +39,13 @@ public class LoginAddressPage extends BasePage {
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.verifyElementPresent("CHECKOUT_BTN_CHECKOUT");
         System.out.printf("done===");
         logger.info("DONE-1=======");
+//        Thread.sleep(5000);
         keyword.click("CHECKOUT_BTN_CHECKOUT");
         logger.info("DONE-=====");
         keyword.untilJqueryIsDone(30L);
@@ -83,6 +86,7 @@ public class LoginAddressPage extends BasePage {
         keyword.untilJqueryIsDone(70L);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SHIPMENT_SELECTED",20);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE",20);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void deleteAllCookies() throws InterruptedException {
         objLoginAddress = new LoginAddressPage(this.keyword);
@@ -98,6 +102,8 @@ public class LoginAddressPage extends BasePage {
     public void compareAddress(String data, String location){
         keyword.webDriverWaitForElementPresent(location,10);
         keyword.assertEquals(data,location);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
     public void chooseAddressOnValidation(boolean isSuggest, String btnAdd) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -170,6 +176,29 @@ public class LoginAddressPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent(verifyElement,30);
     }
+    public void resetAndRefillAddress() throws InterruptedException {
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",20);
+        keyword.clearText("CHECKOUT_LA_TBX_STREET");
+        keyword.clearText("CHECKOUT_LA_TBX_ZIP");
+        keyword.clearText("CHECKOUT_LA_TBX_CITY");
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("CHECKOUT_LA_TBX_STREET_3","CHECKOUT_LA_DATA_STREET_5");
+        keyword.sendKeys("CHECKOUT_LA_TBX_ZIP_3","CHECKOUT_LA_DATA_CODE_3");
+        keyword.sendKeys("CHECKOUT_LA_TBX_CITY_3","CHECKOUT_LA_DATA_CITY_3");
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+    }
+    public void editBillingAddress() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        keyword.click("CHECKOUT_BTN_EDIT_BILLING_ADDRESS");
+        resetAndRefillAddress();
+        verifyMelissa();
+        compareAddress("CHECKOUT_DATA_EXPECT_DATA_3","CHECKOUT_LBL_ADDRESS_INFO");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+
 
 
 }
