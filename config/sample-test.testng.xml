@@ -4,7 +4,7 @@
     <test name="Run Return Test Case">
         <parameter name="baseURL" value="https://stage.glamira.co.uk/"></parameter>
         <classes>
-            <class name="test.returnTest.LoginScreenTest" >
+            <class name="com.browserstack.signup.SignUpTest" >
 <!--                <methods>-->
 <!--                <include name = "TestCase_LS07" />-->
 <!--                </methods>-->

@@ -1,4 +1,4 @@
-package Page.homePage;
+package com.browserstack.home;
 
 import core.BasePage;
 import core.KeywordWeb;
@@ -27,7 +27,7 @@ public class LoginPage extends BasePage {
     public void acceptAllCookies() throws InterruptedException {
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(60L);
-        keyword.scrollToPositionByScript("window.scrollBy(0,250)");
+        keyword.scrollToPositionByScript("window.scrollBy(0,150)");
         keyword.untilJqueryIsDone(60L);
         chooseLanguages();
         keyword.webDriverWaitForElementPresent("BTN_COOKIES", 50);
@@ -46,7 +46,4 @@ public class LoginPage extends BasePage {
             keyword.click("LOGIN_BTN_LANGUAGE");
         }
     }
-
-
 }
-
