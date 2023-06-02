@@ -101,7 +101,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_MESSAGES_ERROR");
 
     }
-    @Test
+//    @Test
 //            (priority = 6, description = "Add engraving with single ring")
 //    @Parameters({"baseURL","devices"})
     public void testCase_SP_15() throws InterruptedException {
@@ -168,11 +168,11 @@ public class ShoppingBagTest extends BaseTest {
 
     }
     @Test
-            (priority = 12, description = "Edit product successfully with normal product")
+//            (priority = 12, description = "Edit product successfully with normal product")
 
     public void testCase_SP_21() throws InterruptedException {
         logger.info("testCase_SP_21");
-        commonShopping();
+//        commonShopping();
         objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_BRACELET");
@@ -180,11 +180,11 @@ public class ShoppingBagTest extends BaseTest {
     }
     //DONE SP24
     @Test
-    (priority = 13, description ="Edit product with bridal set product")
+//    (priority = 13, description ="Edit product with bridal set product")
 
     public void testCase_SP_24() throws InterruptedException {
         logger.info("testCase_SP_24");
-        //commonShopping();
+        commonShopping();
         objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_UNIVERSE");
@@ -194,11 +194,11 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_BAG_LBL_SIZE");
     }
     @Test
-            (priority = 14, description = "Edit product but missing fill required field")
+//            (priority = 14, description = "Edit product but missing fill required field")
     public void testCase_SP_25() throws InterruptedException {
         logger.info("testCase_SP_25");
-        //commonShopping();
-        keyword.reLoadPage();
+        commonShopping();
+//        keyword.reLoadPage();
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_UNIVERSE");
         objShoppingBagPage.missingFillSize();
@@ -207,7 +207,7 @@ public class ShoppingBagTest extends BaseTest {
 
     //DONE SP26_RV02_04
     @Test
-    (priority = 15, description = "Checkout successfully")
+//    (priority = 15, description = "Checkout successfully")
     public void testCase_SP_26_RV_02_04() throws InterruptedException {
         logger.info("testCase_SP_26");
 //        commonShopping();

@@ -198,6 +198,36 @@ public class LoginAddressPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
     }
+    public void loginOnLAPage() throws InterruptedException {
+        keyword.sendKeys("CHECKOUT_LA_TBX_USERNAME","LOGIN_DATA_EMAIL");
+        keyword.sendKeys("CHECKOUT_LA_TBX_PASS","LOGIN_DATA_PASSWORD");
+        keyword.click("CHECKOUT_LA_BTN_LOGIN");
+        keyword.untilJqueryIsDone(30L);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_CHECKOUT",10);
+
+    }
+    public void loginFailed(String flag) throws InterruptedException {
+        if (flag.equals("noEmail")){
+            keyword.untilJqueryIsDone(50L);
+            keyword.sendKeys("CHECKOUT_LA_TBX_PASS","LOGIN_DATA_PASSWORD");
+            keyword.untilJqueryIsDone(30L);
+            keyword.click("CHECKOUT_LA_BTN_LOGIN");
+            keyword.untilJqueryIsDone(30L);
+            keyword.assertEquals("CHECKOUT_MESSAGES_UPDATE_24","CHECKOUT_LA_LBL_ERROR_MAIL");
+        }else if(flag.equals("wrongPass")){
+            keyword.sendKeys("CHECKOUT_LA_TBX_USERNAME","LOGIN_DATA_EMAIL");
+            keyword.sendKeys("CHECKOUT_LA_TBX_PASS","CHECKOUT_DATA_PASSWORD_ENTER");
+            keyword.click("CHECKOUT_LA_BTN_LOGIN");
+            keyword.untilJqueryIsDone(30L);
+            keyword.assertEquals("CHECKOUT_LA_DATA_ERROR_PASS","CHECKOUT_LA_LBL_ERROR_PASS");
+        } else if (flag.equals("invalidEmail")) {
+            keyword.sendKeys("CHECKOUT_LA_TBX_USERNAME","LOGIN_DATA_PASSWORD");
+            keyword.sendKeys("CHECKOUT_LA_TBX_PASS","CHECKOUT_DATA_PASSWORD_ENTER");
+            keyword.click("CHECKOUT_LA_BTN_LOGIN");
+            keyword.untilJqueryIsDone(30L);
+            keyword.assertEquals("CHECKOUT_LA_MESSAGE_USERNAME","CHECKOUT_LA_LBL_ERROR_MAIL");
+        }
+    }
 
 
 

@@ -173,6 +173,29 @@ public class LoginAddressTest extends BaseTest {
     public void NLA_13_14_15() throws InterruptedException {
         objLoginAddress.editBillingAddress();
     }
+    @Test
+    //(priority = 10, description = "Login successfully with customer email on checkout page")
+//    @Parameters("baseURL")
+    public void NLA_17() throws InterruptedException {
+        //customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objLoginAddress.moveToPagecheckOut();
+        objLoginAddress.loginOnLAPage();
+    }
+
+    @Test
+    //(priority = 11, description = "Leave blank Email/Phone or Password")
+//    @Parameters("baseURL")
+    public void NLA_19() throws InterruptedException {
+//        customerNotLogin();
+        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objLoginAddress.loginFailed("noEmail");
+    }
 
 
 }

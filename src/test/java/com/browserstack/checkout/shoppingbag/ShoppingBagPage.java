@@ -123,6 +123,7 @@ public class ShoppingBagPage extends BasePage {
 
         Thread.sleep(5000);
         keyword.navigateToUrl(url);
+        Thread.sleep(5000);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -251,6 +252,7 @@ public class ShoppingBagPage extends BasePage {
     //click button Edit depends on the type of product
     public void clickEdit(String btnEdit) throws InterruptedException {
         keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_HEADER",10);
+        Thread.sleep(2000);
         keyword.click(btnEdit);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -276,7 +278,8 @@ public class ShoppingBagPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     //edit couple ring is already in the cart
-    public void editCoupleRings(){
+    public void editCoupleRings() throws InterruptedException {
+        Thread.sleep(3000);
         keyword.click("CHECKOUT_LBL_STONE");
         keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_DIAMOND",10);
         keyword.click("CHECKOUT_CBX_DIAMOND");
@@ -305,9 +308,11 @@ public class ShoppingBagPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void missingFillSize() throws InterruptedException {
+        Thread.sleep(5000);
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         Thread.sleep(2000);
         keyword.click("CHECKOUT_DDL_SIZE");
+        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.click("CHECKOUT_CBX_SIZE_CUSTOM");
         keyword.click("CHECKOUT_BTN_UPDATE");
     }
