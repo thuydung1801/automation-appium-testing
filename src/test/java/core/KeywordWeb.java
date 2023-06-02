@@ -1,6 +1,7 @@
 package core;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
@@ -31,11 +32,22 @@ public class KeywordWeb {
 
     }
 
-    public void enter(String xpath){
-        Actions act = new Actions(driver);
-        WebElement element = driver.findElement(By.xpath(xpath));
-        act.keyDown(element, Keys.ENTER).perform();
-        act.keyUp(element, Keys.ENTER).perform();
+//    public void enter(String xpath){
+//        Actions act = new Actions(driver);
+//        WebElement element = driver.findElement(By.xpath(xpath));
+//        act.keyDown(element, Keys.ENTER).perform();
+//        act.keyUp(element, Keys.ENTER).perform();
+//    }
+//    public int[] getPoint(String xpath){
+//        int a[] = new int[2];
+//        WebElement e = driver.findElement(By.xpath(xpath));
+//        Point p =e.getLocation();
+//        a[0] = p.getX();
+//        a[1] = p.getY();
+//        return a;
+//    }
+    public String getWindowHandle(){
+        return driver.getWindowHandle();
     }
 
 
