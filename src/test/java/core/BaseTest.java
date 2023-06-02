@@ -29,13 +29,13 @@ public class BaseTest {
     }
     public static WebDriver driver = new SafariDriver();
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
         driver.navigate().to("https://stage.glamira.co.uk/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(12, TimeUnit.SECONDS);
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();
     }

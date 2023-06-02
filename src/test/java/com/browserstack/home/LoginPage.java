@@ -27,7 +27,7 @@ public class LoginPage extends BasePage {
     public void acceptAllCookies() throws InterruptedException {
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(60L);
-        keyword.scrollToPositionByScript("window.scrollBy(0,150)");
+        keyword.scrollToPositionByScript("window.scrollBy(0,200)");
         keyword.untilJqueryIsDone(60L);
         chooseLanguages();
         keyword.webDriverWaitForElementPresent("BTN_COOKIES", 50);
