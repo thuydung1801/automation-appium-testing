@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cross-Platform">
+    <test name="BStackDemo">
+        <classes>
+            <class name="com.browserstack.returnForm.ReturnFormTest">
+                <methods>
+                    <include name="testCase_LS_06"/>
+                    <include name="testCase_LS_04"/>
+                    <include name="testCase_LS_03"/>
+                    <include name="testCase_LS_02"/>
+                    <include name="testCase_LS_01"/>
+                    <include name="testCase_LS_08"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

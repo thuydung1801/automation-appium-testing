@@ -547,7 +547,7 @@ public class KeywordWeb {
         return stt;
     }
 
-    public boolean CheckIsDisplayElement(String element) {
+    public boolean checkIsDisplayElement(String element) {
         logger.info("Check element is displayed or not: " + element);
         String xPathElement = PropertiesFile.getPropValue(element);
         if (xPathElement == null) {

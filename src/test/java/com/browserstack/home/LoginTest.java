@@ -8,12 +8,12 @@ public class LoginTest extends BaseTest {
 
     public LoginTest() {
         super();
-
+        objLogin = new LoginPage(this.keyword);
     }
 
     @Test
     public void login() throws InterruptedException {
-        objLogin = new LoginPage(this.keyword);
+
         objLogin.acceptAllCookies();
         objLogin.login("LOGIN_DATA_EMAIL", "LOGIN_DATA_PASSWORD");
     }

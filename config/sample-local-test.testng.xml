@@ -3,7 +3,7 @@
 <suite name="Local">
     <test name="LocalTest">
         <classes>
-            <class name="com.browserstack.returnForm.ReturnFormTest"/>
+<!--            <class name="com.browserstack.BStackDemoTest"></class>-->
         </classes>
     </test>
 </suite>
