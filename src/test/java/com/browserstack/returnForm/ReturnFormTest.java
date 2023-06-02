@@ -62,18 +62,18 @@ public class ReturnFormTest extends BaseTest {
     }
     @Test( description = "Edit Shipping Address with the country haven't state successfully")
     public void testCase_SC_04() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_OPTION_WITH_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objLoginReturn.editShippingAddress("RETURN_FORM_TXT_EDIT_ADDRESS_STRESS","RETURN_FORM_TXT_EDIT_ADDRESS_CITY");
     }
     @Test( description = "Edit Shipping Address after select return item")
     public void testCase_SC_06() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_OPTION_WITH_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objLoginReturn.editShippingAddress("RETURN_FORM_TXT_EDIT_ADDRESS_STRESS","RETURN_FORM_TXT_EDIT_ADDRESS_CITY");
         objLoginReturn.confirmAfterEditShippingAddress();
     }
     @Test( description = "Select Return type and not checked \"I checked my address and I confirm it.\" form")
     public void testCase_SC_08() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_OPTION_WITH_ORDER_NO_RESIZE",false,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_SELECT_ORDER_NO_RESIZE",false,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
 
     }
 }
