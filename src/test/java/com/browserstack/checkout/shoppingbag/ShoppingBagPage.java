@@ -12,6 +12,7 @@ import org.testng.Assert;
 
 import static core.BaseTest.driver;
 import static core.BaseTest.jse;
+import static jdk.dynalink.StandardNamespace.ELEMENT;
 
 public class ShoppingBagPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
@@ -355,21 +356,27 @@ public class ShoppingBagPage extends BasePage {
             case "success":
                 keyword.untilJqueryIsDone(50L);
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-
+                Thread.sleep(2000);
+                driver.element("css selector", "frameEl", function(response) {
+                driver.frame({ELEMENT: response.value.ELEMENT}, callback);
+            });
                 keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_VISA");
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+//                Thread.sleep(2000);
                 keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_VISA", "CHECKOUT_DATA_CHECKOUT_VISA");
-                keyword.switchToDefaultContent();
+//                keyword.switchToDefaultContent();
 
-                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_EXPIRYDATE");
+//                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_EXPIRYDATE");
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+//                Thread.sleep(2000);
                 keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_EXPIRYDATE", "CHECKOUT_DATA_CHECKOUT_EXPIRYDATE");
-                keyword.switchToDefaultContent();
+//                keyword.switchToDefaultContent();
 
-                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_CVC");
+//                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_CVC");
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+//                Thread.sleep(2000);
                 keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_CVC", "CHECKOUT_DATA_CHECKOUT_CVC");
-                keyword.switchToDefaultContent();
+//                keyword.switchToDefaultContent();
 //                keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_NAME", "CHECKOUT_DATA_CHECKOUT_NAME");
 //                keyword.scrollDownToElement("CHECKOUT_BTN_ORDER");
                 keyword.scrollToPositionByScript("window.scrollBy(0,400)");

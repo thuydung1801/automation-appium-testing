@@ -892,6 +892,10 @@ public class KeywordWeb {
         //Resize the current window to the given dimension
         driver.manage().window().setSize(d);
     }
+    public void selectByText(String xpath, String text){
+        Select singleSelect = new Select(driver.findElement(By.xpath(xpath)));
+        singleSelect.selectByVisibleText(text);
+    }
 
 
 

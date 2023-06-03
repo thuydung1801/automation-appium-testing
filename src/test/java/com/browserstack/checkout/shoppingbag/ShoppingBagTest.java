@@ -184,7 +184,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_SP_24() throws InterruptedException {
         logger.info("testCase_SP_24");
-        commonShopping();
+//        commonShopping();
         objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_UNIVERSE");
@@ -197,7 +197,7 @@ public class ShoppingBagTest extends BaseTest {
 //            (priority = 14, description = "Edit product but missing fill required field")
     public void testCase_SP_25() throws InterruptedException {
         logger.info("testCase_SP_25");
-        commonShopping();
+//        commonShopping();
 //        keyword.reLoadPage();
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_UNIVERSE");
@@ -210,7 +210,7 @@ public class ShoppingBagTest extends BaseTest {
 //    (priority = 15, description = "Checkout successfully")
     public void testCase_SP_26_RV_02_04() throws InterruptedException {
         logger.info("testCase_SP_26");
-//        commonShopping();
+        commonShopping();
         objShoppingBagPage.clickShoppingBagPage();
         //objShoppingBagPage.clickGiftWrapping();
         objShoppingBagPage.moveToPagecheckOut();
