@@ -7,6 +7,7 @@
                 <methods>
                     <include name="testCase_LS_06"/>
                     <include name="testCase_LS_04"/>
+                    <include name="testCase_LS_05"/>
                     <include name="testCase_LS_03"/>
                     <include name="testCase_LS_02"/>
                     <include name="testCase_LS_01"/>

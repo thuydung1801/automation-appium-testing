@@ -30,13 +30,11 @@ public class BaseTest {
     public static WebDriver driver = new SafariDriver();
 
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-
         driver.navigate().to("https://stage.glamira.co.uk/");
     }
-
-    @AfterMethod(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();
     }

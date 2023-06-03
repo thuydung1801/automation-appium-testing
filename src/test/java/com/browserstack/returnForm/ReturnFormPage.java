@@ -17,72 +17,64 @@ public class ReturnFormPage extends BasePage {
         keyword.waitForElementNotVisible(10, "RETURN_FORM_LBL_RETURN");
         keyword.click("RETURN_FORM_BTN_RETURN_FORM");
         keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementVisible("RETURN_FORM_INPUT_EMAIL_FORM");
+        keyword.verifyElementVisible("RETURN_FORM_INP_EMAIL_FORM");
     }
     public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.reLoadPage();
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("RETURN_FORM_INPUT_EMAIL_FORM", dataEmail);
+        keyword.sendKeys("RETURN_FORM_INP_EMAIL_FORM", dataEmail);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
         if(checkEmail ==true) {
             keyword.untilJqueryIsDone(50L);
-            keyword.sendKeys("RETURN_FORM_INPUT_PASSWORD_FORM", dataPassword);
+            keyword.sendKeys("RETURN_FORM_INP_PASSWORD_FORM", dataPassword);
             keyword.untilJqueryIsDone(50L);
             keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
         }
-        confirmMessage(message);
+        keyword.untilJqueryIsDone(50L);
+        keyword.verifyElementVisible(message);
     }
-    public void selectOrderReturn(String orderSelected,boolean clickConfirmAddress,String typeReturn) throws InterruptedException {
+    public void selectOrderReturn(String orderSelected,boolean clickConfirmAddress,String typeSelect,String typeNotShow) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
-        keyword.selectDropDownListByName("RETURN_FORM_SELECT_ORDER",orderSelected);
+        keyword.selectDropDownListByName("RETURN_FORM_DDL_ORDER",orderSelected);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_BTN_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
-        keyword.selectDropDownListByName("RETURN_FORM_SELECT_TYPE_RETURN",typeReturn);
-        if(clickConfirmAddress== false) {
-            confirmMessage("RETURN_FORM_MESSAGE_NOTE_CONFIRM_ADDRESS");
+        keyword.click("RETURN_FORM_DDL_TYPE_RETURN");
+        keyword.untilJqueryIsDone(50L);
+        keyword.checkElementIsNotDisplayed(typeNotShow);
+        keyword.click(typeSelect);
+        if(!clickConfirmAddress) {
+            keyword.untilJqueryIsDone(50L);
+            keyword.verifyElementVisible("RETURN_FORM_MES_NOTE_CONFIRM_ADDRESS");
         }
-        keyword.click("RETURN_FORM_CONFIRM_ADDRESS");
+        keyword.click("RETURN_FORM_CHECKBOX_CONFIRM_ADDRESS");
     }
-
-
     public void editShippingAddress(String stress,String city) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
-        keyword.click("RETURN_FORM_BTN_EDIT_SHIPPING_ADDRESS");
+        keyword.click("RETURN_FORM_ICON_EDIT_SHIPPING_ADDRESS");
         keyword.untilJqueryIsDone(50L);
-        keyword.clearText("RETURN_FORM_EDIT_ADDRESS_STRESS");
+        keyword.clearText("RETURN_FORM_INP_ADDRESS_STRESS");
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("RETURN_FORM_EDIT_ADDRESS_STRESS", stress);
+        keyword.sendKeys("RETURN_FORM_INP_ADDRESS_STRESS", stress);
         keyword.untilJqueryIsDone(50L);
-        keyword.clearText("RETURN_FORM_EDIT_ADDRESS_CITY");
+        keyword.clearText("RETURN_FORM_INP_ADDRESS_CITY");
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("RETURN_FORM_EDIT_ADDRESS_CITY", city);
+        keyword.sendKeys("RETURN_FORM_INP_ADDRESS_CITY", city);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_BTN_SAVE_SHIPPING_ADDRESS");
         keyword.untilJqueryIsDone(50L);
-        keyword.assertEquals(stress,"RETURN_FORM_TXT_ACTUAL_EDIT_ADDRESS_STRESS");
+        keyword.assertEquals(stress,"RETURN_FORM_TXT_ACTUAL_INP_ADDRESS_STRESS");
         keyword.untilJqueryIsDone(50L);
-        keyword.assertEquals(city,"RETURN_FORM_TXT_ACTUAL_EDIT_ADDRESS_CITY");
-    }
-    public void confirmAfterEditShippingAddress() throws InterruptedException {
+        keyword.assertEquals(city,"RETURN_FORM_TXT_ACTUAL_INP_ADDRESS_CITY");
         keyword.untilJqueryIsDone(50L);
-        keyword.checkElementIsSelected("RETURN_FORM_CONFIRM_ADDRESS");
-        keyword.checkIsDisplayElement("RETURN_FORM_BTN_SUBMIT_RETURN_FORM_ORDER");
+        keyword.checkElementIsDisplayed("RETURN_FORM_CHECKBOX_CONFIRM_ADDRESS");
+        keyword.checkElementIsNotDisplayed("RETURN_FORM_BTN_SUBMIT_RETURN_FORM_ORDER");
     }
-    public void confirmMessage(String messages) throws InterruptedException {
-        keyword.untilJqueryIsDone(50L);
-        keyword.imWait(10);
-        keyword.verifyElementVisible(messages);
-    }
-    public void navigateToReturnForm(){
-        keyword.navigateToUrl("URL_RETURN_FORM");
-    }
-
 }
 
 
