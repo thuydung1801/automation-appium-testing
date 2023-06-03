@@ -452,6 +452,21 @@ public class KeywordWeb {
         Select dropDownList = new Select(driver.findElement(By.xpath(xPathElement1)));
         dropDownList.selectByVisibleText(xPathElement2);
     }
+    public void selectDropDownListByNameNotDisplayed(String ddlPath,String xPathElement2) {
+        logger.info("select dropdown list by name not displayed ");
+        String xPathElement1 = PropertiesFile.getPropValue(ddlPath);
+        if (xPathElement1 == null) {
+            xPathElement1 = ddlPath;
+        }
+        try {
+            Select dropDownList = new Select(driver.findElement(By.xpath(xPathElement1)));
+            dropDownList.selectByVisibleText(xPathElement2);
+            Assert.assertTrue(false);
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Assert.assertTrue(true);
+        }
+    }
 
 
     public void switchToCurrentTab() {

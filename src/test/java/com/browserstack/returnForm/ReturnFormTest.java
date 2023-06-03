@@ -53,7 +53,7 @@ public class ReturnFormTest extends BaseTest {
 
     @Test( description = "Return order with the order haven't the item available resizing")
     public void testCase_LS_08() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL",null);
+        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
 
     }
     @Test( description = "Return order with the order haven't the item avaiable engraving")

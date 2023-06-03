@@ -43,10 +43,9 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RETURN_FORM_BTN_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
-        keyword.click("RETURN_FORM_DDL_TYPE_RETURN");
+        keyword.selectDropDownListByNameNotDisplayed("RETURN_FORM_DDL_TYPE_RETURN",typeNotShow);
         keyword.untilJqueryIsDone(50L);
-        keyword.checkElementIsNotDisplayed(typeNotShow);
-        keyword.click(typeSelect);
+        keyword.selectDropDownListByName("RETURN_FORM_DDL_TYPE_RETURN",typeSelect);
         if(!clickConfirmAddress) {
             keyword.untilJqueryIsDone(50L);
             keyword.verifyElementVisible("RETURN_FORM_MES_NOTE_CONFIRM_ADDRESS");
