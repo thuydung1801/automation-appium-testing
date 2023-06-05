@@ -251,8 +251,8 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_07() throws InterruptedException {
         logger.info("testCase_RV_07");
-//        commonShopping();
-        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
+        commonShopping();
+//        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objShoppingBagPage.checkOut();
@@ -264,9 +264,9 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_17_19() throws InterruptedException {
         logger.info("testCase_RV_17_19");
-//        commonShopping();
+        commonShopping();
         //https://stage.glamira.co.uk/
-        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+//        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objShoppingBagPage.checkOut();
@@ -289,11 +289,11 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objShoppingBagPage.checkOut();
-        objShoppingBagPage.applyCoupon("TNZ_491_FX63",true);
+        objShoppingBagPage.applyCoupon("TNZ_491_SM32",true);
         objShoppingBagPage.getOrderNumber();
         objShoppingBagPage.openNewTab();
         objShoppingBagPage.verifyOrderStatus("ORDER_STATUS_PENDING");
-        objShoppingBagPage.checkGiftCardStatus("TNZ_491_FX63");
+        objShoppingBagPage.checkGiftCardStatus("TNZ_491_SM32");
         keyword.resizeBrowser(319,848);
     }
     @Test
@@ -307,7 +307,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objShoppingBagPage.checkOut();
-        objShoppingBagPage.applyUsedCoupon("TNZ_491_FX63");
+        objShoppingBagPage.applyUsedCoupon("TNZ_491_SM32");
         keyword.resizeBrowser(319,848);
     }
     @Test
