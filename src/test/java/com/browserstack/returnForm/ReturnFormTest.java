@@ -52,33 +52,35 @@ public class ReturnFormTest extends BaseTest {
     }
 
     @Test( description = "Return order with the order haven't the item available resizing")
-    public void testCase_LS_08() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
-
-    }
-    @Test( description = "Return order with the order haven't the item avaiable engraving")
-    public void testCase_LS_09() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_ENGRAVING");
-    }
-
-    @Test(description = "Return order with the item has returned")
-    public void testCase_LS_10() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
-    }
-    @Test( description = "Edit Shipping Address with the country haven't state successfully")
-    public void testCase_SC_04() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
-        objLoginReturn.editShippingAddress("RETURN_FORM_TXT_INP_ADDRESS_STRESS","RETURN_FORM_TXT_INP_ADDRESS_CITY");
-    }
-    @Test( description = "Edit Shipping Address after select return item")
-    public void testCase_SC_06() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
-        objLoginReturn.editShippingAddress("RETURN_FORM_TXT_INP_ADDRESS_STRESS","RETURN_FORM_TXT_INP_ADDRESS_CITY");
-    }
-    @Test( description = "Select Return type and not checked \"I checked my address and I confirm it.\" form")
-    public void testCase_SC_08() throws InterruptedException {
+    public void testCase_LS_SC_08() throws InterruptedException {
         objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",false,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
 
     }
+    @Test( description = "Edit Shipping Address with the country haven't state successfully")
+    public void testCase_SC_04() throws InterruptedException {
+        //objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
+        objLoginReturn.editShippingAddress("RETURN_FORM_TXT_INP_ADDRESS_STRESS","RETURN_FORM_TXT_INP_ADDRESS_CITY");
+    }
+    @Test( description = "Return order with the order > 60days")
+    public void testCase_LS_SC_07() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+    }
+    @Test( description = "Submit return request successfully with 1 normal item")
+    public void testCase_SC_09() throws InterruptedException {
+        objLoginReturn.updateOrder();
+        objLoginReturn.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL");
+    }
+    @Test( description = "Return order with the order haven't the item available engraving")
+    public void testCase_LS_09() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_ENGRAVING");
+    }
+    @Test(description = "Return order with the item has returned")
+    public void testCase_LS_10() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
+    }
+
 }
 

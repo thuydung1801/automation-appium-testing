@@ -44,7 +44,9 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
         keyword.selectDropDownListByNameNotDisplayed("RETURN_FORM_DDL_TYPE_RETURN",typeNotShow);
+        keyword.reLoadPage();
         keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
         keyword.selectDropDownListByName("RETURN_FORM_DDL_TYPE_RETURN",typeSelect);
         if(!clickConfirmAddress) {
             keyword.untilJqueryIsDone(50L);
@@ -55,6 +57,7 @@ public class ReturnFormPage extends BasePage {
     public void editShippingAddress(String stress,String city) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
+        keyword.scrollToPositionByScript("window.scrollBy(0,-300)");
         keyword.click("RETURN_FORM_ICON_EDIT_SHIPPING_ADDRESS");
         keyword.untilJqueryIsDone(50L);
         keyword.clearText("RETURN_FORM_INP_ADDRESS_STRESS");
@@ -74,6 +77,37 @@ public class ReturnFormPage extends BasePage {
         keyword.checkElementIsDisplayed("RETURN_FORM_CHECKBOX_CONFIRM_ADDRESS");
         keyword.checkElementIsNotDisplayed("RETURN_FORM_BTN_SUBMIT_RETURN_FORM_ORDER");
     }
+    public void updateOrder() throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("RETURN_FORM_CHECKBOX_CONFIRM_ORDER");
+        keyword.untilJqueryIsDone(20L);
+        //if select sizering
+        if (keyword.verifyElementPresent("RETURN_FORM_LBL_RING_SIZE")) {
+            keyword.untilJqueryIsDone(30L);
+            keyword.click("RETURN_FORM_DRD_SELECT_SIZE");
+            keyword.untilJqueryIsDone(30L);
+            keyword.click("RETURN_FORM_CHECKBOX_SIZE");
+            keyword.untilJqueryIsDone(30L);
+        }
+        //select Withdrawal
+        else {
+
+        }
+        keyword.click("RETURN_FORM_CHECKTEXT_SHIPPING_FREE");
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("RETURN_FORM_CHECKBOX_TERM_CONDITION");
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("RETURN_FORM_BTN_SUBMIT");
+    }
+    public void cancelOrderReturn(String cancelReturn) throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        keyword.untilJqueryIsDone(30L);
+        keyword.click(cancelReturn);
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("RETURN_FORM_BTN_CANCEL_RETURN");
+    }
+
 }
 
 
