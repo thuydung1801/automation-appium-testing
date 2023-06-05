@@ -32,25 +32,17 @@ public class KeywordWeb {
 
     }
 
-//    public void enter(String xpath){
-//        Actions act = new Actions(driver);
-//        WebElement element = driver.findElement(By.xpath(xpath));
-//        act.keyDown(element, Keys.ENTER).perform();
-//        act.keyUp(element, Keys.ENTER).perform();
-//    }
-//    public int[] getPoint(String xpath){
-//        int a[] = new int[2];
-//        WebElement e = driver.findElement(By.xpath(xpath));
-//        Point p =e.getLocation();
-//        a[0] = p.getX();
-//        a[1] = p.getY();
-//        return a;
-//    }
     public String getWindowHandle(){
         return driver.getWindowHandle();
     }
-
-
+    public void switchWindow(String window){
+        driver.switchTo().window(window);
+    }
+//    public void enter(){
+//        Actions actions = new Actions(driver);
+//        actions.sendKeys(Keys.ENTER);
+//        actions.build().perform();
+//    }
     public List<WebElement> findElements(String element){
         List<WebElement> elements = driver.findElements(By.xpath(element));
         return elements;
@@ -338,9 +330,8 @@ public class KeywordWeb {
         driver.switchTo().frame(iframe);
     }
 
-    public void switchToWindow(String window) {
-        logger.info("Switching to Window");
-        driver.switchTo().window(window);
+    public String getUrl() {
+        return driver.getCurrentUrl();
     }
 
     public void switchToWindowByIndex(int index) {

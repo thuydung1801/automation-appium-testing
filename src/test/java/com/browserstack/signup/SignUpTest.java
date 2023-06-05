@@ -21,82 +21,96 @@ public class SignUpTest extends BaseTest {
         loginPage.acceptAllCookies();
         signUpPage.goToSignUp();
     }
+
+    /*
     @Test //(priority = 10, description = "Create new customer successfully with store enable email confirm")
     public void testCase_NSU1() throws InterruptedException {
-        String email = signUpPage.createNewEmail();
-        startCreateAccount();
-        signUpPage.signUpSuccessful("FIRST_NAME","LAST_NAME",email,email);
+//        startCreateAccount();
+        signUpPage.signUpSuccessfulWithEmail();
     }
 
-//    @Test(priority = 1, description = "Create new customer and leave with blank form for required form")
-//    public void testCase_NSU2() throws InterruptedException {
+    @Test(priority = 1, description = "Create new customer and leave with blank form for required form")
+    public void testCase_NSU2() throws InterruptedException {
+        startCreateAccount();
+        signUpPage.signUpWithInputErrorData("fullBlankField");
+    }
+    @Test(priority = 2, description = "Create new customer and input invalid data for email form")
+    public void testCase_NSU3() throws InterruptedException {
 //        startCreateAccount();
-//        signUpPage.signUpWithInputErrorData("fullBlankField"," "," "," "," ",
-//                " ");
-//    }
-//    @Test(priority = 2, description = "Create new customer and input invalid data for email form")
-//    public void testCase_NSU3() throws InterruptedException {
+        signUpPage.signUpWithInputErrorData( "emailInvalid");
+    }
+    @Test(priority = 3, description = "Create new customer and input confirm email not same email form")
+    public void testCase_NSU4() throws InterruptedException {
 //        startCreateAccount();
-//        signUpPage.signUpWithInputErrorData( "emailInvalid","FIRST_NAME","LAST_NAME",
-//                "EMAIL_INVALID1"," "," ");
-//    }
-//    @Test(priority = 3, description = "Create new customer and input confirm email not same email form")
-//    public void testCase_NSU4() throws InterruptedException {
+        signUpPage.signUpWithInputErrorData( "emailNotEqualEmailConfirm");
+    }
+    @Test(priority = 4, description = "Create new customer and input email exist on database")
+    public void testCase_NSU5() throws InterruptedException {
 //        startCreateAccount();
-//        signUpPage.signUpWithInputErrorData( "emailNotEqualEmailConfirm","FIRST_NAME","LAST_NAME",
-//                "EMAIL_VALID1", "EMAIL_VALID2"," ");
-//    }
-//    @Test(priority = 4, description = "Create new customer and input email exist on database")
-//    public void testCase_NSU5() throws InterruptedException {
+        signUpPage.signUpWithInputErrorData("emailValidButExist");
+    }
+    @Test(priority = 5, description = "Create an account with the same password as the register email")
+    public void testCase_NSU6() throws InterruptedException {
 //        startCreateAccount();
-//        signUpPage.signUpWithInputErrorData("emailValidButExist","FIRST_NAME","LAST_NAME","EMAIL_VALID1","EMAIL_VALID1", " ");
-//    }
-//    @Test(priority = 5, description = "Create an account with the same password as the register email")
-//    public void testCase_NSU6() throws InterruptedException {
+        signUpPage.signUpWithInputErrorData("emailEqualPassword");
+    }
+
+    @Test(priority = 6, description = "Create account with password less 8 character")
+    public void testCase_NSU7() throws InterruptedException {
 //        startCreateAccount();
-//        String email = signUpPage.createNewEmail();
-//        signUpPage.signUpWithInputErrorData("emailEqualPassword","FIRST_NAME","LAST_NAME",email,email, email);
+        signUpPage.inputErrorPassWord("passWordLess8Character");
+    }
+    @Test(priority = 7, description = "Create account with password without number")
+    public void testCase_NSU8() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.inputErrorPassWord("passWordWithoutNumber");
+    }
+    @Test(priority = 8, description = "Create account with password without lowercase")
+    public void testCase_NSU9() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.inputErrorPassWord("passWordWithoutLowerCase");
+    }
+    @Test(priority = 9, description = "Create account with password without uppercase")
+    public void testCase_NSU10() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.inputErrorPassWord("passWordWithoutUpperCase");
+    }
+    @Test(priority = 10, description = "Create account with password without special character")
+    public void testCase_NSU11() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.inputErrorPassWord("passWordWithoutSpecialCharacter");
+    }
+    @Test(priority = 11, description = "Enter the wrong code sent to the email")
+    public void testCase_NSU12() throws InterruptedException {
+//        startCreateAccount();
+        signUpPage.enterErrorVerifyCodeOrResend("Error verify code");
+    }
+    @Test(priority = 12, description = "Enter the wrong code sent to the email")
+    public void testCase_NSU13() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.enterErrorVerifyCodeOrResend("Resend code");
+    }
+    @Test(priority = 13, description = "Create new customer successfully with store enable phone number confirm")
+    public void testCase_NSU14() throws InterruptedException {
+        //startCreateAccount();
+        signUpPage.signUpSuccessfulWithPhoneNumber();
+    }
+     */
+//    @Test(priority = 14, description = "Create new customer and leave with blank form for required form")
+//    public void testCase_NSU15() throws InterruptedException {
+//        startCreateAccount();
+//        signUpPage.signUpWithInputErrorData("fullBlankField");
 //    }
 
-//    @Test(priority = 6, description = "Create account with password less 8 character")
-//    public void testCase_NSU7() throws InterruptedException {
+//    @Test(priority = 15, description = "Invalid phone number entered")
+//    public void testCase_NSU16() throws InterruptedException {
 //        startCreateAccount();
-//        String email = signUpPage.createNewEmail();
-//        signUpPage.goToSecondSignUpScreen("FIRST_NAME","LAST_NAME",email,email);
-//        signUpPage.inputErrorPassWord("passWordLess8Character");
-//    }
-//    @Test(priority = 7, description = "Create account with password without number")
-//    public void testCase_NSU8() throws InterruptedException {
-//        //startCreateAccount();
-//        signUpPage.inputErrorPassWord("passWordWithoutNumber");
-//    }
-//    @Test(priority = 8, description = "Create account with password without lowercase")
-//    public void testCase_NSU9() throws InterruptedException {
-//        //startCreateAccount();
-//        signUpPage.inputErrorPassWord("passWordWithoutLowerCase");
-//    }
-//    @Test(priority = 9, description = "Create account with password without uppercase")
-//    public void testCase_NSU10() throws InterruptedException {
-//        //startCreateAccount();
-//        signUpPage.inputErrorPassWord("passWordWithoutUpperCase");
-//    }
-//    @Test(priority = 10, description = "Create account with password without special character")
-//    public void testCase_NSU11() throws InterruptedException {
-//        //startCreateAccount();
-//        signUpPage.inputErrorPassWord("passWordWithoutSpecialCharacter");
-//    }
-//    @Test(priority = 11, description = "Enter the wrong code sent to the email")
-//    public void testCase_NSU12() throws InterruptedException {
-//        startCreateAccount();
-//        signUpPage.enterErrorVerifyCodeAndResend("Error verify code");
-//    }
-//    @Test(priority = 12, description = "Enter the wrong code sent to the email")
-//    public void testCase_NSU13() throws InterruptedException {
-//        //startCreateAccount();
-//        signUpPage.enterErrorVerifyCodeAndResend("Resend code");
+//        signUpPage.signUpWithInputErrorData("invalidPhoneNumber");
 //    }
 
-
-
-
+    @Test(priority = 16, description = "Register an account with the phone number already in the system")
+    public void testCase_NSU17() throws InterruptedException {
+        startCreateAccount();
+        signUpPage.signUpWithInputErrorData("validPhoneNumber");
+    }
 }
