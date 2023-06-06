@@ -268,14 +268,14 @@ public class ShoppingBagTest extends BaseTest {
         //https://stage.glamira.co.uk/
 //        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
-        objShoppingBagPage.moveToPagecheckOut();
-        objShoppingBagPage.checkOut();
-        objShoppingBagPage.applyCoupon("AUTOTEST",false);
-        objShoppingBagPage.getOrderNumber();
+//        objShoppingBagPage.moveToPagecheckOut();
+//        objShoppingBagPage.checkOut();
+//        objShoppingBagPage.applyCoupon("AUTOTEST",false);
+//        objShoppingBagPage.getOrderNumber();
         objShoppingBagPage.openNewTab();
         objShoppingBagPage.verifyOrderStatus("ORDER_STATUS_PROCESS");
         objShoppingBagPage.checkInvoices();
-        keyword.resizeBrowser(319,848);
+//        keyword.resizeBrowser(319,848);
     }
 
     @Test

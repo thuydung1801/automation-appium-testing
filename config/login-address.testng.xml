@@ -6,9 +6,41 @@
         <!--        <parameter name="baseURL" value="https://stage.glamira.co.uk/"></parameter>-->
         <classes>
             <class name="com.browserstack.checkout.loginaddress.LoginAddressTest" >
-<!--                <methods>-->
-<!--                    -->
-<!--                </methods>-->
+                <methods>
+<!--                                        <include name="NLA_01_02"/>-->
+<!--                                        <include name="NLA_03_04"/>-->
+
+<!--                                        <include name="NLA_06"/>-->
+<!--                                        <include name="NLA_08"/>-->
+<!--                                        <include name="NLA_05"/>-->
+<!--                                        <include name="NLA_07"/>-->
+<!--                                        <include name="NLA_10"/>-->
+                                        <include name="NLA_11"/>
+                                        <include name="NLA_12_16"/>
+<!--                                        <include name="NLA_13_14_15"/>-->
+<!--                                        <include name="NLA_17"/>-->
+<!--                                        <include name="NLA_19"/>-->
+<!--                                        <include name="NLA_20"/>-->
+
+<!--                                        <include name="NLA_21"/>-->
+<!--                                        <include name="NLA_35"/>-->
+<!--                                        <include name="NLA_36"/>-->
+<!--                                        <include name="NLA_41"/>-->
+<!--                                        <include name="NLA_38"/>-->
+<!--                                        <include name="NLA_39_40"/>-->
+<!--                                        <include name="NLA_42"/>-->
+<!--                                        <include name="NLA_43"/>-->
+<!--                                        <include name="NLA_45"/>-->
+<!--                                        <include name="NLA_46"/>-->
+<!--                                        <include name="NLA_47_48_49"/>-->
+<!--                                        <include name="NLA_50"/>-->
+<!--                                        <include name="NLA_51"/>-->
+<!--                                        <include name="NLA_52"/>-->
+<!--                                        <include name="NLA_53"/>-->
+<!--                                        <include name="NLA_54"/>-->
+<!--                                        <include name="NLA_55"/>-->
+<!--                                        <include name="NLA_56"/>-->
+                </methods>
             </class>
         </classes>
     </test>

@@ -693,8 +693,19 @@ public class KeywordWeb {
             xPathElement1 = url;
         }
         executeJavaScript("window.open()");
-        switchToTab(tabNum);
+//        switchToTab(tabNum);
         navigateToUrl(xPathElement1);
+    }
+    public void openNewTab(String url) {
+        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(0));
+        // driver.navigate().to(url);
+        String URL = PropertiesFile.getPropValue(url);
+        if (URL == null) {
+            URL = url;
+        }
+        navigateToUrl(URL);
     }
 
     public void recaptchaClickSubmit() {

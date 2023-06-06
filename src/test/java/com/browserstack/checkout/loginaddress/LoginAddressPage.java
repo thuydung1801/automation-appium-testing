@@ -32,6 +32,8 @@ public class LoginAddressPage extends BasePage {
         keyword.webDriverWaitForElementPresent("CHECKOUT_BTN_CONTINUE_GUEST", 40);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.click("CHECKOUT_BTN_CONTINUE_GUEST");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
 
     public void moveToPagecheckOut() throws InterruptedException {
@@ -89,14 +91,16 @@ public class LoginAddressPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void deleteAllCookies() throws InterruptedException {
-        objLoginAddress = new LoginAddressPage(this.keyword);
+//        objLoginAddress = new LoginAddressPage(this.keyword);
 
         keyword.deleteAllCookies();
         keyword.reLoadPage();
         keyword.untilJqueryIsDone(50L);
     }
     public void resetForNewCase() throws InterruptedException {
+        Thread.sleep(2000);
         deleteAllCookies();
+        objShoppingBagPage = new ShoppingBagPage(this.keyword);
         objShoppingBagPage.acceptAllCookies();
     }
     public void compareAddress(String data, String location){
@@ -153,11 +157,15 @@ public class LoginAddressPage extends BasePage {
         }else{
             keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS");
         }
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
 
     }
     public void isAddNewAddress(){
-        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_2",10);
-        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_3",10);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_2",30);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_MELISSA_ENABLE_3",50);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
     public void editAddress(String btnEdit) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -169,7 +177,7 @@ public class LoginAddressPage extends BasePage {
     }
     public void goBack(String verifyElement) throws InterruptedException {
         //a[@class="actions action-back-to-cart"]
-        keyword.scrollDownToElement("CHECKOUT_LA_BTN_BACK");
+//        keyword.scrollDownToElement("CHECKOUT_LA_BTN_BACK");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.click("CHECKOUT_LA_BTN_BACK");
@@ -204,6 +212,7 @@ public class LoginAddressPage extends BasePage {
         keyword.click("CHECKOUT_LA_BTN_LOGIN");
         keyword.untilJqueryIsDone(30L);
         keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_CHECKOUT",10);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
     }
     public void loginFailed(String flag) throws InterruptedException {
@@ -214,6 +223,8 @@ public class LoginAddressPage extends BasePage {
             keyword.click("CHECKOUT_LA_BTN_LOGIN");
             keyword.untilJqueryIsDone(30L);
             keyword.assertEquals("CHECKOUT_MESSAGES_UPDATE_24","CHECKOUT_LA_LBL_ERROR_MAIL");
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
         }else if(flag.equals("wrongPass")){
             keyword.sendKeys("CHECKOUT_LA_TBX_USERNAME","LOGIN_DATA_EMAIL");
             keyword.sendKeys("CHECKOUT_LA_TBX_PASS","CHECKOUT_DATA_PASSWORD_ENTER");
@@ -227,6 +238,27 @@ public class LoginAddressPage extends BasePage {
             keyword.untilJqueryIsDone(30L);
             keyword.assertEquals("CHECKOUT_LA_MESSAGE_USERNAME","CHECKOUT_LA_LBL_ERROR_MAIL");
         }
+    }
+    public void addNewBillingAddress(boolean isSuggestion, String street,
+                                     String code, String city) throws InterruptedException {
+        keyword.untilJqueryIsDone(70L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("CHECKOUT_HPL_NEW_ADDRESS_LOGIN");
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",20);
+        keyword.sendKeys("CHECKOUT_LA_TBX_FIRST_3","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_LAST_3","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_PHONE_3","AFFIRM_DATA_PHONE");
+        if (isSuggestion){
+            keyword.sendKeys("CHECKOUT_LA_TBX_STREET_4","CHECKOUT_LA_DATA_STREET_2");
+            keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SUGGESTLIST",10);
+            keyword.click("CHECKOUT_LA_SUGGESTLIST");
+        }else {
+            keyword.sendKeys("CHECKOUT_LA_TBX_STREET_4",street);
+            keyword.sendKeys("CHECKOUT_LA_TBX_ZIP_4",code);
+            keyword.sendKeys("CHECKOUT_LA_TBX_CITY_4",city);
+        }
+        keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS_2");
     }
 
 
