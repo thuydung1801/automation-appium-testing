@@ -1,85 +1,96 @@
 package com.browserstack.returnForm;
 
 import com.browserstack.home.LoginPage;
+import com.browserstack.home.LoginTest;
 import core.BaseTest;
 import org.testng.annotations.Test;
 
 
 public class ReturnFormTest extends BaseTest {
     private LoginPage objLogin;
-    private ReturnFormPage objLoginReturn;
+    private ReturnFormPage objReturnForm;
+    private LoginTest objLoginTest;
 
     public ReturnFormTest() {
         super();
         objLogin = new LoginPage(this.keyword);
-        objLoginReturn = new ReturnFormPage();
+        objReturnForm = new ReturnFormPage();
 
     }
 
     public void commonReturnForm() throws InterruptedException {
 
         objLogin.acceptAllCookies();
-        objLoginReturn.goToReturnForm();
+        objReturnForm.goToReturnForm();
     }
-    @Test( description = "Submit Return form, Next step and not input Email")
+    @Test(priority = 1,description = "Submit Return form, Next step and not input Email")
     public void testCase_LS_06() throws InterruptedException {
         commonReturnForm();
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_EMP_EMAIL","RETURN_FORM_DATA_INVALID_EMAIL",false,"RETURN_FORM_MES_EMPTY_EMAIL_LOGIN");
+        objReturnForm.inputDataReturnForm("RF_DATA_EMP_EMAIL","RF_DATA_INVALID_EMAIL",false,"RF_MES_EMPTY_EMAIL_LOGIN");
     }
-    @Test(description = "Next step with customer invalid")
+    @Test(priority = 2,description = "Next step with customer invalid")
     public void testCase_LS_04() throws InterruptedException {
         //commonReturnForm();
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_INVALID_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MES_INVALID_EMAIL_LOGIN");
+        objReturnForm.inputDataReturnForm("RF_DATA_INVALID_EMAIL","RF_DATA_INVALID_PASSWORD",false,"RF_MES_INVALID_EMAIL_LOGIN");
     }
-    @Test(description = "Next step with customer valid but don't have any order return avaiable")
+    @Test(priority = 3,description = "Next step with customer valid but don't have any order return avaiable")
     public void testCase_LS_05() throws InterruptedException {
         //commonReturnForm();
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_EMAIL_NO_ORDER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MES_INVALID_EMAIL_LOGIN");
+        objReturnForm.inputDataReturnForm("RF_DATA_EMAIL_NO_ORDER","RF_DATA_INVALID_PASSWORD",false,"RF_MES_INVALID_EMAIL_LOGIN");
     }
-   @Test(description = "Input email or order having space")
+   @Test(priority = 4,description = "Input email or order having space")
     public void testCase_LS_03() throws InterruptedException {
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_SPACE_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",true,"RETURN_FORM_MES_INVALID_PASSWORD_LOGIN");
+       objReturnForm.inputDataReturnForm("RF_DATA_SPACE_EMAIL","RF_DATA_INVALID_PASSWORD",true,"RF_MES_INVALID_PASSWORD_LOGIN");
     }
-    @Test(description = "Next step return form, login with password not matching email customer")
+    @Test(priority = 5,description = "Next step return form, login with password not matching email customer")
     public void testCase_LS_02() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_FORM");
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",true,"RETURN_FORM_MES_INVALID_PASSWORD_LOGIN");
+        objReturnForm.inputDataReturnForm("RF_DATA_EMAIL","RF_DATA_INVALID_PASSWORD",true,"RF_MES_INVALID_PASSWORD_LOGIN");
     }
-   @Test(description = "Next step return form, login with password not matching email customer")
+   @Test(priority = 6,description = "Next step return form, login with password not matching email customer")
     public void testCase_LS_01() throws InterruptedException {
        keyword.navigateToUrl("URL_RETURN_FORM");
-        objLoginReturn.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
+       objReturnForm.inputDataReturnForm("RF_DATA_EMAIL","RF_DATA_PASSWORD",true,"RF_LBL_NEW_RETURN_REQUEST");
     }
 
-    @Test( description = "Return order with the order haven't the item available resizing")
+    @Test(priority = 7, description = "Return order with the order haven't the item available resizing")
     public void testCase_LS_SC_08() throws InterruptedException {
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",false,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",false,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
 
     }
-    @Test( description = "Edit Shipping Address with the country haven't state successfully")
-    public void testCase_SC_04() throws InterruptedException {
-        //objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
-        objLoginReturn.editShippingAddress("RETURN_FORM_TXT_INP_ADDRESS_STRESS","RETURN_FORM_TXT_INP_ADDRESS_CITY");
-    }
-    @Test( description = "Return order with the order > 60days")
-    public void testCase_LS_SC_07() throws InterruptedException {
-        keyword.navigateToUrl("URL_RETURN_ORDER");
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
-    }
-    @Test( description = "Submit return request successfully with 1 normal item")
-    public void testCase_SC_09() throws InterruptedException {
-        objLoginReturn.updateOrder();
-        objLoginReturn.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL");
-    }
-    @Test( description = "Return order with the order haven't the item available engraving")
+    @Test(priority = 8, description = "Return order with the order haven't the item available engraving")
     public void testCase_LS_09() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_ENGRAVING");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_ENGRAVING");
     }
     @Test(description = "Return order with the item has returned")
     public void testCase_LS_10() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
-        objLoginReturn.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",true,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
+    }
+    @Test( description = "Edit Shipping Address with the country haven't state successfully")
+    public void testCase_SC_04() throws InterruptedException {
+        //objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
+        objReturnForm.editShippingAddress("RF_TXT_INP_ADDRESS_STRESS","RF_TXT_INP_ADDRESS_CITY");
+    }
+    @Test( priority = 9,description = "Return order with the order > 60days")
+    public void testCase_LS_SC_07() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
+    }
+    @Test(priority = 10, description = "Submit return request successfully for Resize type with same size option")
+    public void testCase_SC_09_SC_18_SC_19() throws InterruptedException {
+        objReturnForm.updateOrder();
+    }
+    @Test(priority = 11, description = "Submit return request successfully with 1 normal item")
+    public void testCase_MR_02_MR_03_MR_07() throws InterruptedException {
+        objReturnForm.cancelOrderReturn("RF_ICON_VIEW_DETAIL");
+    }
+    @Test(description = "Next to Return form successfully")
+    public void testCase_MR_01() throws InterruptedException {
+        objLoginTest.login();
+        objReturnForm.goToReturnOrder();
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
     }
 
 }
