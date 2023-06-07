@@ -516,8 +516,8 @@ public class KeywordWeb {
         }
     }
 
-    public boolean checkIsDisplayElement(String element) {
-        logger.info("Check status element btn radio" + element);
+    public boolean CheckIsDisplayElement(String element) {
+        logger.info("Check status element btn radio");
         String xPathElement = PropertiesFile.getPropValue(element);
         if (xPathElement == null) {
             xPathElement = element;
