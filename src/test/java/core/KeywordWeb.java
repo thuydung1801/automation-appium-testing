@@ -452,26 +452,6 @@ public class KeywordWeb {
         Select dropDownList = new Select(driver.findElement(By.xpath(xPathElement1)));
         dropDownList.selectByVisibleText(xPathElement2);
     }
-    public void selectDropDownListByNameNotDisplayed(String ddlPath,String itemName) {
-        logger.info("select dropdown list by name not displayed ");
-        String xPathElement1 = PropertiesFile.getPropValue(ddlPath);
-        if (xPathElement1 == null) {
-            xPathElement1 = ddlPath;
-        }
-        String xPathElement2 = PropertiesFile.getPropValue(itemName);
-        if (xPathElement2 == null) {
-            xPathElement2 = itemName;
-        }
-        try {
-            Select dropDownList = new Select(driver.findElement(By.xpath(xPathElement1)));
-            dropDownList.selectByVisibleText(xPathElement2);
-            Assert.assertTrue(false);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            Assert.assertTrue(true);
-        }
-    }
-
 
     public void switchToCurrentTab() {
         logger.info("switchToCurrentTabSuccess");
@@ -537,17 +517,17 @@ public class KeywordWeb {
     }
 
     public boolean checkIsDisplayElement(String element) {
-        logger.info("Check element is displayed or not: " + element);
+        logger.info("Check status element btn radio" + element);
         String xPathElement = PropertiesFile.getPropValue(element);
         if (xPathElement == null) {
             xPathElement = element;
         }
         boolean stt = driver.findElement(By.xpath(xPathElement)).isDisplayed();
         if (!stt) {
-            System.out.println("Not display");
+            System.out.println("Not selected");
         } else {
             driver.navigate().back();
-            System.out.println("element displayed");
+            System.out.println("Checkbox selected");
         }
         return stt;
     }

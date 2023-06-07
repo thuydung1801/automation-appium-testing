@@ -66,7 +66,7 @@ public class ReturnFormTest extends BaseTest {
     @Test(description = "Return order with the item has returned")
     public void testCase_LS_10() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
-        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_HAS_RETURNED",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
     }
     @Test( description = "Edit Shipping Address with the country haven't state successfully")
     public void testCase_SC_04() throws InterruptedException {
@@ -78,13 +78,15 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
     }
-    @Test(priority = 10, description = "Submit return request successfully for Resize type with same size option")
+    @Test(priority = 10, description = "Submit return request successfully for Resize type")
     public void testCase_SC_09_SC_18_SC_19() throws InterruptedException {
-        objReturnForm.updateOrder();
+        objReturnForm.updateTypeOrder();
+        objReturnForm.step2In3Screen();
+        objReturnForm.step3In3Screen();
     }
-    @Test(priority = 11, description = "Submit return request successfully with 1 normal item")
+    @Test(priority = 11, description = "Cancel My Return successfully")
     public void testCase_MR_02_MR_03_MR_07() throws InterruptedException {
-        objReturnForm.cancelOrderReturn("RF_ICON_VIEW_DETAIL");
+        objReturnForm.cancelOrderReturn("RF_ICON_VIEW_DETAIL_ORDER");
     }
     @Test(description = "Next to Return form successfully")
     public void testCase_MR_01() throws InterruptedException {
