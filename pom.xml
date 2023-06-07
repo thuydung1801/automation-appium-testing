@@ -183,6 +183,21 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.11.0</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.browserstack</groupId>-->
+<!--            <artifactId>webdriver-framework</artifactId>-->
+<!--            <version>0.0.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.webdriver</groupId>-->
+<!--            <artifactId>webdriver-remote-client</artifactId>-->
+<!--            <version>0.9.7376</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.webdriver</groupId>-->
+<!--            <artifactId>webdriver-selenium</artifactId>-->
+<!--            <version>0.9.7376</version>-->
+<!--        </dependency>-->
         <!--        <dependency>-->
 <!--            <groupId>org.seleniumhq.selenium</groupId>-->
 <!--            <artifactId>selenium-support</artifactId>-->

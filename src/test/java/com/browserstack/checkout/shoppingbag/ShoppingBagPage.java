@@ -28,44 +28,6 @@ public class ShoppingBagPage extends BasePage {
     }
 
 
-    public void login(String email, String password) throws InterruptedException {
-        keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.click("LOGIN_MENULEFT");
-        Thread.sleep(2000);
-        keyword.untilJqueryIsDone(50L);
-        keyword.click("MOBILE_BTN_LOGIN");
-        keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("LOGIN_TXT_EMAIL", email);
-        Thread.sleep(2000);
-        keyword.sendKeys("LOGIN_TXT_PASSWORD", password);
-        Thread.sleep(2000);
-        keyword.click("LOGIN_BTN_SUBMITLOGIN");
-        keyword.untilJqueryIsDone(50L);
-
-    }
-
-    public void acceptAllCookies() throws InterruptedException {
-        keyword.untilJqueryIsDone(60L);
-        keyword.scrollToPositionByScript("window.scrollBy(0,800)");
-        keyword.untilJqueryIsDone(60L);
-        chooseLanguages();
-        keyword.webDriverWaitForElementPresent("BTN_COOKIES", 50);
-        if (keyword.verifyElementPresent("BTN_COOKIES")) {
-            keyword.untilJqueryIsDone(60L);
-            Thread.sleep(5000);
-            keyword.click("BTN_COOKIES");
-        }
-    }
-
-    public void chooseLanguages() throws InterruptedException {
-        logger.info("choose language");
-        Thread.sleep(7000);
-        if (keyword.verifyElementPresent("LOGIN_BTN_LANGUAGE")) {
-            Thread.sleep(7000);
-            keyword.click("LOGIN_BTN_LANGUAGE");
-        }
-    }
     public void addProduct(String url) throws InterruptedException {
         Thread.sleep(5000);
         keyword.navigateToUrl(url);
@@ -158,7 +120,7 @@ public class ShoppingBagPage extends BasePage {
     }
     public void inputEngravingwithSingleRing(String data, String btnAdd, String engraving) throws InterruptedException {
         keyword.webDriverWaitForElementPresent("CHECKOUT_LBL_VIEWDETAIL",5);
-        keyword.untilJqueryIsDone(30L);
+        keyword.untilJqueryIsDone(60L);
         keyword.verifyElementPresent(btnAdd);
         keyword.click(btnAdd);
         keyword.imWait(30);
@@ -171,7 +133,8 @@ public class ShoppingBagPage extends BasePage {
 
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("CHECKOUT_TXT_ENGRAVING", data);
+        keyword.clickByAppium("CHECKOUT_TXT_ENGRAVING");
+//        keyword.sendKeys("CHECKOUT_TXT_ENGRAVING", data);
         logger.info("send key done...");
         keyword.untilJqueryIsDone(30L);
         Thread.sleep(5000);

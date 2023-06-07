@@ -1,5 +1,6 @@
 package com.browserstack.checkout.shoppingbag;
 
+import com.browserstack.common.LoginPage;
 import core.BaseTest;
 import core.LogHelper;
 import org.slf4j.Logger;
@@ -9,26 +10,16 @@ import org.testng.annotations.Test;
 public class ShoppingBagTest extends BaseTest {
     private static Logger logger = LogHelper.getLogger();
     private ShoppingBagPage objShoppingBagPage = new ShoppingBagPage(this.keyword);
+    private LoginPage objLogin = new LoginPage(this.keyword);
 //    private ShoppingBagPage objCheckout = new ShoppingBagPage(this.keyword);
     public ShoppingBagTest(){
         super();
     }
     public void commonShopping() throws InterruptedException {
-        objShoppingBagPage.acceptAllCookies();
-        objShoppingBagPage.login("COM_INP_DATA_EMAIL_STAGE","COM_INP_DATA_PASS_STAGE");
-
-
+        objLogin.acceptAllCookies();
+        objLogin.login("COM_INP_DATA_EMAIL_STAGE","COM_INP_DATA_PASS_STAGE");
     }
 
-//    @Test
-//    public void addProductToCart() throws Exception {
-//        // navigate to bstackdemo
-//        //keyword.navigateToUrl("https://www.glamira.co.uk/glamira-pendant-elsie.html?alloy=red_white-585&stone1=diamond-Brillant");
-//        driver.get("https://www.glamira.co.uk/glamira-pendant-elsie.html?alloy=red_white-585&stone1=diamond-Brillant");
-//        objCheckout.acceptAllCookies();
-//
-//
-//    }
     @Test
 //    (priority = 1, description = "Remove item from cart successfully with the shopping bag having 1 item")
 //    @Parameters("baseURL")
@@ -101,14 +92,14 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.confirmMessage("CHECKOUT_MESSAGES_ERROR");
 
     }
-//    @Test
+    @Test
 //            (priority = 6, description = "Add engraving with single ring")
 //    @Parameters({"baseURL","devices"})
     public void testCase_SP_15() throws InterruptedException {
         logger.info("testCase_SP_15");
         commonShopping();
         //https://stage.glamira.co.uk/
-        objShoppingBagPage.addProduct("https://stage.glamira.co.uk/glamira-ring-zanessa.html?alloy=white-585&stone1=diamond-sapphire&stone2=diamond-sapphire");
+//        objShoppingBagPage.addProduct("https://stage.glamira.co.uk/glamira-ring-zanessa.html?alloy=white-585&stone1=diamond-sapphire&stone2=diamond-sapphire");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_GLAMIRARING_MOBILE");
         objShoppingBagPage.inputEngravingwithSingleRing("CHECKOUT_DATA_ENGRAVING",
@@ -283,7 +274,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_18() throws InterruptedException {
         logger.info("testCase_RV_18");
-//        commonShopping();
+        commonShopping();
         //https://stage.glamira.co.uk/
         objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
@@ -294,7 +285,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.openNewTab();
         objShoppingBagPage.verifyOrderStatus("ORDER_STATUS_PENDING");
         objShoppingBagPage.checkGiftCardStatus("TNZ_491_SM32");
-        keyword.resizeBrowser(319,848);
+//        keyword.resizeBrowser(319,848);
     }
     @Test
 //            (priority = 30, description = "Apply a gift card having status Expired or Used")

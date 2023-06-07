@@ -1,8 +1,14 @@
 package core;
 
+
+
 import io.appium.java_client.PerformsTouchActions;
+import io.appium.java_client.ios.IOSElement;
+import lombok.var;
+import org.im4java.core.IM4JavaException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.TouchAction;
 import org.openqa.selenium.safari.SafariDriver;
@@ -25,6 +31,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static core.BaseTest.driver;
+import static java.awt.SystemColor.window;
+import static java.sql.DriverManager.getDriver;
+import static java.sql.DriverManager.getDrivers;
 
 
 public class KeywordWeb {
@@ -906,6 +915,16 @@ public class KeywordWeb {
     public void selectByText(String xpath, String text){
         Select singleSelect = new Select(driver.findElement(By.xpath(xpath)));
         singleSelect.selectByVisibleText(text);
+    }
+    public void clickByAppium(String data){
+//        String xPathElement1 = PropertiesFile.getPropValue(data);
+//        if (xPathElement1 == null) {
+//            xPathElement1 = data;
+//        }
+        ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable  ').value='linh';");
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].value='linh';",xPathElement1 );
+//        ((JavascriptExecutor)getDrivers()).executeScript("$('." + "input-field-editable  " + "').val('" + "text" + "');");
+
     }
 
 

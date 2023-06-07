@@ -1,6 +1,7 @@
 package com.browserstack.checkout.loginaddress;
 
 import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
+import com.browserstack.common.LoginPage;
 import core.BasePage;
 import core.KeywordWeb;
 import core.LogHelper;
@@ -25,8 +26,8 @@ public class LoginAddressPage extends BasePage {
 
     public ShoppingBagPage objShoppingBagPage;
 
-    private LoginAddressPage objLoginAddress;
-
+//    private LoginPage objLogin = new LoginPage(this.keyword);
+    private LoginPage objLogin;
     public void moveToAddressPage() throws InterruptedException {
         Thread.sleep(5000);
         keyword.webDriverWaitForElementPresent("CHECKOUT_BTN_CONTINUE_GUEST", 40);
@@ -100,8 +101,9 @@ public class LoginAddressPage extends BasePage {
     public void resetForNewCase() throws InterruptedException {
         Thread.sleep(2000);
         deleteAllCookies();
-        objShoppingBagPage = new ShoppingBagPage(this.keyword);
-        objShoppingBagPage.acceptAllCookies();
+//        objShoppingBagPage = new ShoppingBagPage(this.keyword);
+        objLogin = new LoginPage(this.keyword);
+        objLogin.acceptAllCookies();
     }
     public void compareAddress(String data, String location){
         keyword.webDriverWaitForElementPresent(location,10);

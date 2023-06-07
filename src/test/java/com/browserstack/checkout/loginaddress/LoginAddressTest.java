@@ -1,6 +1,7 @@
 package com.browserstack.checkout.loginaddress;
 
 import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
+import com.browserstack.common.LoginPage;
 import core.AllureTestListener;
 import core.BaseTest;
 import core.LogHelper;
@@ -16,6 +17,7 @@ public class LoginAddressTest extends BaseTest {
     private static Logger logger = LogHelper.getLogger();
     public ShoppingBagPage objShoppingBagPage;
     private  LoginAddressPage objLoginAddress;
+    private LoginPage objLogin = new LoginPage(this.keyword);
 
     public LoginAddressTest() {
         super();
@@ -25,13 +27,13 @@ public class LoginAddressTest extends BaseTest {
     public void customerNotLogin() throws InterruptedException {
         objShoppingBagPage = new ShoppingBagPage(this.keyword);
         objLoginAddress = new LoginAddressPage(this.keyword);
-        objShoppingBagPage.acceptAllCookies();
+        objLogin.acceptAllCookies();
 
     }
 
     public void customerLogin() throws InterruptedException {
-        objShoppingBagPage.acceptAllCookies();
-        objShoppingBagPage.login("COM_INP_DATA_EMAIL_STAGE", "COM_INP_DATA_PASS_STAGE");
+        objLogin.acceptAllCookies();
+        objLogin.login("COM_INP_DATA_EMAIL_STAGE", "COM_INP_DATA_PASS_STAGE");
         keyword.untilJqueryIsDone(50L);
     }
     @Test
@@ -221,6 +223,13 @@ public class LoginAddressTest extends BaseTest {
                 "CHECKOUT_LA_DATA_CODE_1", "CHECKOUT_LA_DATA_CITY_1");
         objLoginAddress.verifyMelissa();
     }
+    @Test
+    //(priority = 13, description = "Add new billing address using suggest address with store no state")
+    public void NLA_36() throws InterruptedException {
+        objLoginAddress.addNewBillingAddress(true, "CHECKOUT_LA_DATA_STREET_1",
+                "CHECKOUT_LA_DATA_CODE_1", "CHECKOUT_LA_DATA_CITY_1");
+    }
+
 
 
 }
