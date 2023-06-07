@@ -31,8 +31,8 @@ public class BaseTest {
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-//        driver.navigate().to("https://stage.glamira.co.uk/");
-        driver.navigate().to("https://stage.glamira.com/");
+        driver.navigate().to("https://stage.glamira.co.uk/");
+//        driver.navigate().to("https://stage.glamira.com/");
         driver.manage().timeouts().implicitlyWait(12, TimeUnit.SECONDS);
     }
 

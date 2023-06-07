@@ -4,6 +4,7 @@ import com.microsoft.playwright.K;
 import core.BasePage;
 import core.KeywordWeb;
 import core.LogHelper;
+import core.PropertiesFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -12,6 +13,9 @@ import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+
+import static core.BaseTest.driver;
+
 public class SignUpPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
 
@@ -40,14 +44,14 @@ public class SignUpPage extends BasePage {
 
     public void goToSecondSignUpScreen(String firstName, String lastName, String phoneNumber, String email, String emailConfirm) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("FIRST_NAME_TXT", firstName);
-        keyword.sendKeys("LAST_NAME_TXT", lastName);
-        if(phoneNumber != " "){
-            keyword.sendKeys("PHONE_NUMBER_TXT",phoneNumber);
+        keyword.sendKeys("SIGNUP_FIRST_NAME_TXT", firstName);
+        keyword.sendKeys("SIGNUP_LAST_NAME_TXT", lastName);
+        if(!phoneNumber.equals(" ")){
+            keyword.sendKeys("SIGNUP_PHONE_NUMBER_TXT",phoneNumber);
         }
-        keyword.sendKeys("EMAIL_TXT", email);
-        keyword.sendKeys("EMAIL_CONFIRM_TXT", emailConfirm);
-        keyword.click("NEXT_BTN");
+        keyword.sendKeys("SIGNUP_EMAIL_TXT", email);
+        keyword.sendKeys("SIGNUP_EMAIL_CONFIRM_TXT", emailConfirm);
+        keyword.click("SIGNUP_NEXT_BTN");
     }
 
     public void loginToBackEnd(String urlBe) throws InterruptedException {
@@ -79,7 +83,7 @@ public class SignUpPage extends BasePage {
         keyword.click("APPLY_FILTER_BTN");
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
-        if (resend == "resend") {
+        if (resend.equals("resend")) {
             keyword.webDriverWaitForElementPresent("SELECT_DROPDOWN2", 20);
             keyword.click("SELECT_DROPDOWN2");
             //keyword.webDriverWaitForElementPresent("SELECT_ACTIVE", 20);
@@ -102,13 +106,13 @@ public class SignUpPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         goToSecondSignUpScreen("FIRST_NAME", "LAST_NAME"," ", email, email);
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("PASSWORD_TXT", "PASSWORD");
-        keyword.click("SUBSCRIBE_CHECKBOX");
-        keyword.click("NEXT_BTN_ON_2/3");
+        keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASSWORD");
+        keyword.click("SIGNUP_SUBSCRIBE_CHECKBOX");
+        keyword.click("SIGNUP_NEXT_BTN_ON_2/3");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(3000);
         String url = keyword.getUrl();
-        System.out.println("url đó là: " + url);
+//        System.out.println("url đó là: " + url);
         Thread.sleep(3000);
         String code = takeActiveGmailCode("BE_URL", email, " ");
         Thread.sleep(1000);
@@ -116,162 +120,228 @@ public class SignUpPage extends BasePage {
 //        keyword.openNewTabFromTabBase(0,url);
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(3000);
-        keyword.sendKeys("VERIFY_CODE_TXT", code);
-        keyword.click("ACTIVE_BTN");
+        keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", code);
+        keyword.click("SIGNUP_ACTIVE_BTN");
         keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementPresent("CREATE_SUCCESS_MESS");
+        keyword.verifyElementPresent("SIGNUP_CREATE_SUCCESS_MESS");
     }
 
-    public void checkFieldErrPassWord(String missField) throws InterruptedException {
-        keyword.assertEquals("MESSAGE_ERROR_PASSWORD", "PASS_ERROR_MESS");
-        keyword.assertEquals("MESS_PASSWORD_8_CHARACTER", "8_CHARACTER_MESS");
-        keyword.assertEquals("MESS_PASSWORD_1_NUMBER", "1_NUMBER_MESS");
-        keyword.assertEquals("MESS_PASSWORD_1_LOWERCASE", "LOWERCASE_MESS");
-        keyword.assertEquals("MESS_PASSWORD_1_UPPERCASE", "UPPERCASE_MESS");
-        keyword.assertEquals("MESS_PASSWORD_1_SPECIAL_CHARACTER", "SPECIAL_CHARACTER_MESS_1");
-
-        keyword.verifyElementVisible(missField);
-    }
     public void inputDataSignUp(String firstName, String lastName, String phoneNumber, String email, String emailConfirm) {
-        keyword.sendKeys("FIRST_NAME_TXT", firstName);
-        keyword.sendKeys("LAST_NAME_TXT", lastName);
-        if (keyword.verifyElementVisible("PHONE_NUMBER_TXT")) {
-            keyword.sendKeys("PHONE_NUMBER_TXT", phoneNumber);
+        keyword.sendKeys("SIGNUP_FIRST_NAME_TXT", firstName);
+        keyword.sendKeys("SIGNUP_LAST_NAME_TXT", lastName);
+        if (keyword.verifyElementVisible("SIGNUP_PHONE_NUMBER_TXT")) {
+            keyword.sendKeys("SIGNUP_PHONE_NUMBER_TXT", phoneNumber);
+            keyword.click("SIGNUP_NEXT_BTN");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_FiRST_NAME_ERROR_MESS");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_LAST_NAME_ERROR_MESS");
+            keyword.assertEquals("SIGNUP_MESS_ERROR_PHONE","SIGNUP_PHONE_NUMBER_ERROR_MESS");
         }
-        keyword.sendKeys("EMAIL_TXT", email);
-        keyword.sendKeys("EMAIL_CONFIRM_TXT", emailConfirm);
-        keyword.click("NEXT_BTN");
+        else {
+            keyword.sendKeys("SIGNUP_EMAIL_TXT", email);
+            keyword.sendKeys("SIGNUP_EMAIL_CONFIRM_TXT", emailConfirm);
+            keyword.click("SIGNUP_NEXT_BTN");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_FiRST_NAME_ERROR_MESS");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_LAST_NAME_ERROR_MESS");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_EMAIL_ERROR_MESS");
+            keyword.assertEquals("SIGNUP_MESS_ERROR", "SIGNUP_EMAIL_CONFIRM_ERROR_MESS");
+        }
     }
 
     public void signUpWithInputErrorData(String flag) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         switch (flag) {
             case "fullBlankField": //NSU2 - NSU15
-                if(keyword.verifyElementVisible("PHONE_NUMBER_TXT")){
                     inputDataSignUp(" "," "," "," "," ");
-                    keyword.assertEquals("MESSAGE_ERROR", "FiRST_NAME_ERROR_MESS");
-                    keyword.assertEquals("MESSAGE_ERROR", "LAST_NAME_ERROR_MESS");
-                    keyword.assertEquals("MESSAGE_ERROR2","PHONE_NUMBER_ERROR_MESS");
-                }
-                else{
-                    inputDataSignUp(" ",","," "," "," ");
-                    keyword.assertEquals("MESSAGE_ERROR", "FiRST_NAME_ERROR_MESS");
-                    keyword.assertEquals("MESSAGE_ERROR", "LAST_NAME_ERROR_MESS");
-                    keyword.assertEquals("MESSAGE_ERROR", "EMAIL_ERROR_MESS");
-                    keyword.assertEquals("MESSAGE_ERROR", "EMAIL_CONFIRM_ERROR_MESS");
-                }
                 break;
             case "emailInvalid": //NSU3
                 //keyword.clearText("EMAIL_TXT");
                 inputDataSignUp(" "," "," ","EMAIL_VALID1"," ");
                 Thread.sleep(2000);
-                keyword.assertEquals("MESSAGE_EMAIL_ERROR_FORM", "EMAIL_ERROR_MESS");
+                keyword.assertEquals("SIGNUP_MESS_EMAIL_ERROR_FORM", "SIGNUP_EMAIL_ERROR_MESS");
                 break;
             case "emailNotEqualEmailConfirm": //NSU4
                 keyword.clearText("EMAIL_TXT");
                 inputDataSignUp(" "," "," ","EMAIL_VALID1","EMAIL_VALID2");
                 Thread.sleep(2000);
-                keyword.assertEquals("MESSAGE_EMAIL_NOT_MATCH", "EMAIL_CONFIRM_ERROR_MESS");
+                keyword.assertEquals("SIGNUP_MESS_EMAIL_NOT_MATCH", "SIGNUP_EMAIL_CONFIRM_ERROR_MESS");
                 break;
             case "emailValidButExist": //NSU5
-                keyword.clearText("EMAIL_TXT");
-                keyword.clearText("EMAIL_CONFIRM_TXT");
+                keyword.clearText("SIGNUP_EMAIL_TXT");
+                keyword.clearText("SIGNUP_EMAIL_CONFIRM_TXT");
                 inputDataSignUp(" "," "," ","EMAIL_VALID1","EMAIL_VALID1");
                 Thread.sleep(2000);
-                keyword.assertEquals("MESSAGE_EXIST_ACCOUNT", "ACCOUNT_EXIST_ERROR_MESS");
+                keyword.assertEquals("MESSAGE_EXIST_ACCOUNT", "SIGNUP_ACCOUNT_EXIST_ERROR_MESS");
                 break;
             case "emailEqualPassword": //NSU6
                 String email = createNewEmail();
-                keyword.clearText("EMAIL_TXT");
-                keyword.clearText("EMAIL_CONFIRM_TXT");
+                keyword.clearText("SIGNUP_EMAIL_TXT");
+                keyword.clearText("SIGNUP_EMAIL_CONFIRM_TXT");
                 inputDataSignUp("FIRST_NAME","LAST_NAME"," ",email,email);
                 keyword.untilJqueryIsDone(50L);
-                keyword.sendKeys("PASSWORD_TXT", email);
-                keyword.click("SUBSCRIBE_CHECKBOX");
-                keyword.click("NEXT_BTN_ON_2/3");
+                keyword.sendKeys("SIGNUP_PASSWORD_TXT", email);
+                keyword.click("SIGNUP_SUBSCRIBE_CHECKBOX");
+                keyword.click("SIGNUP_NEXT_BTN_ON_2/3");
                 Thread.sleep(2000);
-                keyword.assertEquals("MESSAGE_PASSWORD_SAME_MAIL", "PASS_SAME_EMAIL_ERROR_MESS");
+                keyword.assertEquals("SIGNUP_MESS_PASSWORD_SAME_MAIL", "PASS_SAME_EMAIL_ERROR_MESS");
                 break;
             case "invalidPhoneNumber":
                 String email1 = createNewEmail();
                 inputDataSignUp("FIRST_NAME","LAST_NAME","INVALID_PHONE_NUMBER",email1,email1);
                 keyword.untilJqueryIsDone(50L);
-                keyword.assertEquals("MESS_INVALID_PHONE","PHONE_NUMBER_ERROR_MESS");
+                keyword.assertEquals("SIGNUP_MESS_INVALID_PHONE","SIGNUP_PHONE_NUMBER_ERROR_MESS");
                 break;
             case "validPhoneNumber":
                 String email2 = createNewEmail();
-                keyword.clearText("EMAIL_TXT");
-                keyword.clearText("EMAIL_CONFIRM_TXT");
-                keyword.clearText("PHONE_NUMBER_TXT");
+                keyword.clearText("SIGNUP_EMAIL_TXT");
+                keyword.clearText("SIGNUP_EMAIL_CONFIRM_TXT");
+                keyword.clearText("SIGNUP_PHONE_NUMBER_TXT");
                 inputDataSignUp("FIRST_NAME","LAST_NAME","VALID_PHONE_NUMBER",email2,email2);
                 keyword.untilJqueryIsDone(50L);
-                keyword.assertEquals("MESSAGE_EXIST_ACCOUNT","ACCOUNT_EXIST_ERROR_MESS");
+                keyword.assertEquals("MESSAGE_EXIST_ACCOUNT","SIGNUP_ACCOUNT_EXIST_ERROR_MESS");
                 break;
         }
     }
+    public void checkFieldPassWord(int check, String flag){
+        String success = PropertiesFile.getPropValue("SIGNUP_SUCCESS_PASSWORD_FILED");
+        String fail = PropertiesFile.getPropValue("SIGNUP_MISS_PASSWORD_FILED");
+        int key = 0; int i = 0;
+        for(int k = 0; k <= 5; k++){
+            if(flag.equals(k + "FieldErrorPassWord")){
+                key = k;
+            }
+        }
+        if(key > check) {
+            i = key;
+        }
+        else {
+            i = check;
+        }
+        for(int k = 1; k <= i; k++) {
+            driver.findElement(By.xpath(success + "[" + k + "]")).isDisplayed();
+            if (k <= check) {
+                driver.findElement(By.xpath(fail + "[" + check + "]")).isDisplayed();
+            }
+        }
 
+    }
+    public void checkFieldErrorPassWord(String flag) throws InterruptedException {
+        keyword.assertEquals("SIGNUP_MESS_ERROR_PASSWORD", "SIGNUP_PASS_ERROR_MESS");
+        keyword.assertEquals("SIGNUP_MESS_PASSWORD_CHARACTER", "SIGNUP_8_CHARACTER_MESS");
+        keyword.assertEquals("SIGNUP_MESS_PASSWORD_NUMBER", "SIGNUP_1_NUMBER_MESS");
+        keyword.assertEquals("SIGNUP_MESS_PASSWORD_LOWERCASE", "SIGNUP_LOWERCASE_MESS");
+        keyword.assertEquals("SIGNUP_MESS_PASSWORD_UPPERCASE", "SIGNUP_UPPERCASE_MESS");
+        keyword.assertEquals("SIGNUP_MESS_PASSWORD_SPECIAL_CHARACTER", "SIGNUP_SPECIAL_CHARACTER_MESS");
+        int check = 0;
+        switch (flag) {
+            case "noFieldError":
+                checkFieldPassWord( check, "0FieldErrorPassWord");
+                break;
+            case "1fieldError":
+                check ++;
+                checkFieldPassWord( check, "1fieldErrorPassWord");
+                break;
+            case "2fieldError":
+                check += 2;
+                checkFieldPassWord( check, "2fieldErrorPassWord");
+                break;
+            case "3fieldError":
+                check += 3;
+                checkFieldPassWord( check, "3fieldErrorPassWord");
+                break;
+            case "4fieldError":
+                check += 4;
+                checkFieldPassWord( check, "4fieldErrorPassWord");
+                break;
+            case "5FieldErrorPassWord":
+                check += 5;
+                checkFieldPassWord( check, "5fieldErrorPassWord");
+                break;
+        }
+
+    }
+    public void clearTextAndSendKey(String clearText, String inputSendKey, String dataSendKey) throws InterruptedException {
+        keyword.clearText(clearText);
+        keyword.sendKeys(inputSendKey, dataSendKey);
+    }
     public void inputErrorPassWord(String flag) throws InterruptedException {
         switch (flag) {
-            case "passWordLess8Character": //NSU7
-//                keyword.click("NEXT_BTN");
+            case "1fieldErrorPassWord": //NSU7_8_9_10_11
+                keyword.click("NEXT_BTN");
                 String email = createNewEmail();
-                goToSecondSignUpScreen("FIRST_NAME", "LAST_NAME", " ",email, email);
+                goToSecondSignUpScreen("FIRST_NAME", "LAST_NAME", " ", email, email);
                 keyword.untilJqueryIsDone(50L);
-                keyword.sendKeys("PASSWORD_TXT", "PASS_LESS_8_CHARACTER");
+                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_LESS_8_CHARACTER");
                 Thread.sleep(3000);
-                checkFieldErrPassWord("MISS_FILED_8_CHARACTER");
-                break;
-            case "passWordWithoutNumber": //NSU8
-                keyword.clearText("PASSWORD_TXT");
-                keyword.sendKeys("PASSWORD_TXT", "PASS_WITHOUT_NUMBER");
+                checkFieldErrorPassWord("1fieldErrorPassWord");
+
+                clearTextAndSendKey("SIGNUP_PASSWORD_TXT", "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_NUMBER");
                 Thread.sleep(3000);
-                checkFieldErrPassWord("MISS_FILED_1_NUMBER");
-                break;
-            case "passWordWithoutLowerCase": //NSU9
-                keyword.clearText("PASSWORD_TXT");
-                keyword.sendKeys("PASSWORD_TXT", "PASS_WITHOUT_LOWERCASE");
+                checkFieldErrorPassWord("1fieldErrorPassWord");
+
+                clearTextAndSendKey("SIGNUP_PASSWORD_TXT", "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_LOWERCASE");
                 Thread.sleep(3000);
-                checkFieldErrPassWord("MISS_FILED_LOWERCASE");
-                break;
-            case "passWordWithoutUpperCase": //NSU10
-                keyword.clearText("PASSWORD_TXT");
-                keyword.sendKeys("PASSWORD_TXT", "PASS_WITHOUT_UPPERCASE");
+                checkFieldErrorPassWord("1fieldErrorPassWord");
+
+                clearTextAndSendKey("SIGNUP_PASSWORD_TXT", "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_UPPERCASE");
                 Thread.sleep(3000);
-                checkFieldErrPassWord("MISS_FILED_UPPERCASE");
-                break;
-            case "passWordWithoutSpecialCharacter": //NSU11
-                keyword.clearText("PASSWORD_TXT");
-                keyword.sendKeys("PASSWORD_TXT", "PASS_WITHOUT_SPECIAL_CHARACTER");
+                checkFieldErrorPassWord("1fieldErrorPassWord");
+
+                clearTextAndSendKey("SIGNUP_PASSWORD_TXT", "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_SPECIAL_CHARACTER");
                 Thread.sleep(3000);
-                checkFieldErrPassWord("MISS_FILED_SPECIAL_CHARACTER");
+                checkFieldErrorPassWord("1fieldErrorPassWord");
                 break;
+//            case "passWordWithoutNumber": //NSU8
+//                keyword.clearText("SIGNUP_PASSWORD_TXT");
+//                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_NUMBER");
+//                Thread.sleep(3000);
+//                checkFieldErrorPassWord("PASS_WITHOUT_NUMBER");
+//                break;
+//            case "passWordWithoutLowerCase": //NSU9
+//                keyword.clearText("SIGNUP_PASSWORD_TXT");
+//                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_LOWERCASE");
+//                Thread.sleep(3000);
+//                checkFieldErrorPassWord("PASS_WITHOUT_LOWERCASE");
+//                break;
+//            case "passWordWithoutUpperCase": //NSU10
+//                keyword.clearText("SIGNUP_PASSWORD_TXT");
+//                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_UPPERCASE");
+//                Thread.sleep(3000);
+//                checkFieldErrorPassWord("PASS_WITHOUT_UPPERCASE");
+//                break;
+//            case "passWordWithoutSpecialCharacter": //NSU11
+//                keyword.clearText("SIGNUP_PASSWORD_TXT");
+//                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_SPECIAL_CHARACTER");
+//                Thread.sleep(3000);
+//                checkFieldErrorPassWord("PASS_WITHOUT_SPECIAL_CHARACTER");
+//                break;
+//        }
         }
     }
 
     public void enterErrorVerifyCodeOrResend(String flag) throws InterruptedException {
         String email = createNewEmail();
         goToSecondSignUpScreen("FIRST_NAME", "LAST_NAME"," ", email, email);
-        keyword.sendKeys("PASSWORD_TXT", "PASSWORD");
-        keyword.click("SUBSCRIBE_CHECKBOX");
-        keyword.click("NEXT_BTN_ON_2/3");
-        if (flag == "Error verify code") {
+        keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASSWORD");
+        keyword.click("SIGNUP_SUBSCRIBE_CHECKBOX");
+        keyword.click("SIGNUP_NEXT_BTN_ON_2/3");
+        if (flag.equals("Error verify code")) {
             keyword.untilJqueryIsDone(50L);
-            keyword.sendKeys("VERIFY_CODE_TXT", "WRONG_CODE");
-            keyword.click("ACTIVE_BTN");
-            keyword.assertEquals("MESSAGE_INVALID_CODE", "INVALID_CODE");
+            keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", "WRONG_CODE");
+            keyword.click("SIGNUP_ACTIVE_BTN");
+            keyword.assertEquals("SIGNUP_MESS_INVALID_CODE", "INVALID_CODE");
 
         } else {
             keyword.untilJqueryIsDone(50L);
-            keyword.click("RESEND_BTN");
+            keyword.click("SIGNUP_RESEND_BTN");
             Thread.sleep(5000);
             String url = keyword.getWindowHandle();
             String Code = takeActiveGmailCode("BE_URL", email, "resend");
             keyword.untilJqueryIsDone(50L);
             keyword.navigateToUrl(url);
-            keyword.sendKeys("VERIFY_CODE_TXT", Code);
-            keyword.click("ACTIVE_BTN");
+            keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", Code);
+            keyword.click("SIGNUP_ACTIVE_BTN");
             keyword.untilJqueryIsDone(50L);
-            keyword.verifyElementPresent("CREATE_SUCCESSFUL_MESS");
+            keyword.verifyElementPresent("MESSAGE_ENTER_ACTIVE_CODE");
         }
     }
 
@@ -291,14 +361,14 @@ public class SignUpPage extends BasePage {
         String phoneNumber = createPhoneNumber();
         String email = createNewEmail();
         goToSecondSignUpScreen("FIRST_NAME", "LAST_NAME",phoneNumber, email, email);
-        keyword.sendKeys("PASSWORD_TXT", "PASSWORD");
-        keyword.click("SUBSCRIBE_CHECKBOX");
-        keyword.click("NEXT_BTN_ON_2/3");
+        keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASSWORD");
+        keyword.click("SIGNUP_SUBSCRIBE_CHECKBOX");
+        keyword.click("SIGNUP_NEXT_BTN_ON_2/3");
         String code = getSMSCode("SMS_CODE","SMS_LOG_URL");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(3000);
-        keyword.sendKeys("VERIFY_CODE_TXT", code);
-        keyword.click("ACTIVE_BTN");
+        keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", code);
+        keyword.click("SIGNUP_ACTIVE_BTN");
         keyword.untilJqueryIsDone(50L);
         keyword.verifyElementPresent("CREATE_SUCCESSFUL_MESS");
     }
