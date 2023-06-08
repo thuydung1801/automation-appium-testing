@@ -1,5 +1,6 @@
 package core;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -28,15 +29,15 @@ public class BaseTest {
         PropertiesFile.setPropertiesFile();
     }
     public static WebDriver driver = new SafariDriver();
+    public static JavascriptExecutor jse = (JavascriptExecutor)driver;
 
-
-    @BeforeMethod(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
 
-        driver.navigate().to("https://www.glamira.co.uk/");
+        driver.navigate().to("https://stage.glamira.co.uk/");
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void tearDown() throws Exception {
         driver.quit();
     }
