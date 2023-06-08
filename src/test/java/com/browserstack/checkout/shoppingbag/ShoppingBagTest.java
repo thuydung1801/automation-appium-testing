@@ -107,25 +107,25 @@ public class ShoppingBagTest extends BaseTest {
                 "CHECKOUT_LBL_ENGRAVING_GLAMIRA_MOBILE");
 
     }
-//    @Test
+    @Test
 //            (priority = 7, description = "edit engraving")
     public void testCase_SP_16() throws Exception {
         logger.info("testCase_SP_16");
-        //commonShopping();
-        //objShoppingBagPage.clickShoppingBagPage();
-        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
+        commonShopping();
+        objShoppingBagPage.clickShoppingBagPage();
+//        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_GLAMIRARING_MOBILE");
         objShoppingBagPage.inputEngravingwithSingleRing("CHECKOUT_DATA_ENGRAVING_2","CHECKOUT_ICON_ADD",
                 "CHECKOUT_LBL_ENGRAVING_GLAMIRA_MOBILE");
 
     }
     //DONE SP17
-//    @Test
+    @Test
 //    (priority = 8, description = "Add engraving for couple ring")
     public void testCase_SP_17() throws InterruptedException {
         logger.info("testCase_SP_17");
         commonShopping();
-        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/charming-view.html?alloy=white-585&womenstone=diamond-zirconia");
+//        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/charming-view.html?alloy=white-585&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_COUPLERING_MOBILE");
         objShoppingBagPage.inputEngravingwithCoupleRing("CHECKOUT_DATA_ENGRAVING","CHECKOUT_HYPERLINK_ADD"
@@ -133,7 +133,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.inputCorrectly("CHECKOUT_DATA_ENGRAVING","CHECKOUT_LBL_ENGRAVING_MOBILE");
 
     }
-//    @Test
+    @Test
 //            (priority = 9, description = "Edit engraving for the bridal set item")
     public void testCase_SP_18() throws InterruptedException {
         logger.info("testCase_SP_18");
@@ -145,11 +145,11 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.inputCorrectly("CHECKOUT_DATA_ENGRAVING_2","CHECKOUT_LBL_ENGRAVING_MOBILE");
 
     }
-//    @Test
+    @Test
 //            (priority = 10, description="Add engraving with text > max lenght")
     public void testCase_SP_19() throws InterruptedException {
         logger.info("testCase_SP_19");
-        //commonShopping();
+        commonShopping();
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_COUPLERING_MOBILE");
         objShoppingBagPage.inputEngravingwithCoupleRing("CHECKOUT_DATA_19","CHECKOUT_ICON_ADD",

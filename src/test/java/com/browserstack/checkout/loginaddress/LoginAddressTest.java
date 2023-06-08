@@ -2,17 +2,14 @@ package com.browserstack.checkout.loginaddress;
 
 import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
 import com.browserstack.common.LoginPage;
-import core.AllureTestListener;
 import core.BaseTest;
 import core.LogHelper;
 import org.slf4j.Logger;
 import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
 
-@Listeners({ AllureTestListener.class })
 public class LoginAddressTest extends BaseTest {
     private static Logger logger = LogHelper.getLogger();
     public ShoppingBagPage objShoppingBagPage;
@@ -228,6 +225,11 @@ public class LoginAddressTest extends BaseTest {
     public void NLA_36() throws InterruptedException {
         objLoginAddress.addNewBillingAddress(true, "CHECKOUT_LA_DATA_STREET_1",
                 "CHECKOUT_LA_DATA_CODE_1", "CHECKOUT_LA_DATA_CITY_1");
+    }
+    @Test
+    //(priority = 14, description = "Remove billing address successfully")
+    public void NLA_41() throws InterruptedException {
+        objLoginAddress.removeAddress("CHECKOUT_LA_BTN_REMOVE_BILLING_ADDRESS");
     }
 
 

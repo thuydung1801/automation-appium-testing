@@ -4,8 +4,7 @@ import core.BasePage;
 import core.KeywordWeb;
 import core.LogHelper;
 import core.PropertiesFile;
-import io.appium.java_client.AppiumDriver;
-import io.qameta.allure.Step;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
@@ -18,7 +17,7 @@ import java.util.Set;
 
 import static core.BaseTest.driver;
 import static core.BaseTest.jse;
-import static jdk.dynalink.StandardNamespace.ELEMENT;
+
 
 public class ShoppingBagPage extends BasePage {
     private static final Logger logger = LogHelper.getLogger();
@@ -133,7 +132,7 @@ public class ShoppingBagPage extends BasePage {
 
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
-        keyword.clickByAppium("CHECKOUT_TXT_ENGRAVING");
+        keyword.senKeyByJavascript(data,"single");
 //        keyword.sendKeys("CHECKOUT_TXT_ENGRAVING", data);
         logger.info("send key done...");
         keyword.untilJqueryIsDone(30L);
@@ -168,11 +167,13 @@ public class ShoppingBagPage extends BasePage {
         keyword.clearText(txtWomen);
         keyword.imWait(3);
         Thread.sleep(5000);
-        keyword.sendKeys(txtWomen, data);
-        keyword.imWait(20);
-        Thread.sleep(5000);
-        keyword.clearText(txtMen);
-        keyword.sendKeys(txtMen, data);
+        keyword.senKeyByJavascript(data,"couple");
+//        keyword.sendKeys(txtWomen, data);
+//        keyword.imWait(20);
+//        Thread.sleep(5000);
+//        keyword.clearText(txtMen);
+//        keyword.senKeyByJavascript(data,"couple");
+//        keyword.sendKeys(txtMen, data);
         Thread.sleep(2000);
 
     }
@@ -555,11 +556,11 @@ public class ShoppingBagPage extends BasePage {
         String amount = keyword.getTextWithOutCharacters("BE_ORDER_STATUS_AMOUNT","£");
 //        keyword.simpleAssertEquals("0.0",amount);
 
-        Thread.sleep(5000);
-        Set<String> contextView = driver.getWindowHandles();
-        ArrayList<String> s = new ArrayList<String>(contextView);
-        ((AppiumDriver)driver).context(s.get(contextView.size()-1));
-        driver.close();
+//        Thread.sleep(5000);
+//        Set<String> contextView = driver.getWindowHandles();
+//        ArrayList<String> s = new ArrayList<String>(contextView);
+//        ((AppiumDriver)driver).context(s.get(contextView.size()-1));
+//        driver.close();
     }
     //check giftcard's status of a giftcode, that this giftcode's status is used
     public void checkGiftCardStatus(String code) throws InterruptedException {

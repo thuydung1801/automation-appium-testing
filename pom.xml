@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
         <surefire.version>2.19.1</surefire.version>
-        <selenium.version>4.1.4</selenium.version>
+        <selenium.version>4.1.1</selenium.version>
         <json-simple.version>1.1.1</json-simple.version>
         <config.file>config/sample-test.testng.xml</config.file>
         <config.file>config/checkout.testng.xml</config.file>
@@ -35,16 +35,16 @@
             <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.6.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.appium</groupId>-->
+<!--            <artifactId>java-client</artifactId>-->
+<!--            <version>7.6.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
+            <version>4.1.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
@@ -112,17 +112,17 @@
             <version>5.0.9</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-rest-assured</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>2.19.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-rest-assured</artifactId>-->
+<!--            <version>2.19.0</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.qameta.allure/allure-testng &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.qameta.allure</groupId>-->
+<!--            <artifactId>allure-testng</artifactId>-->
+<!--            <version>2.19.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -198,11 +198,28 @@
 <!--            <artifactId>webdriver-selenium</artifactId>-->
 <!--            <version>0.9.7376</version>-->
 <!--        </dependency>-->
-        <!--        <dependency>-->
+<!--                <dependency>-->
 <!--            <groupId>org.seleniumhq.selenium</groupId>-->
 <!--            <artifactId>selenium-support</artifactId>-->
 <!--            <version>4.8.1</version>-->
 <!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium.grid</groupId>-->
+<!--            <artifactId>selenium-grid-remote-control</artifactId>-->
+<!--            <version>1.0.5</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.appium</groupId>-->
+<!--            <artifactId>java-client</artifactId>-->
+<!--            <version>8.3.0</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-api -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.maven.surefire</groupId>-->
+<!--            <artifactId>surefire-api</artifactId>-->
+<!--            <version>3.1.2</version>-->
+<!--        </dependency>-->
+
 
     </dependencies>
 
@@ -225,6 +242,7 @@
                 <version>${surefire.version}</version>
                 <configuration>
                     <suiteXmlFiles>
+<!--                        <testFailureIgnore>true</testFailureIgnore>-->
                         <suiteXmlFile>${config.file}</suiteXmlFile>
                     </suiteXmlFiles>
                     <!--suppress UnresolvedMavenProperty -->

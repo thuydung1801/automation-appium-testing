@@ -262,6 +262,16 @@ public class LoginAddressPage extends BasePage {
         }
         keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS_2");
     }
+    public void removeAddress(String btnRemove) throws InterruptedException {
+        keyword.webDriverWaitForElementPresent(btnRemove,20);
+        keyword.untilJqueryIsDone(70L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click(btnRemove);
+        keyword.untilJqueryIsDone(70L);
+        keyword.click("CHECKOUT_LA_BTN_REMOVE_BILLING_ADDRESS_CF");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(10,btnRemove);
+    }
 
 
 

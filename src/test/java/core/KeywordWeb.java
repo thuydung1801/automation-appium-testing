@@ -1,9 +1,5 @@
 package core;
 
-
-
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.ios.IOSElement;
 import lombok.var;
 import org.im4java.core.IM4JavaException;
 import org.openqa.selenium.*;
@@ -13,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.TouchAction;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
+
 import org.slf4j.Logger;
 import org.testng.Assert;
 
@@ -31,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static core.BaseTest.driver;
+import static core.BaseTest.jse;
 import static java.awt.SystemColor.window;
 import static java.sql.DriverManager.getDriver;
 import static java.sql.DriverManager.getDrivers;
@@ -428,12 +426,12 @@ public class KeywordWeb {
         driver.switchTo().defaultContent();
     }
 
-    public void recaptchaClick() {
-        logger.info("click recaptcha");
-        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
-
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
-    }
+//    public void recaptchaClick() {
+//        logger.info("click recaptcha");
+//        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
+//
+//        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
+//    }
 
     //verify keyword
     public boolean verifyElementPresent(String element) {
@@ -621,7 +619,7 @@ public class KeywordWeb {
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
-        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
+//        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
             webDriverWait.until(waitCondition);
         } catch (Exception e) {
@@ -916,15 +914,67 @@ public class KeywordWeb {
         Select singleSelect = new Select(driver.findElement(By.xpath(xpath)));
         singleSelect.selectByVisibleText(text);
     }
-    public void clickByAppium(String data){
-//        String xPathElement1 = PropertiesFile.getPropValue(data);
-//        if (xPathElement1 == null) {
-//            xPathElement1 = data;
+    public void senKeyByJavascript(String data,String type){
+        String xPathElement1 = PropertiesFile.getPropValue(data);
+        if (xPathElement1 == null) {
+            xPathElement1 = data;
+        }
+
+        switch (xPathElement1){
+            case "linh":
+                if(type.equals("couple")){
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'linh'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[1].value='linh';");
+
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[2].textContent = 'linh'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[2].value='linh';");
+
+                }else{
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'linh'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[1].value='linh';");
+
+                }
+                  break;
+            case "test":
+                if(type.equals("couple")){
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'test'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[1].value='test';");
+
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[2].textContent = 'test'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[2].value='test';");
+
+                }else{
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[0].textContent = 'test'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[0].value='test';");
+
+                }
+                 break;
+            case "sophie test limit 25 chara":
+                if(type.equals("couple")){
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'sophie test limit 25 chara'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[1].value='sophie test limit 25 chara';");
+
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[2].textContent = 'sophie test limit 25 chara'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[2].value='sophie test limit 25 chara';");
+
+                }else{
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[0].textContent = 'sophie test limit 25 chara'");
+                    ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[0].value='sophie test limit 25 chara';");
+
+                }
+                break;
+        }
+//        if(data.equals("linh")){
+//            ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[0].textContent = 'linh'");
+//            ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[0].value='linh';");
 //        }
-        ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable  ').value='linh';");
+
+//        String valueElement = driver.findElement(By.xpath("class=\"product-custom-option hidden-nospace error-anchor\"")).getAttribute("value");
+//        logger.info(valueElement);
+//        ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor').value='linh';");
 //        ((JavascriptExecutor) driver).executeScript("arguments[0].value='linh';",xPathElement1 );
 //        ((JavascriptExecutor)getDrivers()).executeScript("$('." + "input-field-editable  " + "').val('" + "text" + "');");
-
+//        jse.executeScript("document.getElementById('engraving-777').setAttribute('value', 'dung')");
     }
 
 
