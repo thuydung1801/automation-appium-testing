@@ -1,6 +1,13 @@
-userName: lyyuty_0K3Ij8
-accessKey: wkmutJQhVDUHTqqNDwsB
+userName: tungpxphamxuantu_CRdODr
+accessKey: b7gB3ehgNBYQqmPUpq9C
 platforms:
   - platformName: ios
     deviceName: iPhone 11 Pro Max
     platformVersion: 16
+#userName: tungpxphamxuantu_CRdODr
+#accessKey: b7gB3ehgNBYQqmPUpq9C
+#platforms:
+#  - deviceName: iPhone 14 Pro Max
+#    osVersion: 16
+#    browserName: safari
+#    deviceOrientation: portrait

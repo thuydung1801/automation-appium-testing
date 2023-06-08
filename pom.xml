@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
         <surefire.version>2.19.1</surefire.version>
-        <selenium.version>4.1.4</selenium.version>
+        <selenium.version>4.1.1</selenium.version>
         <json-simple.version>1.1.1</json-simple.version>
         <config.file>config/sample-test.testng.xml</config.file>
         <config.file>config/ly-test.testng.xml</config.file>
@@ -34,17 +34,18 @@
             <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.6.0</version>
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>io.appium</groupId>-->
+<!--            <artifactId>java-client</artifactId>-->
+<!--            <version>8.3.0</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium</groupId>-->
+<!--            <artifactId>selenium-java</artifactId>-->
+<!--            <version>4.1.1</version>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -57,13 +58,13 @@
             <artifactId>cucumber-testng</artifactId>
             <version>6.11.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.testng/testng &ndash;&gt;-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.4.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core &ndash;&gt;-->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
@@ -138,11 +139,11 @@
             <version>1.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.applitools/eyes-selenium-java5 -->
-        <dependency>
-            <groupId>com.applitools</groupId>
-            <artifactId>eyes-selenium-java5</artifactId>
-            <version>5.38.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.applitools</groupId>-->
+<!--            <artifactId>eyes-selenium-java5</artifactId>-->
+<!--            <version>5.38.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

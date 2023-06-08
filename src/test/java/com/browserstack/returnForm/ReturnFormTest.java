@@ -78,11 +78,22 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
     }
+    @Test( priority = 9,description = "Return order with the order > 60days")
+    public void testCase_SC_23() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_WARRANTY","RF_SELECT_TYPE_WITHDRAWAL");
+    }
     @Test(priority = 10, description = "Submit return request successfully for Resize type")
     public void testCase_SC_09_SC_18_SC_19() throws InterruptedException {
         objReturnForm.updateTypeOrder();
-        objReturnForm.step2In3Screen();
-        objReturnForm.step3In3Screen();
+        objReturnForm.step2In3Screen(true);
+        objReturnForm.step3In3Screen(true);
+    }
+    @Test(priority = 10, description = "Submit return request for Resize type and didn't choose all required field")
+    public void testCase_SC_20() throws InterruptedException {
+        objReturnForm.updateTypeOrder();
+        objReturnForm.step2In3Screen(false);
+        objReturnForm.step3In3Screen(false);
     }
     @Test(priority = 11, description = "Cancel My Return successfully")
     public void testCase_MR_02_MR_03_MR_07() throws InterruptedException {

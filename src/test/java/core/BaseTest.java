@@ -4,7 +4,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.slf4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -28,10 +30,9 @@ public class BaseTest {
         PropertiesFile.setPropertiesFile();
     }
     public static WebDriver driver = new SafariDriver();
-
-
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
+
         driver.navigate().to("https://stage.glamira.co.uk/");
     }
     @AfterTest(alwaysRun = true)

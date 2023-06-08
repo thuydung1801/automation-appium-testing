@@ -13,7 +13,8 @@
                     <include name="testCase_LS_01"/>
 <!--                    <include name="testCase_LS_SC_08"/>-->
 <!--                    <include name="testCase_LS_09"/>-->
-                    <include name="testCase_LS_SC_07"/>
+<!--                    <include name="testCase_LS_SC_07"/>-->
+                    <include name="testCase_SC_23"/>
                     <include name="testCase_SC_09_SC_18_SC_19"/>
                     <include name="testCase_MR_02_MR_03_MR_07"/>
 <!--                    <include name="testCase_SC_04"/>-->

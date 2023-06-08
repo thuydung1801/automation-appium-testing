@@ -7,7 +7,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import static core.BaseTest.driver;
 
 public class ReturnFormPage extends BasePage {
     public ReturnFormPage() {
@@ -97,8 +96,29 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(30L);
         keyword.click("RF_CHECKBOX_CONFIRM_ORDER");
         keyword.untilJqueryIsDone(20L);
+        //select Service/Warranty
+        if (keyword.verifyElementPresent("RF_TXT_DESCRIPTION")) {
+            keyword.untilJqueryIsDone(30L);
+            keyword.sendKeys("RF_TXB_COMMENT", "RF_DATA_COMMENT");
+            keyword.untilJqueryIsDone(30L);
+            keyword.chooseFile("RF_CHOOSE_IMAGE1", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.untilJqueryIsDone(30L);
+            keyword.chooseFile("RF_CHOOSE_IMAGE2", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.untilJqueryIsDone(30L);
+            keyword.chooseFile("RF_CHOOSE_IMAGE3", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+        }
+        //select Withdrawal
+        else if (keyword.verifyElementPresent("RF_TXT_REASON")) {
+            keyword.untilJqueryIsDone(50L);
+            keyword.selectDropDownListByName("RF_DDL_REASON_RETURN", "RF_TXT_REASON_RETURN");
+            keyword.untilJqueryIsDone(30L);
+            //getCodeReturn();
+            keyword.untilJqueryIsDone(50L);
+            keyword.selectDropDownListByName("RF_DDL_METHOD_PAYMENT", "RF_TXT_METHOD_OPTION");
+            keyword.untilJqueryIsDone(50L);
+        }
         //if select Resizing
-        if (keyword.verifyElementPresent("RF_LBL_RING_SIZE")) {
+        else if (keyword.verifyElementPresent("RF_LBL_RING_SIZE")) {
             keyword.untilJqueryIsDone(30L);
             keyword.click("RF_DRD_SELECT_SIZE");
             keyword.untilJqueryIsDone(30L);
@@ -112,47 +132,44 @@ public class ReturnFormPage extends BasePage {
             }
             keyword.untilJqueryIsDone(30L);
         }
-        //select Service/Warranty
-        else if (keyword.verifyElementPresent("RF_TXT_DESCRIPTION")) {
-            keyword.untilJqueryIsDone(30L);
-            keyword.sendKeys("RF_TXB_COMMENT", "RF_DATA_COMMENT");
-            keyword.untilJqueryIsDone(30L);
-            keyword.chooseFile("RF_CHOOSE_IMAGE1", "C:\\Users\\ly\\anh");
-            keyword.chooseFile("RF_CHOOSE_IMAGE2", "C:\\Users\\ly\\anh");
-            keyword.chooseFile("RF_CHOOSE_IMAGE3", "C:\\Users\\ly\\anh");
-        }
-        //select Withdrawal
-        else if (keyword.verifyElementPresent("RF_TXT_REASON")) {
-            keyword.untilJqueryIsDone(50L);
-            keyword.selectDropDownListByName("RF_DDL_REASON_RETURN", "RF_TXT_REASON_RETURN");
-            keyword.untilJqueryIsDone(30L);
-            //getCodeReturn();
-            keyword.untilJqueryIsDone(50L);
-            keyword.selectDropDownListByName("RF_DDL_METHOD_PAYMENT", "RF_TXT_METHOD_OPTION");
-            keyword.untilJqueryIsDone(50L);
-        }
     }
     //STEP 2 / 3
-    public void step2In3Screen() throws InterruptedException {
+    public void step2In3Screen(boolean clickBtnShipFree) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.webDriverWaitForElementPresent("RF_CHECKTEXT_SHIPPING_FREE",60);
-        keyword.click("RF_CHECKTEXT_SHIPPING_FREE");
+        if (!clickBtnShipFree) {
+            keyword.verifyElementPresent("RF_MES_SELECT_SHIP_FREE");
+        }
+        else {
+            keyword.click("RF_CHECKTEXT_SHIPPING_FREE");
+        }
         keyword.untilJqueryIsDone(30L);
     }
     //STEP 3 / 3
-    public void step3In3Screen() throws InterruptedException {
-        keyword.click("RF_CHECKBOX_TERM_CONDITION");
+    public void step3In3Screen(boolean clickConfirmConditions) throws InterruptedException {
+        if (!clickConfirmConditions) {
+            keyword.verifyElementPresent("RF_MES_SELECT_CONDITIONS");
+        }
+        else {
+            keyword.click("RF_CHECKBOX_TERM_CONDITION");
+        }
         keyword.untilJqueryIsDone(30L);
         keyword.click("RF_BTN_SUBMIT");
     }
     //cancel my return
     public void cancelOrderReturn(String viewDetail) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
-        keyword.navigateToUrl("URL_RETURN_ORDER");
-        keyword.untilJqueryIsDone(30L);
-        keyword.click(viewDetail);
-        Thread.sleep(3000);
+        if(keyword.verifyElementPresent("RF_LINK_CANCEL_ORDER")) {
+            keyword.click("RF_LINK_CANCEL_ORDER");
+        }
+        else {
+            keyword.untilJqueryIsDone(30L);
+            keyword.navigateToUrl("URL_RETURN_ORDER");
+            keyword.untilJqueryIsDone(30L);
+            keyword.click(viewDetail);
+        }
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(30L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.click("RF_BTN_CANCEL_RETURN");

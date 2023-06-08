@@ -2,10 +2,13 @@ package core;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.testng.Assert;
+import org.openqa.selenium.remote.LocalFileDetector;
 
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
@@ -574,6 +577,7 @@ public class KeywordWeb {
         //path is absolute path to link to file that you want to choose
         chooseFile.sendKeys(path);
     }
+
     // wait keywords
 
     public void imWait(long timeout) {
@@ -608,7 +612,7 @@ public class KeywordWeb {
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
-        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
+        //webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
             webDriverWait.until(waitCondition);
         } catch (Exception e) {
