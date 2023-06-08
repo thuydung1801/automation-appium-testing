@@ -16,22 +16,28 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
         <surefire.version>2.19.1</surefire.version>
-        <selenium.version>4.1.4</selenium.version>
+        <selenium.version>4.1.1</selenium.version>
         <json-simple.version>1.1.1</json-simple.version>
         <config.file>config/sample-test.testng.xml</config.file>
+        <config.file> config/signup-testng.xml</config.file>
     </properties>
     <dependencies>
+
+
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+<!--        <dependency>-->
+<!--            <groupId>io.appium</groupId>-->
+<!--            <artifactId>java-client</artifactId>-->
+<!--            <version>7.6.0</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
+            <version>4.1.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
-        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-dependency-tree -->
         <dependency>
@@ -45,17 +51,6 @@
             <artifactId>browserstack-java-sdk</artifactId>
             <version>LATEST</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.6.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>

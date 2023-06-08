@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static core.BaseTest.driver;
-
+import java.util.concurrent.TimeUnit;
 
 public class KeywordWeb {
     private static Logger logger = LogHelper.getLogger();
@@ -56,7 +56,6 @@ public class KeywordWeb {
         }
         driver.findElement(By.xpath(xPathElement)).clear();
     }
-
     public void click(String element) {
         logger.info("click" + element);
         String xPathElement = PropertiesFile.getPropValue(element);
@@ -625,8 +624,7 @@ public class KeywordWeb {
     }
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
-        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         try {
             webDriverWait.until(waitCondition);
         } catch (Exception e) {

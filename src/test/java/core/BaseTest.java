@@ -1,10 +1,15 @@
 package core;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.slf4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -19,10 +24,6 @@ public class BaseTest {
     public BaseTest() {
         keyword = new KeywordWeb();
     }
-//    public BaseTest(KeywordWeb keyword) {
-//        this.keyword = keyword;
-//    }
-
     @BeforeSuite
     public void beforeSuite() throws Exception {
         PropertiesFile.setPropertiesFile();
@@ -31,8 +32,8 @@ public class BaseTest {
 
     @BeforeTest(alwaysRun = true)
     public void setUp() throws Exception {
-        driver.navigate().to("https://stage.glamira.co.uk/");
-//        driver.navigate().to("https://stage.glamira.com/");
+//        driver.get("https://stage.glamira.co.uk/");
+        driver.navigate().to("https://stage.glamira.com/");
         driver.manage().timeouts().implicitlyWait(12, TimeUnit.SECONDS);
     }
 
