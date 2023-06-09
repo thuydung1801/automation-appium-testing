@@ -21,7 +21,7 @@
         <config.file>config/sample-test.testng.xml</config.file>
         <config.file>config/checkout.testng.xml</config.file>
         <config.file>config/login-address.testng.xml</config.file>
-        <config.file>config/ly-test.testng.xml</config.file>
+        <config.file>config/returnForm.testng.xml</config.file>
     </properties>
 
     <dependencies>
@@ -316,7 +316,7 @@
             </build>
         </profile>
         <profile>
-            <id>ly-test</id>
+            <id>returnForm</id>
             <build>
                 <plugins>
                     <plugin>
@@ -324,7 +324,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>config/ly-test.testng.xml</suiteXmlFile>
+                                <suiteXmlFile>config/returnForm.testng.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <!--suppress UnresolvedMavenProperty -->
                             <argLine>

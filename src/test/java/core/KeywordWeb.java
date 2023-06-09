@@ -587,7 +587,6 @@ public class KeywordWeb {
         //path is absolute path to link to file that you want to choose
         chooseFile.sendKeys(path);
     }
-
     // wait keywords
 
     public void imWait(long timeout) {

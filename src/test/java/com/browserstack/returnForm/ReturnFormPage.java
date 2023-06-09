@@ -7,6 +7,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import static core.BaseTest.driver;
+
 
 public class ReturnFormPage extends BasePage {
     public ReturnFormPage() {
@@ -19,7 +21,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_RETURNS");
         keyword.untilJqueryIsDone(50L);
-        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.waitForElementNotVisible(10, "RF_LBL_RETURN");
         keyword.click("RF_BTN_RETURN_FORM");
         keyword.untilJqueryIsDone(50L);
@@ -28,10 +30,11 @@ public class ReturnFormPage extends BasePage {
     public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.reLoadPage();
-        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.sendKeys("RF_INP_EMAIL_FORM", dataEmail);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_SUBMIT_RETURN_FORM");
+        keyword.untilJqueryIsDone(50L);
         if(checkEmail ==true) {
             keyword.untilJqueryIsDone(50L);
             keyword.sendKeys("RF_INP_PASSWORD_FORM", dataPassword);
@@ -44,23 +47,16 @@ public class ReturnFormPage extends BasePage {
     //select type return in DDL
     public void selectOrderReturn(String orderSelected,boolean clickConfirmAddress,String typeSelect,String typeNotShow) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
+        keyword.waitForElementNotVisible(50,"//div[@class='loading-mask']");
         keyword.selectDropDownListByName("RF_DDL_ORDER",orderSelected);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("RF_LBL_STEP_1/3",60);
-        //check type not show DDL
-        try {
-            keyword.selectDropDownListByName("RF_DDL_TYPE_RETURN",typeNotShow);
-            Assert.assertTrue(false);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            Assert.assertTrue(true);
-        }
+        keyword.verifyElementPresent(typeNotShow);
         keyword.reLoadPage();
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.selectDropDownListByName("RF_DDL_TYPE_RETURN",typeSelect);
         if(!clickConfirmAddress) {
             keyword.untilJqueryIsDone(50L);
@@ -70,7 +66,7 @@ public class ReturnFormPage extends BasePage {
     }
     public void editShippingAddress(String stress,String city) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.scrollToPositionByScript("window.scrollBy(0,-300)");
         keyword.waitForElementNotVisible(10, "RF_ICON_EDIT_SHIPPING_ADDRESS");
         keyword.click("RF_ICON_EDIT_SHIPPING_ADDRESS");
@@ -94,10 +90,12 @@ public class ReturnFormPage extends BasePage {
     }
     public void updateTypeOrder() throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.click("RF_CHECKBOX_CONFIRM_ORDER");
         keyword.untilJqueryIsDone(20L);
         //select Service/Warranty
         if (keyword.verifyElementPresent("RF_TXT_DESCRIPTION")) {
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.untilJqueryIsDone(30L);
             keyword.sendKeys("RF_TXB_COMMENT", "RF_DATA_COMMENT");
             keyword.untilJqueryIsDone(30L);
@@ -110,6 +108,7 @@ public class ReturnFormPage extends BasePage {
         //select Withdrawal
         else if (keyword.verifyElementPresent("RF_TXT_REASON")) {
             keyword.untilJqueryIsDone(50L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.selectDropDownListByName("RF_DDL_REASON_RETURN", "RF_TXT_REASON_RETURN");
             keyword.untilJqueryIsDone(30L);
             //getCodeReturn();
@@ -120,6 +119,7 @@ public class ReturnFormPage extends BasePage {
         //if select Resizing
         else if (keyword.verifyElementPresent("RF_LBL_RING_SIZE")) {
             keyword.untilJqueryIsDone(30L);
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.click("RF_DRD_SELECT_SIZE");
             keyword.untilJqueryIsDone(30L);
             keyword.click("RF_CHECKBOX_SIZE");
@@ -137,6 +137,7 @@ public class ReturnFormPage extends BasePage {
     public void step2In3Screen(boolean clickBtnShipFree) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.webDriverWaitForElementPresent("RF_CHECKTEXT_SHIPPING_FREE",60);
         if (!clickBtnShipFree) {
             keyword.verifyElementPresent("RF_MES_SELECT_SHIP_FREE");
@@ -149,9 +150,11 @@ public class ReturnFormPage extends BasePage {
     //STEP 3 / 3
     public void step3In3Screen(boolean clickConfirmConditions) throws InterruptedException {
         if (!clickConfirmConditions) {
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.verifyElementPresent("RF_MES_SELECT_CONDITIONS");
         }
         else {
+            keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.click("RF_CHECKBOX_TERM_CONDITION");
         }
         keyword.untilJqueryIsDone(30L);
@@ -169,14 +172,15 @@ public class ReturnFormPage extends BasePage {
             keyword.untilJqueryIsDone(30L);
             keyword.click(viewDetail);
         }
-        Thread.sleep(5000);
         keyword.untilJqueryIsDone(30L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.click("RF_BTN_CANCEL_RETURN");
-        Thread.sleep(3000);
-        keyword.untilJqueryIsDone(30L);
-        keyword.acceptAlert();
-        Thread.sleep(5000);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("RF_BTN_OK_CANCEL");
+        //keyword.acceptAlert();
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         keyword.verifyElementVisible("RF_TXT_CANCEL");
         keyword.verifyElementVisible("RF_TXT_REOPEN");
         keyword.untilJqueryIsDone(30L);
@@ -187,6 +191,7 @@ public class ReturnFormPage extends BasePage {
     // Login and go to my return
     public void goToReturnOrder() throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.click("RF_TXT_MY_ACCOUNT");
         keyword.untilJqueryIsDone(30L);
         keyword.click("RF_HREF_RETURN_ORDER");

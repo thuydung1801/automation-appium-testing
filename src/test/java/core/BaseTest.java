@@ -31,7 +31,6 @@ public class BaseTest {
         PropertiesFile.setPropertiesFile();
     }
     public static WebDriver driver = new SafariDriver();
-    @BeforeTest(alwaysRun = true)
     public static JavascriptExecutor jse = (JavascriptExecutor)driver;
 
     @BeforeTest(alwaysRun = true)
@@ -39,7 +38,7 @@ public class BaseTest {
 
         driver.navigate().to("https://stage.glamira.co.uk/");
     }
-    @AfterTest(alwaysRun = true)
+
 
     @AfterTest(alwaysRun = true)
     public void tearDown() throws Exception {
