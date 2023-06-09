@@ -429,6 +429,11 @@ public class KeywordWeb {
         driver.switchTo().defaultContent();
     }
 
+    public void recaptchaClick() {
+        logger.info("click recaptcha");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
+    }
 //    public void recaptchaClick() {
 //        logger.info("click recaptcha");
 //        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
@@ -545,7 +550,6 @@ public class KeywordWeb {
         return stt;
     }
 
-
     public void deleteAllCookies() {
         logger.info("deleteAllCookies");
         driver.manage().deleteAllCookies();
@@ -621,6 +625,7 @@ public class KeywordWeb {
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
+        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
 //        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         //webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
@@ -630,7 +635,6 @@ public class KeywordWeb {
 
         }
     }
-
 
     public void untilJqueryIsDone(Long timeoutInSeconds) throws InterruptedException {
         until((d) ->
