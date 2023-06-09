@@ -1,7 +1,16 @@
+userName: sukru4
+accessKey: vaqAnv8yG2CAi4hsX2Uk
+#userName: dungthy_PMkTzR
+#accessKey: 7QshhrQRD46gPPnQvJC2
+#userName: dungthuy_cqpfYl
+#accessKey: Ut1FzTvhKKoLxyzXnGKf
 userName: tungpxphamxuantu_CRdODr
 accessKey: b7gB3ehgNBYQqmPUpq9C
 platforms:
   - platformName: ios
+    deviceName: iPhone 11 Pro Max
+    platformVersion: 16
+    name: checkout
     deviceName: iPhone 11 Pro Max
     platformVersion: 16
 #userName: tungpxphamxuantu_CRdODr
