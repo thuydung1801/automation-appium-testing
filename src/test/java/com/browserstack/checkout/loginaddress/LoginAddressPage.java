@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 
 import java.util.Date;
 
-import static core.BaseTest.jse;
+import static  core.BaseTest.jse;
 
 public class LoginAddressPage extends BasePage {
     private static Logger logger = LogHelper.getLogger();

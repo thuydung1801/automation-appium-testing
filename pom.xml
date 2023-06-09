@@ -19,27 +19,20 @@
         <selenium.version>4.1.1</selenium.version>
         <json-simple.version>1.1.1</json-simple.version>
         <config.file>config/sample-test.testng.xml</config.file>
-        <config.file>config/checkout.testng.xml</config.file>
-        <config.file>config/login-address.testng.xml</config.file>
+        <config.file>config/signup-testng.xml</config.file>
+<!--        <config.file>config/checkout.testng.xml</config.file>-->
+<!--        <config.file>config/login-address.testng.xml</config.file>-->
     </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.browserstack</groupId>
-            <artifactId>browserstack-java-sdk</artifactId>
-            <version>LATEST</version>
-            <scope>compile</scope>
-        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
 <!--        <dependency>-->
 <!--            <groupId>io.appium</groupId>-->
 <!--            <artifactId>java-client</artifactId>-->
 <!--            <version>7.6.0</version>-->
 <!--        </dependency>-->
+
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -47,6 +40,20 @@
             <version>4.1.1</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-dependency-tree -->
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-dependency-tree</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-java-sdk</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -112,17 +119,17 @@
             <version>5.0.9</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-rest-assured</artifactId>-->
-<!--            <version>2.19.0</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.qameta.allure/allure-testng &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-testng</artifactId>-->
-<!--            <version>2.19.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.19.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -178,49 +185,6 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.browserstack</groupId>-->
-<!--            <artifactId>webdriver-framework</artifactId>-->
-<!--            <version>0.0.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.webdriver</groupId>-->
-<!--            <artifactId>webdriver-remote-client</artifactId>-->
-<!--            <version>0.9.7376</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.webdriver</groupId>-->
-<!--            <artifactId>webdriver-selenium</artifactId>-->
-<!--            <version>0.9.7376</version>-->
-<!--        </dependency>-->
-<!--                <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium</groupId>-->
-<!--            <artifactId>selenium-support</artifactId>-->
-<!--            <version>4.8.1</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium.grid</groupId>-->
-<!--            <artifactId>selenium-grid-remote-control</artifactId>-->
-<!--            <version>1.0.5</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.appium</groupId>-->
-<!--            <artifactId>java-client</artifactId>-->
-<!--            <version>8.3.0</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-api -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.maven.surefire</groupId>-->
-<!--            <artifactId>surefire-api</artifactId>-->
-<!--            <version>3.1.2</version>-->
-<!--        </dependency>-->
-
-
     </dependencies>
 
     <build>
@@ -242,10 +206,8 @@
                 <version>${surefire.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-<!--                        <testFailureIgnore>true</testFailureIgnore>-->
                         <suiteXmlFile>${config.file}</suiteXmlFile>
                     </suiteXmlFiles>
-                    <!--suppress UnresolvedMavenProperty -->
                     <argLine>
                         -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                     </argLine>
@@ -264,7 +226,7 @@
 
     <profiles>
         <profile>
-            <id>sample-local-test</id>
+            <id>signup-test</id>
             <build>
                 <plugins>
                     <plugin>
@@ -272,30 +234,8 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>config/sample-local-test.testng.xml</suiteXmlFile>
+                                <suiteXmlFile>config/signup-test.testng.xml</suiteXmlFile>
                             </suiteXmlFiles>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <argLine>
-                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                            </argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>sample-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>config/sample-test.testng.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <!--suppress UnresolvedMavenProperty -->
                             <argLine>
                                 -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                             </argLine>
@@ -316,28 +256,6 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>config/checkout.testng.xml</suiteXmlFile>
                             </suiteXmlFiles>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <argLine>
-                                -javaagent:${com.browserstack:browserstack-java-sdk:jar}
-                            </argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>login-address</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>config/login-address.testng.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                            <!--suppress UnresolvedMavenProperty -->
                             <argLine>
                                 -javaagent:${com.browserstack:browserstack-java-sdk:jar}
                             </argLine>

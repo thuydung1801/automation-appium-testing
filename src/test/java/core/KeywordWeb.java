@@ -41,6 +41,9 @@ public class KeywordWeb {
 
     }
 
+    public String getUrl() {
+        return driver.getCurrentUrl();
+    }
 
     public void clearText(String element) {
 
@@ -59,6 +62,9 @@ public class KeywordWeb {
             xPathElement = element;
         }
         driver.findElement(By.xpath(xPathElement)).click();
+    }
+    public void clickByJs(String element){
+        jse.executeScript("arguments[0].click();", element);
     }
 
     public void clickByCss(String element) {

@@ -23,16 +23,19 @@ def browserstackSDKArtifact = configurations.compileClasspath.resolvedConfigurat
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+test {
+    useJUnitPlatform()
+}
 
 tasks.withType(Test) {
     systemProperties = System.properties
 }
 
-task sampleTest(type: Test) {
+task signUpTest(type: Test) {
     useTestNG() {
         dependsOn cleanTest
         useDefaultListeners = true
-        suites "config/sample-test.testng.xml"
+        suites "config/signup-test.testng.xml"
         jvmArgs "-javaagent:${browserstackSDKArtifact.file}"
     }
 }
