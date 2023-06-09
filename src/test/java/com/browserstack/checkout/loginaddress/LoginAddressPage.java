@@ -261,6 +261,8 @@ public class LoginAddressPage extends BasePage {
             keyword.sendKeys("CHECKOUT_LA_TBX_CITY_4",city);
         }
         keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS_2");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
     public void removeAddress(String btnRemove) throws InterruptedException {
         keyword.webDriverWaitForElementPresent(btnRemove,20);
@@ -270,7 +272,17 @@ public class LoginAddressPage extends BasePage {
         keyword.untilJqueryIsDone(70L);
         keyword.click("CHECKOUT_LA_BTN_REMOVE_BILLING_ADDRESS_CF");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.waitForElementNotVisible(10,btnRemove);
+        keyword.waitForElementNotVisible(30,btnRemove);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+    public void checkNumberOfAddress(String expected) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        String count = String.valueOf(keyword.countNumberOfElement("CHECKOUT_LA_LIST_ADDRESS"));
+        logger.info(count);
+        keyword.simpleAssertEquals(expected,count);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
 
 

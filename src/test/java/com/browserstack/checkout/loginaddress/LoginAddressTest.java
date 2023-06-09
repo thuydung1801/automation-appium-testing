@@ -231,6 +231,22 @@ public class LoginAddressTest extends BaseTest {
     public void NLA_41() throws InterruptedException {
         objLoginAddress.removeAddress("CHECKOUT_LA_BTN_REMOVE_BILLING_ADDRESS");
     }
+    @Test
+    //(priority = 14, description = "Add new billing address and continue with your input options")
+    public void NLA_38() throws InterruptedException {
+        objLoginAddress.addNewBillingAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.checkNumberOfAddress("4");
+    }
+    @Test
+    //(priority = 15, description = "Add new billing address and continue with We Suggested option")
+    public void NLA_39_40() throws InterruptedException {
+        objLoginAddress.addNewBillingAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.checkNumberOfAddress("5");
+    }
 
 
 

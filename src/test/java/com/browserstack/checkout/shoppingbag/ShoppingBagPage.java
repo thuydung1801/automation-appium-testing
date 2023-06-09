@@ -192,6 +192,8 @@ public class ShoppingBagPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
     public void inputError(String lblErrorMessage1, String lblErrorMessage2, String dataExpected, String engraving, boolean flag) throws InterruptedException {
+        keyword.pressEnter();
+        Thread.sleep(1000);
         keyword.verifyElementPresent(lblErrorMessage1);
         keyword.verifyElementPresent(lblErrorMessage2);
         if(flag) {

@@ -964,17 +964,7 @@ public class KeywordWeb {
                 }
                 break;
         }
-//        if(data.equals("linh")){
-//            ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[0].textContent = 'linh'");
-//            ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[0].value='linh';");
-//        }
 
-//        String valueElement = driver.findElement(By.xpath("class=\"product-custom-option hidden-nospace error-anchor\"")).getAttribute("value");
-//        logger.info(valueElement);
-//        ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor').value='linh';");
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].value='linh';",xPathElement1 );
-//        ((JavascriptExecutor)getDrivers()).executeScript("$('." + "input-field-editable  " + "').val('" + "text" + "');");
-//        jse.executeScript("document.getElementById('engraving-777').setAttribute('value', 'dung')");
     }
 
 
