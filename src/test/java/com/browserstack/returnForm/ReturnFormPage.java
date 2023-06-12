@@ -1,16 +1,13 @@
 package com.browserstack.returnForm;
 
 
+import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
 import core.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
-import static core.BaseTest.driver;
 
 
 public class ReturnFormPage extends BasePage {
+    private ShoppingBagPage objShoppingBagPage = new ShoppingBagPage(this.keyword);
     public ReturnFormPage() {
         super();
     }
@@ -30,7 +27,8 @@ public class ReturnFormPage extends BasePage {
     public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.reLoadPage();
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         keyword.sendKeys("RF_INP_EMAIL_FORM", dataEmail);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_SUBMIT_RETURN_FORM");
@@ -58,9 +56,10 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.selectDropDownListByName("RF_DDL_TYPE_RETURN",typeSelect);
+        keyword.untilJqueryIsDone(50L);
         if(!clickConfirmAddress) {
-            keyword.untilJqueryIsDone(50L);
             keyword.verifyElementVisible("RF_MES_NOTE_CONFIRM_ADDRESS");
+            keyword.untilJqueryIsDone(50L);
         }
         keyword.click("RF_CHECKBOX_CONFIRM_ADDRESS");
     }
@@ -99,9 +98,9 @@ public class ReturnFormPage extends BasePage {
             keyword.untilJqueryIsDone(30L);
             keyword.sendKeys("RF_TXB_COMMENT", "RF_DATA_COMMENT");
             keyword.untilJqueryIsDone(30L);
-            keyword.chooseFile("RF_CHOOSE_IMAGE1", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.uploadFile("RF_CHOOSE_IMAGE1", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
             keyword.untilJqueryIsDone(30L);
-            keyword.chooseFile("RF_CHOOSE_IMAGE2", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.uploadFile("RF_CHOOSE_IMAGE2", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
             keyword.untilJqueryIsDone(30L);
             keyword.chooseFile("RF_CHOOSE_IMAGE3", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
         }
@@ -111,14 +110,14 @@ public class ReturnFormPage extends BasePage {
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.selectDropDownListByName("RF_DDL_REASON_RETURN", "RF_TXT_REASON_RETURN");
             keyword.untilJqueryIsDone(30L);
-            //getCodeReturn();
+            getCodeReturn();
             keyword.untilJqueryIsDone(50L);
             keyword.selectDropDownListByName("RF_DDL_METHOD_PAYMENT", "RF_TXT_METHOD_OPTION");
             keyword.untilJqueryIsDone(50L);
         }
         //if select Resizing
-        else if (keyword.verifyElementPresent("RF_LBL_RING_SIZE")) {
-            keyword.untilJqueryIsDone(30L);
+        else {
+            keyword.untilJqueryIsDone(50L);
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.click("RF_DRD_SELECT_SIZE");
             keyword.untilJqueryIsDone(30L);
@@ -134,16 +133,16 @@ public class ReturnFormPage extends BasePage {
         }
     }
     //STEP 2 / 3
-    public void step2In3Screen(boolean clickBtnShipFree) throws InterruptedException {
+    public void step2In3Screen(boolean clickBtnShipFree,String methodShip) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.webDriverWaitForElementPresent("RF_CHECKTEXT_SHIPPING_FREE",60);
+        keyword.webDriverWaitForElementPresent("RF_CHECKTEXT_SHIP_FREE",60);
         if (!clickBtnShipFree) {
             keyword.verifyElementPresent("RF_MES_SELECT_SHIP_FREE");
         }
         else {
-            keyword.click("RF_CHECKTEXT_SHIPPING_FREE");
+            keyword.click(methodShip);
         }
         keyword.untilJqueryIsDone(30L);
     }
@@ -161,12 +160,11 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RF_BTN_SUBMIT");
     }
     //cancel my return
-    public void cancelOrderReturn(String viewDetail) throws InterruptedException {
+    public void goToCancelOrder(String viewDetail) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
-        if(keyword.verifyElementPresent("RF_LINK_CANCEL_ORDER")) {
+        if (keyword.verifyElementPresent("RF_LINK_CANCEL_ORDER")) {
             keyword.click("RF_LINK_CANCEL_ORDER");
-        }
-        else {
+        } else {
             keyword.untilJqueryIsDone(30L);
             keyword.navigateToUrl("URL_RETURN_ORDER");
             keyword.untilJqueryIsDone(30L);
@@ -174,11 +172,16 @@ public class ReturnFormPage extends BasePage {
         }
         keyword.untilJqueryIsDone(30L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
+        if (keyword.verifyElementVisible("RF_BTN_SAVE_INFO_COURIER")) {
+            saveReturnTrackingInformation();
+        }
+    }
+    public void cancelOrderReturn() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_CANCEL_RETURN");
         keyword.untilJqueryIsDone(50L);
         keyword.click("RF_BTN_OK_CANCEL");
-        //keyword.acceptAlert();
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         keyword.verifyElementVisible("RF_TXT_CANCEL");
@@ -197,7 +200,61 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RF_HREF_RETURN_ORDER");
         keyword.untilJqueryIsDone(30L);
     }
-
+    public void saveReturnTrackingInformation() throws InterruptedException {
+        //Not add any tracking information
+        keyword.click("RF_BTN_SAVE_INFO_COURIER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.verifyElementVisible("RF_MES_ERROR_CARRIER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(50,"//div[@class='loading-mask']");
+        //Add tracking information successfully
+        Thread.sleep(3000);
+        keyword.click("RF_ICON_VIEW_DETAIL_ORDER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
+        keyword.waitForElementNotVisible(50,"//div[@class='loading-mask']");
+        keyword.verifyElementVisible("RF_ICON_INACTIVE_EDIT");
+        editTrackingInformation("RF_TXT_CARRIER_CODE1", "RF_TXB_NUMBER_TRACKING","RF_TXT_NUMBER_TRACKING");
+        //Edit tracking information successfully
+        keyword.click("RF_ICON_EDIT_TRACKING_INFO");
+        editTrackingInformation("RF_TXT_CARRIER_CODE2", "RF_TXB_EDIT_NUMBER_TRACKING","RF_TXT_NUMBER_TRACKING");
+        }
+    public void editTrackingInformation(String codeCarrier,String inputNumberTracking, String numberTracking) throws InterruptedException {
+        keyword.selectDropDownListByName("RF_DDL_CARRIER_CODE", codeCarrier);
+        keyword.untilJqueryIsDone(50L);
+        keyword.clearText(inputNumberTracking);
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys(inputNumberTracking, numberTracking);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("RF_BTN_SAVE_INFO_COURIER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.verifyElementVisible("RF_MES_SAVE_CARRIER_SUCCESS");
+    }
+    public void getCodeReturn() throws InterruptedException {
+        String getOrderId = keyword.numberOnly("RF_TXT_ORDER_NUMBER");
+        keyword.untilJqueryIsDone(50L);
+        //open a new tab to login on admin site
+        keyword.openNewTab("BE_URL");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(5000);
+        objShoppingBagPage.loginAdmin("LOGIN_DATA_USER_NAME_LY","LOGIN_DATA_PASS_WORD_LY");
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent("BE_LBL_PRODUCT_OPTION", 60);
+        keyword.click("BE_LBL_PRODUCT_OPTION");
+        keyword.untilJqueryIsDone(50L);
+        keyword.webDriverWaitForElementPresent("BE_LBL_MANAGE_PRODUCT_REQUEST", 60);
+        keyword.click("BE_LBL_MANAGE_PRODUCT_REQUEST");
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("BE_TBX_SEARCH_ORDER_ID_PRODUCT", getOrderId +"\n");
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
+        String getCode = keyword.getText("BE_TXT_CODE_RETURN_PRODUCT");
+        keyword.switchToTab(0);
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
+        keyword.sendKeys("RF_TBX_INP_CODE_RETURN", getCode);
+    }
 }
 
 
