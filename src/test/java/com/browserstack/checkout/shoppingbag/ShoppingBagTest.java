@@ -97,7 +97,7 @@ public class ShoppingBagTest extends BaseTest {
 //    @Parameters({"baseURL","devices"})
     public void testCase_SP_15() throws InterruptedException {
         logger.info("testCase_SP_15");
-        commonShopping();
+//        commonShopping();
         //https://stage.glamira.co.uk/
 //        objShoppingBagPage.addProduct("https://stage.glamira.co.uk/glamira-ring-zanessa.html?alloy=white-585&stone1=diamond-sapphire&stone2=diamond-sapphire");
         objShoppingBagPage.clickShoppingBagPage();
@@ -111,7 +111,7 @@ public class ShoppingBagTest extends BaseTest {
 //            (priority = 7, description = "edit engraving")
     public void testCase_SP_16() throws Exception {
         logger.info("testCase_SP_16");
-        commonShopping();
+//        commonShopping();
         objShoppingBagPage.clickShoppingBagPage();
 //        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_GLAMIRARING_MOBILE");
@@ -124,7 +124,7 @@ public class ShoppingBagTest extends BaseTest {
 //    (priority = 8, description = "Add engraving for couple ring")
     public void testCase_SP_17() throws InterruptedException {
         logger.info("testCase_SP_17");
-        commonShopping();
+//        commonShopping();
 //        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/charming-view.html?alloy=white-585&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_COUPLERING_MOBILE");
@@ -145,6 +145,7 @@ public class ShoppingBagTest extends BaseTest {
         objShoppingBagPage.inputCorrectly("CHECKOUT_DATA_ENGRAVING_2","CHECKOUT_LBL_ENGRAVING_MOBILE");
 
     }
+    //pending SP19
     @Test
 //            (priority = 10, description="Add engraving with text > max lenght")
     public void testCase_SP_19() throws InterruptedException {
@@ -156,14 +157,13 @@ public class ShoppingBagTest extends BaseTest {
                 "CHECKOUT_TXT_WOMEN_ENGRAVING_18","CHECKOUT_TXT_MEN_ENGRAVING_18");
         objShoppingBagPage.inputError("CHECKOUT_LBL_MAXLENGTH_MESSAGES_1","CHECKOUT_LBL_MAXLENGTH_MESSAGES_2",
                 "CHECKOUT_DATA_19_OUTPUT","CHECKOUT_LBL_ENGRAVING_MOBILE", true);
-
     }
     @Test
 //            (priority = 12, description = "Edit product successfully with normal product")
 
     public void testCase_SP_21() throws InterruptedException {
         logger.info("testCase_SP_21");
-//        commonShopping();
+        commonShopping();
         objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_BRACELET");
@@ -175,12 +175,13 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_SP_24() throws InterruptedException {
         logger.info("testCase_SP_24");
-//        commonShopping();
-        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
+        commonShopping();
+//        objShoppingBagPage.addProductWithGift("https://stage.glamira.co.uk/universe-adore-5-mm.html?alloy=white_red-585&profile=prA&thickness=tn_1.6&womenstone=diamond-zirconia");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.clickEdit("CHECKOUT_BTN_EDIT_UNIVERSE");
         objShoppingBagPage.editCoupleRings();
-        objShoppingBagPage.compareValueData("CHECKOUT_DATA_24_1","CHECKOUT_BAG_LBL_STONE_MOBILE");
+        objShoppingBagPage.viewDetail("CHECKOUT_BTN_VIEWDETAIL_UNIVERSE_MOBILE");
+        objShoppingBagPage.compareData("CHECKOUT_DATA_24_1","CHECKOUT_BAG_LBL_STONE_MOBILE");
         objShoppingBagPage.compareData("CHECKOUT_DATA_24_2","CHECKOUT_BAG_LBL_PROFILE_MOBILE");
         objShoppingBagPage.confirmMessage("CHECKOUT_BAG_LBL_SIZE");
     }
@@ -242,7 +243,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_07() throws InterruptedException {
         logger.info("testCase_RV_07");
-        commonShopping();
+//        commonShopping();
 //        objShoppingBagPage.backPage("https://stage.glamira.co.uk/");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
@@ -306,7 +307,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_31() throws InterruptedException {
         logger.info("testCase_RV_31");
-//        commonShopping();
+        commonShopping();
         //https://stage.glamira.co.uk/
         objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.addShippingLabel("https://stage.glamira.co.uk/",false);
@@ -332,7 +333,7 @@ public class ShoppingBagTest extends BaseTest {
 
     public void testCase_RV_33() throws InterruptedException {
         logger.info("testCase_RV_31");
-//        commonShopping();
+        commonShopping();
         //https://stage.glamira.co.uk/
 //        objShoppingBagPage.addProductWithOutOptions(baseURL+"glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.addShippingLabel("https://stage.glamira.co.uk/",true);

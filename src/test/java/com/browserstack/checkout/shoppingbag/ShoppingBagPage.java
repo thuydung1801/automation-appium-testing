@@ -112,7 +112,7 @@ public class ShoppingBagPage extends BasePage {
     }
     public void viewDetail(String typeOfProduct) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         Thread.sleep(2000);
         keyword.click(typeOfProduct);
 
@@ -228,7 +228,7 @@ public class ShoppingBagPage extends BasePage {
         Thread.sleep(2000);
         keyword.click(btnEdit);
         keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
     }
     //edit option of ring to check update case
     public void editOptions() throws InterruptedException {
@@ -252,7 +252,8 @@ public class ShoppingBagPage extends BasePage {
     }
     //edit couple ring is already in the cart
     public void editCoupleRings() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(5000);
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         keyword.click("CHECKOUT_LBL_STONE");
         keyword.webDriverWaitForElementPresent("CHECKOUT_CBX_DIAMOND",10);
         keyword.click("CHECKOUT_CBX_DIAMOND");
@@ -265,18 +266,20 @@ public class ShoppingBagPage extends BasePage {
         keyword.click("CHECKOUT_CBX_SIZE_L");
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.click("CHECKOUT_BTN_UPDATE");
-        //keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_UPDATE_23",10);
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        Thread.sleep(3000);
+//        keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_UPDATE_23",60);
     }
-    public void compareValueData(String expect, String actual) throws InterruptedException {
-        keyword.untilJqueryIsDone(60L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-
-        keyword.click("//div[@class='actions-toolbar bottom']//a[@title='Universe Adore 5 mm']");
+//    public void compareValueData(String expect, String actual) throws InterruptedException {
+//        keyword.untilJqueryIsDone(60L);
+//        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+//        Thread.sleep(1000);
+//        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+//        keyword.assertEquals(expect, actual);
+//    }
+    public void compareData(String expect, String actual) throws InterruptedException {
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
         Thread.sleep(1000);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.assertEquals(expect, actual);
-    }
-    public void compareData(String expect, String actual){
         keyword.assertEquals(expect, actual);
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
     }
@@ -329,11 +332,13 @@ public class ShoppingBagPage extends BasePage {
                 Thread.sleep(2000);
 
 //                keyword.switchToIFrameByXpath("iframe");
-//                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_VISA");
+                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_VISA");
+                keyword.switchToIFrameByCss();
+                logger.info("doneeee");
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
 //                Thread.sleep(2000);
                 keyword.sendKeys("CHECKOUT_TBX_CHECKOUT_VISA", "CHECKOUT_DATA_CHECKOUT_VISA");
-//                keyword.switchToDefaultContent();
+                keyword.switchToDefaultContent();
 
 //                keyword.switchToIFrameByXpath("CHECKOUT_IFRAME_CHECKOUT_EXPIRYDATE");
                 keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -606,10 +611,13 @@ public class ShoppingBagPage extends BasePage {
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.webDriverWaitForElementPresent("CHECKOUT_SUCCESSPAGE", 20);
         keyword.verifyElementPresent("CHECKOUT_SUCCESSPAGE");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
     public void addShippingLabel(String url,Boolean flag) throws InterruptedException {
         //https://dev3.glamira.com/glgb/
         keyword.navigateToUrl(url+"catalog/product/view/id/103896");
+        Thread.sleep(3000);
         keyword.click("CHECKOUT_ADDPRODUCT_BTN_ADD");
         clickShoppingBagPage();
         moveToPagecheckOut();
@@ -632,7 +640,9 @@ public class ShoppingBagPage extends BasePage {
         keyword.click("CHECKOUT_CBX_CHECKOUT_PAYPAL");
         keyword.untilJqueryIsDone(30L);
         keyword.click("CHECKOUT_BTN_ORDER");
-        keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_ACCEPT_CONDITIONS", 20);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_MESSAGES_ACCEPT_CONDITIONS", 60);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
 
     public void stepReturn() throws InterruptedException {

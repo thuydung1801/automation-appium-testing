@@ -322,6 +322,16 @@ public class KeywordWeb {
         driver.switchTo().frame(iframe);
     }
 
+    public void switchToIFrameByCss() {
+        logger.info("Switching to Iframe");
+//        String iframe_src = "https://assets.braintreegateway.com/web/3.79.1/html/hosted-fields-frame.min.html#1b26f919-ff97-4cb8-aa74-238998686820";
+//        WebElement iframe = driver.findElement(By.xpath("//iframe[contains(@src,\"https://assets.braintreegateway.com/web/3.79.1/html/hosted-fields-frame.min.html\")]"));
+//        driver.switchTo().frame(iframe);
+
+
+        ((JavascriptExecutor) driver).executeScript("document.getElementById('braintree-hosted-field-number').contentDocument.getElementById('credit-card-number').click()");
+
+    }
     public void switchToWindow(String window) {
         logger.info("Switching to Window");
         driver.switchTo().window(window);

@@ -19,6 +19,7 @@ public class LoginAddressTest extends BaseTest {
     public LoginAddressTest() {
         super();
         objLoginAddress = new LoginAddressPage(this.keyword);
+        objShoppingBagPage = new ShoppingBagPage(this.keyword);
     }
 
     public void customerNotLogin() throws InterruptedException {
@@ -29,6 +30,7 @@ public class LoginAddressTest extends BaseTest {
     }
 
     public void customerLogin() throws InterruptedException {
+        objShoppingBagPage = new ShoppingBagPage(this.keyword);
         objLogin.acceptAllCookies();
         objLogin.login("COM_INP_DATA_EMAIL_STAGE", "COM_INP_DATA_PASS_STAGE");
         keyword.untilJqueryIsDone(50L);
@@ -189,7 +191,7 @@ public class LoginAddressTest extends BaseTest {
     //(priority = 11, description = "Leave blank Email/Phone or Password")
 //    @Parameters("baseURL")
     public void NLA_19() throws InterruptedException {
-//        customerNotLogin();
+        customerNotLogin();
         objLoginAddress.resetForNewCase();
         objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.clickShoppingBagPage();
@@ -213,7 +215,7 @@ public class LoginAddressTest extends BaseTest {
     public void NLA_35() throws InterruptedException {
 //        customerNotLogin();
         customerLogin();
-        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+//        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
         objShoppingBagPage.clickShoppingBagPage();
         objShoppingBagPage.moveToPagecheckOut();
         objLoginAddress.addNewBillingAddress(false, "CHECKOUT_LA_DATA_STREET_1",
@@ -246,6 +248,47 @@ public class LoginAddressTest extends BaseTest {
                 "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2");
         objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
         objLoginAddress.checkNumberOfAddress("5");
+    }
+    @Test
+    //(priority = 16, description = "Add new another shipping address")
+    public void NLA_42() throws InterruptedException {
+//        customerLogin();
+//        objShoppingBagPage.clickShoppingBagPage();
+//        objShoppingBagPage.moveToPagecheckOut();
+        objLoginAddress.proceedAddress();
+        objLoginAddress.addNewAddress(false,"CHECKOUT_LA_DATA_STREET_4",
+                "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
+    }
+    @Test
+    //(priority = 17, description = "Add new another shipping and using suggest address")
+    public void NLA_43() throws InterruptedException {
+        customerLogin();
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objLoginAddress.addNewAddress(true,"CHECKOUT_LA_DATA_STREET_4",
+                "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
+    }
+    @Test
+    //(priority = 18, description = "Add new shipping address with invalid data and using Your input option")
+    public void NLA_45() throws InterruptedException {
+        objLoginAddress.addNewAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.checkNumberOfAddress("8");
+    }
+    @Test
+    //(priority = 19, description = "Add new shipping address with invalid data and using We suggest option")
+    public void NLA_46() throws InterruptedException {
+        objLoginAddress.addNewAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_2", "CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
+        objLoginAddress.chooseAddressOnValidation(true,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+        objLoginAddress.checkNumberOfAddress("9");
+    }
+    @Test
+    //(priority = 20, description = "Edit shipping address same as billing")
+    public void NLA_47_48_49() throws InterruptedException {
+        objLoginAddress.editAddress("CHECKOUT_BTN_EDIT_SHIP_ADDRESS");
+        objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
     }
 
 

@@ -120,6 +120,8 @@ public class LoginAddressPage extends BasePage {
         }
         keyword.untilJqueryIsDone(50L);
         keyword.click(btnAdd);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
     }
     public void addNewAddress(boolean isSuggestion, String street,
                               String code, String city, String btnAdd) throws InterruptedException {
@@ -233,12 +235,16 @@ public class LoginAddressPage extends BasePage {
             keyword.click("CHECKOUT_LA_BTN_LOGIN");
             keyword.untilJqueryIsDone(30L);
             keyword.assertEquals("CHECKOUT_LA_DATA_ERROR_PASS","CHECKOUT_LA_LBL_ERROR_PASS");
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
         } else if (flag.equals("invalidEmail")) {
             keyword.sendKeys("CHECKOUT_LA_TBX_USERNAME","LOGIN_DATA_PASSWORD");
             keyword.sendKeys("CHECKOUT_LA_TBX_PASS","CHECKOUT_DATA_PASSWORD_ENTER");
             keyword.click("CHECKOUT_LA_BTN_LOGIN");
             keyword.untilJqueryIsDone(30L);
             keyword.assertEquals("CHECKOUT_LA_MESSAGE_USERNAME","CHECKOUT_LA_LBL_ERROR_MAIL");
+            jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
         }
     }
     public void addNewBillingAddress(boolean isSuggestion, String street,
@@ -283,6 +289,12 @@ public class LoginAddressPage extends BasePage {
         keyword.simpleAssertEquals(expected,count);
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
+    }
+    public void proceedAddress() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+        keyword.untilJqueryIsDone(50L);
     }
 
 

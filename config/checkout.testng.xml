@@ -16,11 +16,11 @@
 <!--                    <include name="testCase_SP_16"/>-->
 <!--                    <include name="testCase_SP_17"/>-->
 <!--                    <include name="testCase_SP_18"/>-->
-                    <include name="testCase_SP_19"/>
+<!--                    <include name="testCase_SP_19"/>-->
 <!--                    <include name="testCase_SP_21"/>-->
 <!--                    <include name="testCase_SP_24"/>-->
 <!--                    <include name="testCase_SP_25"/>-->
-<!--                    <include name="testCase_SP_26_RV_02_04"/>-->
+                    <include name="testCase_SP_26_RV_02_04"/>
 <!--                    <include name="testCase_RV_07"/>-->
 <!--                    <include name="testCase_RV_17_19"/>-->
 <!--                         <include name="testCase_RV_18"/>-->

@@ -8,4 +8,4 @@ platforms:
   - platformName: ios
     deviceName: iPhone 11 Pro Max
     platformVersion: 16
-    name: checkout
+    name: login-address
