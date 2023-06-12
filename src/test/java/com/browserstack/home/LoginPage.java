@@ -18,9 +18,9 @@ public class LoginPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click("MOBILE_BTN_LOGIN");
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("LOGIN_TXT_EMAIL", email);
-        keyword.sendKeys("LOGIN_TXT_PASSWORD", password);
-        keyword.click("LOGIN_BTN_SUBMIT_LOGIN");
+        keyword.sendKeys("LOGIN_EMAIL_TXT", email);
+        keyword.sendKeys("LOGIN_PASSWORD_TXT", password);
+        keyword.click("LOGIN_BTN");
         keyword.untilJqueryIsDone(50L);
     }
 
