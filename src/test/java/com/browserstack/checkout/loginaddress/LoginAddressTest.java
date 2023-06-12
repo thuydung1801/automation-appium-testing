@@ -259,6 +259,7 @@ public class LoginAddressTest extends BaseTest {
         objLoginAddress.addNewAddress(false,"CHECKOUT_LA_DATA_STREET_4",
                 "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
     }
+    //PENDDING
     @Test
     //(priority = 17, description = "Add new another shipping and using suggest address")
     public void NLA_43() throws InterruptedException {
