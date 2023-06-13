@@ -1,7 +1,6 @@
 package com.browserstack.signup;
 
 import com.browserstack.home.LoginPage;
-import com.microsoft.playwright.K;
 import core.BasePage;
 import core.KeywordWeb;
 import core.LogHelper;
@@ -10,8 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.apache.commons.lang.RandomStringUtils;
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -268,6 +267,19 @@ public class SignUpPage extends BasePage {
                 break;
         }
     }
+    public void checkInputPassword(String xpath) throws InterruptedException {
+        List<String> errorPassWordList = new ArrayList<>();
+        errorPassWordList.add("PASS_LESS_8_CHARACTER");
+        errorPassWordList.add("PASS_WITHOUT_NUMBER");
+        errorPassWordList.add("PASS_WITHOUT_LOWERCASE");
+        errorPassWordList.add("PASS_WITHOUT_UPPERCASE");
+        errorPassWordList.add("PASS_WITHOUT_SPECIAL_CHARACTER");
+        for (int i = 0; i < errorPassWordList.size(); i++) {
+            clearTextAndSendKey(xpath, errorPassWordList.get(i));
+            Thread.sleep(2000);
+            checkFieldErrorPassWord("1fieldErrorPassWord");
+        }
+    }
     public void inputErrorPassWord(String flag, String signUpMethod) throws InterruptedException {
         switch (flag) {
             case "1fieldErrorPassWord": //NSU7_8_9_10_11_18_19_20_21_22
@@ -276,25 +288,7 @@ public class SignUpPage extends BasePage {
                 Thread.sleep(3000);
                 chooseSignUpMethod(signUpMethod,"FIRST_NAME","LAST_NAME",email,email, phoneNumber);
                 keyword.untilJqueryIsDone(50L);
-                keyword.sendKeys("SIGNUP_PASSWORD_TXT", "PASS_LESS_8_CHARACTER");
-                Thread.sleep(2000);
-                checkFieldErrorPassWord("1fieldErrorPassWord");
-
-                clearTextAndSendKey( "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_NUMBER");
-                Thread.sleep(2000);
-                checkFieldErrorPassWord("1fieldErrorPassWord");
-
-                clearTextAndSendKey( "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_LOWERCASE");
-                Thread.sleep(2000);
-                checkFieldErrorPassWord("1fieldErrorPassWord");
-
-                clearTextAndSendKey("SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_UPPERCASE");
-                Thread.sleep(2000);
-                checkFieldErrorPassWord("1fieldErrorPassWord");
-
-                clearTextAndSendKey( "SIGNUP_PASSWORD_TXT", "PASS_WITHOUT_SPECIAL_CHARACTER");
-                Thread.sleep(2000);
-                checkFieldErrorPassWord("1fieldErrorPassWord");
+                checkInputPassword("SIGNUP_PASSWORD_TXT");
                 if(signUpMethod.equals("email")){
                     resendActiveCode("email",email);
                 }
@@ -332,11 +326,12 @@ public class SignUpPage extends BasePage {
     public String getSMSCode(String xpath) throws InterruptedException {
         loginToBackEnd("BE_URL");
         keyword.untilJqueryIsDone(50L);
-        keyword.webDriverWaitForElementPresent("CLOSE_BTN",20);
-        keyword.click("CLOSE_BTN");
+        Thread.sleep(8000);
+        if(keyword.verifyElementVisible("CLOSE_BTN")) {
+            keyword.click("CLOSE_BTN");
+        }
         keyword.navigateToUrl("SMS_LOG_URL");
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
+        keyword.webDriverWaitForElementPresent("DATA_ROW_BE",20);
         String s = keyword.getText(xpath);
         return s.substring(s.indexOf(':') + 2, s.length());
     }

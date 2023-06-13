@@ -23,15 +23,11 @@ public class SignInTest extends BaseTest {
             keyword.navigateToUrl(baseUrl);
         }
         loginPage.acceptAllCookies();
-        keyword.untilJqueryIsDone(50L);
-        keyword.click("LOGIN_MENU_LEFT");
-        keyword.untilJqueryIsDone(50L);
-        keyword.click("MOBILE_BTN_LOGIN");
-        keyword.untilJqueryIsDone(50L);
+        signInPage.goToSignIn(baseUrl);
     }
     @Test(priority = 7, description = "Login success with email")
     public void testCase_SNI_1() throws InterruptedException {
-        //startLogin(" ");
+        startLogin(" ");
         signInPage.isSignInSuccessOrFail("successfullyWithEmail","email");
     }
     @Test(priority = 1, description = "Login with email full blank fields")
@@ -64,42 +60,49 @@ public class SignInTest extends BaseTest {
         //startLogin(" ");
         signInPage.isSignInSuccessOrFail("wrongFormat","email");
     }
-    @Test(priority = 12, description = "Login success with phone number")
+    @Test(priority = 13, description = "Login success with phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_8(String baseUrl) throws InterruptedException {
         //startLogin(baseUrl);
         signInPage.isSignInSuccessOrFail("successfullyWitPhoneNumber","phone");
     }
 
-    @Test(priority = 8, description = "Login with invalid phone number")
+    @Test(priority = 9, description = "Login with invalid phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_9(String baseUrl) throws InterruptedException {
         startLogin(baseUrl);
         signInPage.isSignInSuccessOrFail("invalidPhone","phone");
     }
-    @Test(priority = 9, description = "Login with invalid phone number")
+    @Test(priority = 10, description = "Login with invalid phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_10(String baseUrl) throws InterruptedException {
         //startLogin(baseUrl);
         signInPage.isSignInSuccessOrFail("wrongPhone","phone");
     }
-    @Test(priority = 10, description = "Login with invalid phone number")
+    @Test(priority = 11, description = "Login with invalid phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_11(String baseUrl) throws InterruptedException {
         //startLogin(baseUrl);
         signInPage.isSignInSuccessOrFail("wrongPassWord","phone");
     }
-    @Test(priority = 11, description = "Login with invalid phone number")
+    @Test(priority = 12, description = "Login with blank fields phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_12(String baseUrl) throws InterruptedException {
        // startLogin(baseUrl);
         signInPage.isSignInSuccessOrFail("fullBlankField","phone");
     }
-    @Test(priority = 12, description = "Forgot password success with email")
+    @Test(priority = 8, description = "Forgot password success with email")
+    public void testCase_SNI_13_14_15_16() throws InterruptedException {
+        startLogin("");
+        //signInPage.goToSignIn("");
+        signInPage.forgotPassWord("email");
+
+    }
+    @Test(priority = 14, description = "Forgot password success with phone number")
     @Parameters("baseUrl")
-    public void testCase_SNI_13(String baseUrl) throws InterruptedException {
-        startLogin(baseUrl);
-        signInPage.forgotPassWord("email","success");
+    public void testCase_SNI_17_18_19(String baseUrl) throws InterruptedException {
+        signInPage.goToSignIn("baseUrl");
+        signInPage.forgotPassWord("phone");
     }
 
 }
