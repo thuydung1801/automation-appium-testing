@@ -3,7 +3,12 @@ package com.browserstack.returnForm;
 
 import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
 import core.BasePage;
+import org.openqa.selenium.WindowType;
 
+import java.util.ArrayList;
+import java.util.Set;
+
+import static core.BaseTest.driver;
 
 
 public class ReturnFormPage extends BasePage {
@@ -51,17 +56,22 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RF_BTN_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("RF_LBL_STEP_1/3",60);
-        keyword.verifyElementPresent(typeNotShow);
-        keyword.reLoadPage();
-        keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.selectDropDownListByName("RF_DDL_TYPE_RETURN",typeSelect);
-        keyword.untilJqueryIsDone(50L);
         if(!clickConfirmAddress) {
             keyword.verifyElementVisible("RF_MES_NOTE_CONFIRM_ADDRESS");
             keyword.untilJqueryIsDone(50L);
         }
+        keyword.untilJqueryIsDone(50L);
         keyword.click("RF_CHECKBOX_CONFIRM_ADDRESS");
+        keyword.untilJqueryIsDone(50L);
+        keyword.verifyElementPresent(typeNotShow);
+       // keyword.reLoadPage();
+        keyword.untilJqueryIsDone(50L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.selectDropDownListByName("RF_DDL_TYPE_RETURN",typeSelect);
+        keyword.untilJqueryIsDone(50L);
+
+
+
     }
     public void editShippingAddress(String stress,String city) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -90,17 +100,18 @@ public class ReturnFormPage extends BasePage {
     public void updateTypeOrder() throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.click("RF_CHECKBOX_CONFIRM_ORDER");
-        keyword.untilJqueryIsDone(20L);
+        keyword.untilJqueryIsDone(50L);
         //select Service/Warranty
         if (keyword.verifyElementPresent("RF_TXT_DESCRIPTION")) {
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
             keyword.untilJqueryIsDone(30L);
             keyword.sendKeys("RF_TXB_COMMENT", "RF_DATA_COMMENT");
             keyword.untilJqueryIsDone(30L);
-            keyword.uploadFile("RF_CHOOSE_IMAGE1", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.chooseFile("RF_CHOOSE_IMAGE1", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
             keyword.untilJqueryIsDone(30L);
-            keyword.uploadFile("RF_CHOOSE_IMAGE2", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
+            keyword.chooseFile("RF_CHOOSE_IMAGE2", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
             keyword.untilJqueryIsDone(30L);
             keyword.chooseFile("RF_CHOOSE_IMAGE3", "https://cdn-media.glamira.com/media/product/newgeneration/view/2/sku/MEN6/diamond/diamond-Brillant_AAA/alloycolour/white.jpg?width=800&height=800");
         }
@@ -108,12 +119,12 @@ public class ReturnFormPage extends BasePage {
         else if (keyword.verifyElementPresent("RF_TXT_REASON")) {
             keyword.untilJqueryIsDone(50L);
             keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+            keyword.scrollToPositionByScript("window.scrollBy(0,300)");
             keyword.selectDropDownListByName("RF_DDL_REASON_RETURN", "RF_TXT_REASON_RETURN");
             keyword.untilJqueryIsDone(30L);
-            getCodeReturn();
-            keyword.untilJqueryIsDone(50L);
             keyword.selectDropDownListByName("RF_DDL_METHOD_PAYMENT", "RF_TXT_METHOD_OPTION");
             keyword.untilJqueryIsDone(50L);
+            getCodeReturn();
         }
         //if select Resizing
         else {
@@ -234,27 +245,39 @@ public class ReturnFormPage extends BasePage {
     public void getCodeReturn() throws InterruptedException {
         String getOrderId = keyword.numberOnly("RF_TXT_ORDER_NUMBER");
         keyword.untilJqueryIsDone(50L);
+        String originalWindow = driver.getWindowHandle();
         //open a new tab to login on admin site
         keyword.openNewTab("BE_URL");
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         Thread.sleep(5000);
-        objShoppingBagPage.loginAdmin("LOGIN_DATA_USER_NAME_LY","LOGIN_DATA_PASS_WORD_LY");
+        objShoppingBagPage.loginAdmin("LOGIN_DATA_USER_NAME_LY", "LOGIN_DATA_PASS_WORD_LY");
         keyword.untilJqueryIsDone(50L);
-        keyword.webDriverWaitForElementPresent("BE_LBL_PRODUCT_OPTION", 60);
-        keyword.click("BE_LBL_PRODUCT_OPTION");
+        Thread.sleep(5000);
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/production/manage_request/");
         keyword.untilJqueryIsDone(50L);
-        keyword.webDriverWaitForElementPresent("BE_LBL_MANAGE_PRODUCT_REQUEST", 60);
-        keyword.click("BE_LBL_MANAGE_PRODUCT_REQUEST");
+        Thread.sleep(5000);
+        if (keyword.verifyElementPresent("BE_CHECK_SHOW_INCOMING_MODAL")) {
+            keyword.click("BE_BTN_CLOSE_INCOMING");
+        }
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("BE_TBX_SEARCH_ORDER_ID_PRODUCT", getOrderId +"\n");
+        Thread.sleep(10000);
+        keyword.sendKeys("BE_TBX_SEARCH_ORDER_ID_PRODUCT", getOrderId + "\n");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
         String getCode = keyword.getText("BE_TXT_CODE_RETURN_PRODUCT");
-        keyword.switchToTab(0);
-        keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
+        driver.switchTo().defaultContent();
+        //keyword.switchToWindowByIndex(1);
+        //keyword.switchToTab(1);
+//        Set<String> contextView = driver.getWindowHandles();
+//        ArrayList<String> s = new ArrayList<String>(contextView);
+//        driver.get(s.get(contextView.size()-1));
+
+        Thread.sleep(10000);
         keyword.sendKeys("RF_TBX_INP_CODE_RETURN", getCode);
+        keyword.untilJqueryIsDone(50L);
     }
+
 }
 
 

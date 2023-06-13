@@ -69,11 +69,11 @@ public class ReturnFormTest extends BaseTest {
 //    }
     @Test(description = "Return order with the order > 60days")
     public void testCase_LS_SC_07() throws InterruptedException {
-       // keyword.navigateToUrl("URL_RETURN_ORDER");
+        keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
     }
-    @Test(description = "Submit return request successfully for Resize type")
-    public void testCase_SC_09_SC_18_SC_19() throws InterruptedException {
+    @Test(description = "Submit return request successfully for Resize type with method ship my self")
+    public void testCase_SC_09_SC_14_SC_18_SC_19() throws InterruptedException {
         objReturnForm.updateTypeOrder();
         objReturnForm.step2In3Screen(true,"RF_CHECKTEXT_SHIP_MYSELF");
         objReturnForm.step3In3Screen(true);
@@ -96,19 +96,20 @@ public class ReturnFormTest extends BaseTest {
 //        objReturnForm.goToCancelOrder("RF_ICON_VIEW_DETAIL_ORDER");
 //        objReturnForm.cancelOrderReturn();
 //    }
-
-    @Test(description = "Submit return request for Resize type and didn't choose all required field")
-    public void testCase_SC_20() throws InterruptedException {
-        objReturnForm.updateTypeOrder();
-        objReturnForm.step2In3Screen(false,"RF_CHECKTEXT_SHIP_FREE");
-        objReturnForm.step3In3Screen(false);
-    }
-
 //    @Test(description = "Next to Return form successfully")
 //    public void testCase_MR_01() throws InterruptedException {
 //        objReturnForm.goToReturnOrder();
-//        objReturnForm.selectOrderReturn("RF_TXT_ORDER_NO_RESIZE",true,"RF_SELECT_TYPE_WITHDRAWAL","RF_SELECT_TYPE_RESIZING");
+//        objReturnForm.selectOrderReturn("RF_TXT_ORDER_MORE_60DAY",true,"RF_SELECT_TYPE_RESIZING","RF_SELECT_TYPE_WITHDRAWAL");
 //    }
+
+//    @Test(description = "Submit return request for Resize type and didn't choose all required field")
+//    public void testCase_SC_20() throws InterruptedException {
+//        objReturnForm.updateTypeOrder();
+//        objReturnForm.step2In3Screen(false,"RF_CHECKTEXT_SHIP_FREE");
+//        objReturnForm.step3In3Screen(false);
+//    }
+
+
 
 }
 
