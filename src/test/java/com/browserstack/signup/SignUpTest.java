@@ -6,7 +6,7 @@ import core.LogHelper;
 import org.slf4j.Logger;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import java.util.Date;
+
 
 public class SignUpTest extends BaseTest {
     private SignUpPage signUpPage;
@@ -82,7 +82,7 @@ public class SignUpTest extends BaseTest {
     @Test(priority = 10, description = "Invalid phone number entered")
     @Parameters("baseUrl")
     public void testCase_NSU16(String baseUrl) throws InterruptedException {
-        startCreateAccount(baseUrl);
+        //startCreateAccount(baseUrl);
         signUpPage.isSignUpSuccessOrFail("invalidPhoneNumber","phoneNumber");
     }
 
