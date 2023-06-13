@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cross-Platform">
+    <test name="SignUpTest">
+        <parameter name="baseUrl" value="https://stage.glamira.com/"></parameter>
+        <classes>
+            <class name="com.browserstack.signin.SignInTest" >
+                <methods>
+                    <include name="testCase_SNI_1"/>
+<!--                    <include name="testCase_SNI_2"/>-->
+<!--                    <include name="testCase_SNI_3"/>-->
+<!--                    <include name="testCase_SNI_4"/>-->
+<!--                    <include name="testCase_SNI_5"/>-->
+<!--                    <include name="testCase_SNI_6"/>-->
+<!--                    <include name="testCase_SNI_7"/>-->
+<!--                    <include name="testCase_SNI_8"/>-->
+<!--                    <include name="testCase_SNI_9"/>-->
+<!--                    <include name="testCase_SNI_10"/>-->
+<!--                    <include name="testCase_SNI_11"/>-->
+<!--                    <include name="testCase_SNI_12"/>-->
+                    <include name="testCase_SNI_13_14_15_16"/>
+<!--                    <include name="testCase_SNI_17_18_19"/>-->
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
+
+
