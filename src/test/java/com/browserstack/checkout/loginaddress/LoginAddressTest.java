@@ -6,6 +6,7 @@ import core.BaseTest;
 import core.LogHelper;
 import org.slf4j.Logger;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
@@ -263,9 +264,10 @@ public class LoginAddressTest extends BaseTest {
     @Test
     //(priority = 17, description = "Add new another shipping and using suggest address")
     public void NLA_43() throws InterruptedException {
-        customerLogin();
-        objShoppingBagPage.clickShoppingBagPage();
-        objShoppingBagPage.moveToPagecheckOut();
+//        customerLogin();
+//        objShoppingBagPage.clickShoppingBagPage();
+//        objShoppingBagPage.moveToPagecheckOut();
+//        objLoginAddress.proceedAddress();
         objLoginAddress.addNewAddress(true,"CHECKOUT_LA_DATA_STREET_4",
                 "CHECKOUT_LA_DATA_CODE_2","CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
     }
@@ -290,6 +292,38 @@ public class LoginAddressTest extends BaseTest {
     public void NLA_47_48_49() throws InterruptedException {
         objLoginAddress.editAddress("CHECKOUT_BTN_EDIT_SHIP_ADDRESS");
         objLoginAddress.chooseAddressOnValidation(false,"CHECKOUT_LA_BTN_APPLY_ADDRESS_2");
+    }
+    @Test
+    //(priority = 21, description = "Edit shipping address with address not same as billing")
+    public void NLA_50() throws InterruptedException {
+        customerLogin();
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objLoginAddress.proceedAddress();
+        objLoginAddress.editFullShippingAddress();
+    }
+
+    @Test
+    //(priority = 22, description = "Remove shipping address successfully")
+    public void NLA_51() throws InterruptedException {
+        objLoginAddress.removeShippingAddress();
+    }
+
+    @Test
+    //(priority = 23, description = "Using back button with customer login")
+    public void NLA_52() throws InterruptedException {
+        objLoginAddress.goBack("CHECKOUT_BTN_CHECKOUT");
+    }
+    @Test
+    //(priority = 24, description = "Add new address and input wrong format postcode on the page, customer not login")
+    public void NLA_53() throws InterruptedException {
+        customerNotLogin();
+//        objLoginAddress.resetForNewCase();
+        objShoppingBagPage.addProductWithOutOptions("https://stage.glamira.co.uk/glamira-bracelet-tanel.html?alloy=white_red-375&stone1=diamond-Brillant");
+        objShoppingBagPage.clickShoppingBagPage();
+        objShoppingBagPage.moveToPagecheckOut();
+        objLoginAddress.moveToAddressPage();
+        objLoginAddress.wrongFormatCode();
     }
 
 

@@ -4,10 +4,12 @@ import lombok.var;
 import org.im4java.core.IM4JavaException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.TouchAction;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.*;
 
 import org.slf4j.Logger;
@@ -714,15 +716,53 @@ public class KeywordWeb {
         navigateToUrl(xPathElement1);
     }
     public void openNewTab(String url) {
-        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(0));
-        // driver.navigate().to(url);
-        String URL = PropertiesFile.getPropValue(url);
-        if (URL == null) {
-            URL = url;
-        }
-        navigateToUrl(URL);
+//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
+//        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+//        driver.switchTo().window(tabs.get(0));
+////        driver.switchTo().window(driver.getWindowHandle()[-1]);
+//        // driver.navigate().to(url);
+//        String URL = PropertiesFile.getPropValue(url);
+//        if (URL == null) {
+//            URL = url;
+//        }
+//        navigateToUrl(URL);
+
+//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
+//        driver.switchTo().newWindow(WindowType.TAB);
+//        navigateToUrl("http://www.google.com");
+
+//        driver.get("http://google.com");
+//        ((JavascriptExecutor) driver).executeScript("window.open('http://cnn.com','_blank');");
+
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.open();");
+//        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+//        driver.switchTo().window(tabs.get(tabs.size() - 1));
+//        navigateToUrl(url);
+
+//        WebElement body = driver.findElement(By.cssSelector("body"));
+//        body.sendKeys(Keys.COMMAND + "t");
+//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.chord(Keys.COMMAND, "2"));
+//        navigateToUrl(url);
+
+//        Actions act = new Actions(driver);
+//        act.keyDown(Keys.CONTROL).sendKeys("t").keyUp(Keys.CONTROL).build().perform();
+//        driver.get("http://www.yahoo.com/");
+
+        //switch with the help of actions class
+//        Actions action = new Actions(driver);
+//        action.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).keyUp(Keys.CONTROL).build().perform(); //opening the URL saved.
+//        driver.get("http://www.yahoo.com/");
+
+        String script = "window.open('', '_blank');";
+        ((JavascriptExecutor) driver).executeScript(script);
+        driver.get("http://www.yahoo.com/");
+    }
+    public void demoOpenNewTab() throws InterruptedException {
+        WebElement body = driver.findElement(By.tagName("body"));
+        body.sendKeys(Keys.COMMAND + "t");
+        driver.findElement(By.cssSelector("body")).sendKeys(Keys.chord(Keys.COMMAND, "2"));
+//        navigateToUrl(url);
     }
 
     public void recaptchaClickSubmit() {

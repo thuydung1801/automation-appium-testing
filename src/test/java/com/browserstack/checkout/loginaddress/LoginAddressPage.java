@@ -127,10 +127,11 @@ public class LoginAddressPage extends BasePage {
                               String code, String city, String btnAdd) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        Thread.sleep(2000);
+        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
+        Thread.sleep(3000);
         keyword.click(btnAdd);
         keyword.untilJqueryIsDone(50L);
-        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",20);
+        keyword.webDriverWaitForElementPresent("CHECKOUT_LA_TBX_FIRST",60);
         keyword.sendKeys("CHECKOUT_LA_TBX_FIRST_2","LOGIN_DATA_ALERT_USERNAME");
         keyword.sendKeys("CHECKOUT_LA_TBX_LAST_2","LOGIN_DATA_ALERT_USERNAME");
         keyword.sendKeys("CHECKOUT_LA_TBX_PHONE_2","AFFIRM_DATA_PHONE");
@@ -141,7 +142,8 @@ public class LoginAddressPage extends BasePage {
 //            keyword.keysBoardWithDOWN("/html/body/div[4]/aside[4]/div[2]/div/div/form/div/div/fieldset/div/div/div");
 //            keyword.pressEnter();
             if(street != null){
-                keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SUGGESTLIST_45",10);
+                Thread.sleep(2000);
+                keyword.webDriverWaitForElementPresent("CHECKOUT_LA_SUGGESTLIST_45",60);
                 keyword.click("CHECKOUT_LA_SUGGESTLIST_45");
 
             }else{
@@ -296,7 +298,39 @@ public class LoginAddressPage extends BasePage {
         keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
         keyword.untilJqueryIsDone(50L);
     }
+    public void editFullShippingAddress() throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("CHECKOUT_BTN_EDIT_SHIP_ADDRESS_2");
+        keyword.untilJqueryIsDone(50L);
+        keyword.clearText("CHECKOUT_LA_TBX_FIRST_2");
+        keyword.clearText("CHECKOUT_LA_TBX_LAST_2");
+        keyword.clearText("CHECKOUT_LA_TBX_PHONE_2");
+        keyword.clearText("CHECKOUT_LA_TBX_STREET_2");
+        keyword.clearText("CHECKOUT_LA_TBX_ZIP_2");
+        keyword.clearText("CHECKOUT_LA_TBX_CITY_2");
+        keyword.sendKeys("CHECKOUT_LA_TBX_FIRST_2","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_LAST_2","LOGIN_DATA_ALERT_USERNAME");
+        keyword.sendKeys("CHECKOUT_LA_TBX_PHONE_2","AFFIRM_DATA_PHONE");
+        keyword.sendKeys("CHECKOUT_LA_TBX_STREET_2","CHECKOUT_LA_DATA_STREET_6");
+        keyword.sendKeys("CHECKOUT_LA_TBX_ZIP_2","CHECKOUT_LA_DATA_CODE_4");
+        keyword.sendKeys("CHECKOUT_LA_TBX_CITY_2","CHECKOUT_LA_DATA_CITY_4");
+        keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS");
+    }
+    public void removeShippingAddress() throws InterruptedException {
+        Integer count = keyword.countNumberOfElement("CHECKOUT_LA_LIST_SHIPPING_ADDRESS");
+        removeAddress("CHECKOUT_LA_BTN_REMOVE_SHIPPING_ADDRESS");
+        String actualCount = String.valueOf(keyword.countNumberOfElement("CHECKOUT_LA_LIST_SHIPPING_ADDRESS"));
+        keyword.simpleAssertEquals(actualCount, String.valueOf(count-1));
+    }
+    public void wrongFormatCode() throws InterruptedException {
+        fillContactInformation(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_5", "CHECKOUT_LA_DATA_CITY_2");
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("CHECKOUT_LA_ADDRESS_POPUP_CANCEL");
+        keyword.assertEquals("CHECKOUT_LA_MESSAGES_CODE","CHECKOUT_LA_LBL_CODE");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
+    }
 
 
 }

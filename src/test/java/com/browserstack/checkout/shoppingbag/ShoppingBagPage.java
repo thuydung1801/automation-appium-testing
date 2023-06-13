@@ -513,6 +513,7 @@ public class ShoppingBagPage extends BasePage {
 //        keyword.openNewTabFromTabBase(1,"BE_URL");
 //        keyword.maximizeWindow();
 //        keyword.navigateToUrl("BE_URL");
+//        keyword.openNewTabFromTabBase(1,"BE_URL");
         keyword.openNewTab("BE_URL");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         Thread.sleep(5000);
