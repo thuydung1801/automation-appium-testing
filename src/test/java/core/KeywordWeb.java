@@ -35,6 +35,8 @@ import static core.BaseTest.jse;
 import static java.awt.SystemColor.window;
 import static java.sql.DriverManager.getDriver;
 import static java.sql.DriverManager.getDrivers;
+import static org.openqa.selenium.Keys.SHIFT;
+import static org.openqa.selenium.Keys.TAB;
 
 
 public class KeywordWeb {
@@ -625,7 +627,6 @@ public class KeywordWeb {
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
-        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
 //        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         //webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
@@ -846,7 +847,7 @@ public class KeywordWeb {
         actions.keyUp(Keys.CONTROL);
         actions.build().perform();
         //Press the TAB Key to Switch Focus to Permanent Address
-        actions.sendKeys(Keys.TAB);
+        actions.sendKeys(TAB);
         actions.build().perform();
         //Paste the Address in the Permanent Address field using CTRL + V
         Thread.sleep(1000);
