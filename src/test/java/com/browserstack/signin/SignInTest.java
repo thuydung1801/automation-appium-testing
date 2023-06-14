@@ -27,7 +27,7 @@ public class SignInTest extends BaseTest {
     }
     @Test(priority = 7, description = "Login success with email")
     public void testCase_SNI_1() throws InterruptedException {
-        startLogin(" ");
+        //startLogin(" ");
         signInPage.isSignInSuccessOrFail("successfullyWithEmail","email");
     }
     @Test(priority = 1, description = "Login with email full blank fields")
@@ -94,9 +94,9 @@ public class SignInTest extends BaseTest {
     @Test(priority = 8, description = "Forgot password success with email")
     public void testCase_SNI_13_14_15_16() throws InterruptedException {
         startLogin("");
-        //signInPage.goToSignIn("");
+//        signInPage.goToSignIn("");
         signInPage.forgotPassWord("email");
-
+//        signInPage.openNewTab();
     }
     @Test(priority = 14, description = "Forgot password success with phone number")
     @Parameters("baseUrl")

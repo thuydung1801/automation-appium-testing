@@ -4,19 +4,17 @@ import com.browserstack.home.LoginPage;
 import com.browserstack.signup.SignUpPage;
 import core.BasePage;
 import core.KeywordWeb;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
-
-
-
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import static core.BaseTest.driver;
 import static core.BaseTest.jse;
+
 
 public class SignInPage extends BasePage {
     private SignUpPage signUpPage;
@@ -135,14 +133,25 @@ public class SignInPage extends BasePage {
             case "email": //SNI13_14_15_16
                 keyword.sendKeys("EMAIL_FORGOT_PASSWORD_TXT", "EMAIL_VALID1");
                 keyword.click("EMAIL_FORGOT_PASSWORD_BTN");
+                Thread.sleep(10000);
                 keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_CODE_MESSAGE",20);
+
+//                keyword.click("FORGOT_PASSWORD_CODE_MESSAGE");
+//                keyword.click("FORGOT_PASSWORD_CODE_TXT");
+
                 jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
 
-                WebElement element = driver.findElement(By.xpath("FORGOT_PASSWORD_SUBMIT_BTN"));
+//                WebElement element = driver.findElement(By.xpath("FORGOT_PASSWORD_SUBMIT_BTN"));
+                WebElement ele= driver.findElement(By.xpath("FORGOT_PASSWORD_SUBMIT_BTN"));
+                jse.executeScript("arguments[0].click();",ele);
 
-                jse.executeScript("arguments[0].click()" ,element);
+                jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
 
-                //keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
+//                jse.executeScript("arguments[0].click()" ,element);
+
+//                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT","WRONG_CODE");
+//
+//                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
                 Thread.sleep(5000);
                 keyword.assertEquals("FORGOT_PASSWORD_MESSAGE","FORGOT_PASSWORD_INVALID_CODE");
 
@@ -199,27 +208,58 @@ public class SignInPage extends BasePage {
         return s.substring(s.length() - 6, s.length());
     }
 
-//    public void openNewTab() throws InterruptedException{
-//        //Store the parent window
+    public void openNewTab() throws InterruptedException{
+        keyword.navigateToUrl("https://www.guru99.com/alert-popup-handling-selenium.html");
+
+//        String a = "window.open('https://www.yahoo.com', '_blank');";
+//        jse.executeScript(a);
+//        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+//        driver.switchTo().window(tabs.get(1));
+
+
+
+
+
+
+        jse.executeScript("window.open('http://www.google.com');");
+        Thread.sleep(20000);
+        jse.executeScript("window.location.href = 'http://www.google.com';");
+        String url = "https://login.salesforce.com";
+        String script = "window.location = \'" + url + "\'";
+        jse.executeScript(script);
+
+        Thread.sleep(20000);
+        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+
+        //Store the parent window
 //        String parentWindow = driver.getWindowHandle();
-////
-//        //Open a new Windows(Mailtrap)
-////        String a = "window.open('https://stage.glamira.com/secured2021/','_blank');";
-////        jse.executeScript(a);
-//        //keyword.openNewTab("https://stage.glamira.com/secured2021/");
 //
+//        jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
+//
+//        jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
+
+
+
+
+//
+        //Open a new Windows(Mailtrap)
+//        String a = "window.open('https://stage.glamira.com/secured2021/','_blank');";
+//        jse.executeScript(a);
+        //keyword.openNewTab("https://stage.glamira.com/secured2021/");
+
 //         keyword.openNewTabFromTabBase(2,"BE_URL");
 //
 //        Thread.sleep(4000);
-////        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+ "t");
-//
-//        keyword.navigateToUrl("https://demo.guru99.com/popup.php");
+//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+ "t");
+
+//        driver.get("https://demo.guru99.com/popup.php");
 //        String MainWindow=driver.getWindowHandle();
 //
 //        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
 //        Thread.sleep(30000);
-////
-////        // To handle all new opened window.
+//
+//        // To handle all new opened window.
 //
 //        Set<String> s1=driver.getWindowHandles();
 //        List<String> s2 = new ArrayList<>();
@@ -227,10 +267,10 @@ public class SignInPage extends BasePage {
 //        Thread.sleep(20000);
 //            // Switching to Child window
 //            driver.switchTo().window(s2.get(1));
-////            keyword.sendKeys("LOGIN_FORM_USER_NAME_BE","ACCOUNT_BE");
-//
-////        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
-//
+//            keyword.sendKeys("LOGIN_FORM_USER_NAME_BE","ACCOUNT_BE");
+
+//        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
+
 //        driver.findElement(By.name("emailid"))
 //                .sendKeys("gaurav.3n@gmail.com");
 //
@@ -239,11 +279,11 @@ public class SignInPage extends BasePage {
 //        Thread.sleep(10000);
 //            // Closing the Child Window.
 //            driver.close();
-//
-//        // Switching to Parent window i.e Main Window.
+
+        // Switching to Parent window i.e Main Window.
 //
 //        Thread.sleep(5000);
 //        driver.close();
 //        driver.switchTo().window(parentWindow);
-//    }
+    }
 }

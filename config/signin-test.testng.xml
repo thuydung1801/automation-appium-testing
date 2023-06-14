@@ -6,7 +6,7 @@
         <classes>
             <class name="com.browserstack.signin.SignInTest" >
                 <methods>
-                    <include name="testCase_SNI_1"/>
+<!--                    <include name="testCase_SNI_1"/>-->
 <!--                    <include name="testCase_SNI_2"/>-->
 <!--                    <include name="testCase_SNI_3"/>-->
 <!--                    <include name="testCase_SNI_4"/>-->
