@@ -331,6 +331,19 @@ public class LoginAddressPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
     }
+    public void invalidCodeSymbols(String zipCode) throws InterruptedException {
+        keyword.clearText(zipCode);
+        keyword.sendKeys(zipCode,"CHECKOUT_LA_DATA_CODE_6");
+        keyword.assertEquals("CHECKOUT_LA_MESSAGES_CODE","CHECKOUT_LA_LBL_CODE");
+        keyword.assertEquals("CHECKOUT_LA_MESSAGE_ERROR_SYMBOLS","CHECKOUT_LA_LBL_ERROR_SYMBOLS");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+    public void inputZipCode(String zipCode, String content){
+        keyword.clearText(zipCode);
+        keyword.sendKeys(zipCode,content);
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+    }
 
 
 }

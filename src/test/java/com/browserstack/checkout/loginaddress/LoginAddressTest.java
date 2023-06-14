@@ -325,6 +325,23 @@ public class LoginAddressTest extends BaseTest {
         objLoginAddress.moveToAddressPage();
         objLoginAddress.wrongFormatCode();
     }
+    @Test
+    //(priority = 25, description = "Add new address and input postcode more than 12 symbols")
+    public void NLA_54() throws InterruptedException {
+        objLoginAddress.invalidCodeSymbols("CHECKOUT_LA_TBX_ZIP");
+    }
+    @Test
+    public void NLA_55() throws InterruptedException {
+        objLoginAddress.inputZipCode("CHECKOUT_LA_TBX_ZIP","BT62 4HX");
+        objLoginAddress.addNewAddress(false, "CHECKOUT_LA_DATA_STREET_3",
+                "CHECKOUT_LA_DATA_CODE_5", "CHECKOUT_LA_DATA_CITY_2","CHECKOUT_HPL_NEW_SHIP_ADDRESS_LOGIN");
+
+    }
+    @Test
+    public void NLA_56() throws InterruptedException {
+        objLoginAddress.invalidCodeSymbols("CHECKOUT_LA_TBX_ZIP_2");
+    }
+
 
 
 
