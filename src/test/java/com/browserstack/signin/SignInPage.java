@@ -185,7 +185,7 @@ public class SignInPage extends BasePage {
                 keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
                 Thread.sleep(5000);
 
-                signUpPage.checkInputPassword("FORGOT_NEW_PASSWORD_TXT");  //NSI19
+                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");  //NSI19
 
                 signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
                 keyword.click("FORGOT_NEW_PASSWORD_BTN");
@@ -199,8 +199,8 @@ public class SignInPage extends BasePage {
         signUpPage.loginToBackEnd("BE_URL");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(8000);
-        if(keyword.verifyElementVisible("CLOSE_BTN")) {
-            keyword.click("CLOSE_BTN");
+        if(keyword.verifyElementVisible("BE_CLOSE_BTN")) {
+            keyword.click("BE_CLOSE_BTN");
         }
         keyword.navigateToUrl("SMS_LOG_URL");
         keyword.webDriverWaitForElementPresent("DATA_ROW_BE",20);
