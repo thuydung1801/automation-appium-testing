@@ -430,12 +430,6 @@ public class KeywordWeb {
         logger.info("SwitchTODefaultContent");
         driver.switchTo().defaultContent();
     }
-
-    public void recaptchaClick() {
-        logger.info("click recaptcha");
-        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
-    }
 //    public void recaptchaClick() {
 //        logger.info("click recaptcha");
 //        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
@@ -471,6 +465,7 @@ public class KeywordWeb {
         }
         Select dropDownList = new Select(driver.findElement(By.xpath(xPathElement1)));
         dropDownList.selectByVisibleText(xPathElement2);
+
     }
 
     public void switchToCurrentTab() {
@@ -847,7 +842,7 @@ public class KeywordWeb {
         actions.keyUp(Keys.CONTROL);
         actions.build().perform();
         //Press the TAB Key to Switch Focus to Permanent Address
-        actions.sendKeys(TAB);
+        actions.sendKeys(Keys.TAB);
         actions.build().perform();
         //Paste the Address in the Permanent Address field using CTRL + V
         Thread.sleep(1000);
