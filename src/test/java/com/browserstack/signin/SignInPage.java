@@ -21,7 +21,6 @@ public class SignInPage extends BasePage {
 
     public SignInPage(KeywordWeb key) {
         super(key);
-        signUpPage = new SignUpPage(this.keyword);
     }
 
     public void goToSignIn(String url) throws InterruptedException {
@@ -57,14 +56,14 @@ public class SignInPage extends BasePage {
         keyword.click("SIGNUP_LOGOUT_BTN");
         keyword.click("SIGNUP_CONFIRM_LOGOUT_BTN");
     }
-    public void checkFieldsSignIn(String flag, String signInMethod, String expect, String actual){
-        if(signInMethod.contains("email") && flag.contains("fullBlankField")){
-            keyword.assertEquals("LOGIN_ERROR_MESSAGE","LOGIN_ERROR_EMAIL");
-            keyword.assertEquals("LOGIN_ERROR_MESSAGE","LOGIN_ERROR_PASSWORD");
-        }
-        else if(signInMethod.contains("phone") && flag.contains("fullBlankField")){
-            keyword.assertEquals("LOGIN_ERROR_MESSAGE","LOGIN_ERROR_PHONE_NUMBER");
-            keyword.assertEquals("LOGIN_ERROR_MESSAGE","LOGIN_ERROR_PASSWORD");
+    public void checkFieldsSignIn(String flag, String expect, String actual){
+        if(flag.equals("fullBlankField")) {
+            if (keyword.verifyElementPresent("LOGIN_PHONE_NUMBER_TXT")) {
+                keyword.assertEquals("LOGIN_ERROR_MESSAGE", "LOGIN_ERROR_PHONE_NUMBER");
+            } else {
+                keyword.assertEquals("LOGIN_ERROR_MESSAGE", "LOGIN_ERROR_EMAIL");
+            }
+            keyword.assertEquals("LOGIN_ERROR_MESSAGE", "LOGIN_ERROR_PASSWORD");
         }
         else {
             keyword.assertEquals(expect,actual);
@@ -84,20 +83,20 @@ public class SignInPage extends BasePage {
                 break;
             case "fullBlankField": // 2 case
                 signIn("", "",signInMethod);
-                checkFieldsSignIn("fullBlankField",signInMethod,"","");
+                checkFieldsSignIn("fullBlankField","","");
                 break;
             case "blankPassWord":
                 signIn("EMAIL_VALID1", "",signInMethod);
-                checkFieldsSignIn("blankPassWord",signInMethod,"LOGIN_ERROR_MESSAGE","LOGIN_ERROR_PASSWORD");
+                checkFieldsSignIn("blankPassWord","LOGIN_ERROR_MESSAGE","LOGIN_ERROR_PASSWORD");
                 break;
             case "blankEmail":
                 signIn("", "PASSWORD",signInMethod);
-                checkFieldsSignIn("blankEmail",signInMethod,"LOGIN_ERROR_MESSAGE","LOGIN_ERROR_EMAIL");
+                checkFieldsSignIn("blankEmail","LOGIN_ERROR_MESSAGE","LOGIN_ERROR_EMAIL");
                 break;
             case "wrongEmailPassword":
                 signIn("WRONG_EMAIL", "WRONG_PASSWORD",signInMethod);
                 Thread.sleep(3000);
-                checkFieldsSignIn("wrongEmailPassword",signInMethod,"INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
+                checkFieldsSignIn("wrongEmailPassword","INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
                 break;
             case "wrongPassWord": // 2 case
                 if(signInMethod.equals("email")) {
@@ -107,22 +106,22 @@ public class SignInPage extends BasePage {
                     signIn("VALID_PHONE_NUMBER", "WRONG_PASSWORD", signInMethod);
                 }
                 Thread.sleep(3000);
-                checkFieldsSignIn("wrongPassWord",signInMethod,"INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
+                checkFieldsSignIn("wrongPassWord","INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
                 break;
             case "wrongFormat":
                 signIn("EMAIL_INVALID", "PASSWORD",signInMethod);
-                checkFieldsSignIn("wrongFormat",signInMethod,"LOGIN_EMAIL_ERROR_FORM","LOGIN_ERROR_EMAIL");
+                checkFieldsSignIn("wrongFormat","LOGIN_EMAIL_ERROR_FORM","LOGIN_ERROR_EMAIL");
                 break;
             case "invalidPhone":
                 Thread.sleep(3000);
                 signIn("LOGIN_INVALID_PHONE_NUMBER", "PASSWORD",signInMethod);
                 Thread.sleep(3000);
-                checkFieldsSignIn("invalidPhone",signInMethod,"INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
+                checkFieldsSignIn("invalidPhone","INVALID_ACCOUNT_PASSWORD_MESSAGE","INVALID_ACCOUNT_PASSWORD");
                 break;
             case "wrongPhone":
                 signIn("LOGIN_WRONG_PHONE_NUMBER", "PASSWORD",signInMethod);
                 Thread.sleep(3000);
-                checkFieldsSignIn("wrongPhone",signInMethod,"LOGIN_WRONG_PHONE_MESSAGE","LOGIN_ERROR_PHONE_NUMBER");
+                checkFieldsSignIn("wrongPhone","LOGIN_WRONG_PHONE_MESSAGE","LOGIN_ERROR_PHONE_NUMBER");
                 break;
         }
     }
@@ -133,44 +132,26 @@ public class SignInPage extends BasePage {
             case "email": //SNI13_14_15_16
                 keyword.sendKeys("EMAIL_FORGOT_PASSWORD_TXT", "EMAIL_VALID1");
                 keyword.click("EMAIL_FORGOT_PASSWORD_BTN");
-                Thread.sleep(10000);
+                Thread.sleep(5000);
                 keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_CODE_MESSAGE",20);
-
-//                keyword.click("FORGOT_PASSWORD_CODE_MESSAGE");
-//                keyword.click("FORGOT_PASSWORD_CODE_TXT");
-
                 jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
-
-//                WebElement element = driver.findElement(By.xpath("FORGOT_PASSWORD_SUBMIT_BTN"));
-                WebElement ele= driver.findElement(By.xpath("FORGOT_PASSWORD_SUBMIT_BTN"));
-                jse.executeScript("arguments[0].click();",ele);
-
-                jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
-
-//                jse.executeScript("arguments[0].click()" ,element);
-
-//                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT","WRONG_CODE");
-//
-//                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
+                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
                 Thread.sleep(5000);
                 keyword.assertEquals("FORGOT_PASSWORD_MESSAGE","FORGOT_PASSWORD_INVALID_CODE");
 
-//                String urlFe = keyword.getUrl();
-//                String activeCode = signUpPage.takeActiveGmailCode("BE_URL",urlFe," ");
-//                keyword.navigateToUrl(urlFe);
-//                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
-//                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
-//                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
-//                Thread.sleep(5000);
-//
-//                signUpPage.checkInputPassword("FORGOT_NEW_PASSWORD_TXT");    // SNI15
-//
-//                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
-//                keyword.click("FORGOT_NEW_PASSWORD_BTN");
-//                Thread.sleep(8000);
-//                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
-
-                    break;
+                String urlFe = keyword.getUrl();
+                String activeCode = signUpPage.takeActiveGmailCode("BE_URL",urlFe," ");
+                keyword.navigateToUrl(urlFe);
+                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
+                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
+                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
+                Thread.sleep(5000);
+                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");    // SNI15
+                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
+                keyword.click("FORGOT_NEW_PASSWORD_BTN");
+                Thread.sleep(8000);
+                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
+                break;
             case "phone": //NSI17_18_19
                 keyword.click("FORGOT_PASSWORD_PHONE_BTN");
                 keyword.click("FORGOT_PASSWORD_FLAG_DROPDOWN");
@@ -210,17 +191,10 @@ public class SignInPage extends BasePage {
 
     public void openNewTab() throws InterruptedException{
         keyword.navigateToUrl("https://www.guru99.com/alert-popup-handling-selenium.html");
-
 //        String a = "window.open('https://www.yahoo.com', '_blank');";
 //        jse.executeScript(a);
 //        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 //        driver.switchTo().window(tabs.get(1));
-
-
-
-
-
-
         jse.executeScript("window.open('http://www.google.com');");
         Thread.sleep(20000);
         jse.executeScript("window.location.href = 'http://www.google.com';");
@@ -239,10 +213,6 @@ public class SignInPage extends BasePage {
 //
 //        jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
 
-
-
-
-//
         //Open a new Windows(Mailtrap)
 //        String a = "window.open('https://stage.glamira.com/secured2021/','_blank');";
 //        jse.executeScript(a);

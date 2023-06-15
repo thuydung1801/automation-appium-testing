@@ -13,7 +13,7 @@ public class LoginPage extends BasePage {
 
     public void login(String email, String password) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(7000);
         keyword.click("LOGIN_MENU_LEFT");
         keyword.untilJqueryIsDone(50L);
         keyword.click("MOBILE_BTN_LOGIN");

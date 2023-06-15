@@ -25,8 +25,7 @@ public class SignUpTest extends BaseTest {
         signUpPage.goToSignUp(baseUrl);
     }
 
-
-    @Test (priority = 1, description = "Create new customer successfully with store enable email confirm")
+    @Test (priority = 1, description = "Enter wrong code and create new customer successfully with store enable email confirm")
     public void testCase_NSU1_12() throws InterruptedException {
         startCreateAccount(" ");
         signUpPage.isSignUpSuccessOrFail("successfullyWithEmail");
@@ -60,7 +59,7 @@ public class SignUpTest extends BaseTest {
     }
     @Test(priority = 7, description = "Check error fields in password and resend code when sign up with email")
     public void testCase_NSU7_8_9_10_11_13() throws InterruptedException {
-        //startCreateAccount("");
+        startCreateAccount("");
         signUpPage.checkInputErrorPassWord("email");
     }
 

@@ -24,7 +24,7 @@ public class SignUpPage extends BasePage {
 
     public SignUpPage(KeywordWeb key) {
         super(key);
-
+        signInPage = new SignInPage(this.keyword);
         loginPage = new LoginPage(this.keyword);
     }
 
@@ -48,7 +48,7 @@ public class SignUpPage extends BasePage {
     public void loginToBackEnd(String urlBe) throws InterruptedException {
         keyword.navigateToUrl(urlBe);
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         if(keyword.verifyElementVisible("LOGIN_FORM_PASSWORD_BE")) {
             keyword.sendKeys("LOGIN_FORM_USER_NAME_BE", "ACCOUNT_BE");
             keyword.sendKeys("LOGIN_FORM_PASSWORD_BE", "PASS_BE");
@@ -56,7 +56,7 @@ public class SignUpPage extends BasePage {
         }
     }
     public void inputDataFirstSignUpScreen(String firstName, String lastName, String phoneNumber, String email, String emailConfirm) throws InterruptedException{
-        Thread.sleep(3000);
+        keyword.webDriverWaitForElementPresent("SIGNUP_FIRST_NAME_TXT",20);
         keyword.sendKeys("SIGNUP_FIRST_NAME_TXT", firstName);
         keyword.sendKeys("SIGNUP_LAST_NAME_TXT", lastName);
         if (keyword.verifyElementVisible("SIGNUP_PHONE_NUMBER_TXT")) {
@@ -72,7 +72,7 @@ public class SignUpPage extends BasePage {
         keyword.click("SIGNUP_NEXT_BTN");
     }
     public void inputDataSecondSignUpScreen(String passWord) throws InterruptedException{
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         keyword.clearText("SIGNUP_PASSWORD_TXT");
         keyword.sendKeys("SIGNUP_PASSWORD_TXT", passWord);
         keyword.click("SIGNUP_SUBSCRIBE_CHECKBOX");
@@ -128,17 +128,14 @@ public class SignUpPage extends BasePage {
         }
         keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", codeActive);
         keyword.click("SIGNUP_ACTIVE_BTN");
-        keyword.webDriverWaitForElementPresent("HELLO_MESSAGE",10);
+        keyword.webDriverWaitForElementPresent("HELLO_MESSAGE",20);
         if(signUpMethod.contains("email")) {
             keyword.verifyElementPresent("CREATE_SUCCESSFUL_MESSAGE_UK");
         }
         else {
             keyword.verifyElementPresent("CREATE_SUCCESSFUL_MESSAGE");
         }
-        keyword.click("MY_ACCOUNT_BTN");
-        Thread.sleep(3000);
-        keyword.click("SIGNUP_LOGOUT_BTN");
-        keyword.click("SIGNUP_CONFIRM_LOGOUT_BTN");
+        signInPage.logOut();
     }
     public void isSignUpSuccessOrFail(String flag) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -178,7 +175,7 @@ public class SignUpPage extends BasePage {
                 checkFieldInFirstSignUpScreen("emailNotEqualEmailConfirm","SIGNUP_EMAIL_NOT_MATCH","SIGNUP_EMAIL_CONFIRM_ERROR");
                 break;
             case "emailValidButExist": //NSU5 - NSU24
-                inputDataFirstSignUpScreen("FIRST_NAME","LAST_NAME","EMAIL_VALID1","EMAIL_VALID1",phoneNumber);
+                inputDataFirstSignUpScreen("FIRST_NAME","LAST_NAME",phoneNumber,"EMAIL_VALID1","EMAIL_VALID1");
                 Thread.sleep(2000);
                 checkFieldInFirstSignUpScreen("emailValidButExist","MESSAGE_EXIST_ACCOUNT","SIGNUP_ACCOUNT_EXIST_ERROR");
                 break;
@@ -201,11 +198,6 @@ public class SignUpPage extends BasePage {
                 break;
         }
     }
-    public void checkEmail(String flag, String phone, String email, String emailConfirm, String expect, String actual) throws InterruptedException{
-        inputDataFirstSignUpScreen("FIRST_NAME", "LAST_NAME", phone, email, emailConfirm);
-        Thread.sleep(2000);
-        checkFieldInFirstSignUpScreen(flag,expect,actual);
-    }
     public void checkFieldPassWord(int numberSuccessFields, String flag){
         String success = PropertiesFile.getPropValue("SIGNUP_SUCCESS_PASSWORD_FILED");
         String fail = PropertiesFile.getPropValue("SIGNUP_MISSING_PASSWORD_FILED");
@@ -219,7 +211,6 @@ public class SignUpPage extends BasePage {
                 driver.findElement(By.xpath(success + "[" + i + "]")).isDisplayed();
             }
         }
-
     }
     public void checkFieldErrorPassWord(String flag) {
         keyword.assertEquals("SIGNUP_PASSWORD_ERROR_MESSAGE", "SIGNUP_PASS_ERROR");
@@ -281,14 +272,15 @@ public class SignUpPage extends BasePage {
         }
     }
     public void inputErrorCode(String email, String phoneNumber) throws InterruptedException {
-        inputDataFirstSignUpScreen("FIRST_NAME", "LAST_NAME"," ", email, email);
+        keyword.webDriverWaitForElementPresent("SIGNUP_FIRST_NAME_TXT",20);
+        inputDataFirstSignUpScreen("FIRST_NAME", "LAST_NAME",phoneNumber, email, email);
         keyword.untilJqueryIsDone(50L);
         inputDataSecondSignUpScreen("PASSWORD");
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(6000);
+        keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",20);
         keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", "WRONG_CODE");
         keyword.click("SIGNUP_ACTIVE_BTN");
-        Thread.sleep(3000);
+        keyword.webDriverWaitForElementPresent("INVALID_CODE",20);
         keyword.assertEquals("SIGNUP_INVALID_CODE_MESSAGE", "INVALID_CODE");
     }
 
@@ -298,17 +290,17 @@ public class SignUpPage extends BasePage {
 //        chooseSignUpMethod(signUpMethod,"FIRST_NAME","LAST_NAME",emailAccount,emailAccount,phoneNumber);
         inputDataSecondSignUpScreen("PASSWORD");
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(6000);
+        keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",20);
         String urlFe = keyword.getUrl();
         Thread.sleep(60000);//60s
         String Code = takeActiveGmailCode("BE_URL",urlFe,"resend");
         keyword.untilJqueryIsDone(50L);
         keyword.navigateToUrl("BASE_URL_UK");
         loginPage.login(email,"PASSWORD");
-        keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",10);
+        keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",20);
         keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", Code);
         keyword.click("SIGNUP_ACTIVE_BTN");
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         keyword.verifyElementVisible("CREATE_SUCCESSFUL_MESSAGE_UK");
     }
 

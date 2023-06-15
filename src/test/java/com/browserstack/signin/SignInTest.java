@@ -12,6 +12,7 @@ public class SignInTest extends BaseTest {
 
     private SignInPage signInPage;
     private LoginPage loginPage;
+    private SignUpPage signUpPage;
     private static final Logger logger = LogHelper.getLogger();
     public SignInTest() {
         super();
