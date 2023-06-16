@@ -18,6 +18,9 @@ import static core.BaseTest.jse;
 
 public class SignInPage extends BasePage {
     private SignUpPage signUpPage;
+    public SignInPage(){
+        super();
+    }
 
     public SignInPage(KeywordWeb key) {
         super(key);
@@ -51,9 +54,9 @@ public class SignInPage extends BasePage {
         }
         keyword.click("LOGIN_BTN");
     }
-    public void logOut() throws InterruptedException{
+    public void logOut() {
         keyword.click("MY_ACCOUNT_BTN");
-        Thread.sleep(3000);
+        keyword.webDriverWaitForElementPresent("SIGNUP_LOGOUT_BTN",10);
         keyword.click("SIGNUP_LOGOUT_BTN");
         keyword.click("SIGNUP_CONFIRM_LOGOUT_BTN");
     }
