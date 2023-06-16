@@ -21,14 +21,17 @@
 <!--                    <include name="testCase_SC_14"/>-->
 <!--                    <include name="testCase_SC_18"/>-->
 <!--                    <include name="testCase_SC_19"/>-->
-                    <include name="testCase_MR_05"/>
-                    <include name="testCase_MR_04"/>
-                    <include name="testCase_MR_06"/>
+<!--                    <include name="testCase_MR_05"/>-->
+<!--                    <include name="testCase_MR_04"/>-->
+<!--                    <include name="testCase_MR_06"/>-->
 <!--                    <include name="testCase_MR_02_MR_03"/>-->
 <!--                    <include name="testCase_MR_07"/>-->
 <!--                    <include name="testCase_SC_20"/>-->
 <!--                    <include name="testCase_SC_23"/>-->
 <!--                    <include name="testCase_SC_04"/>-->
+                    <include name="testCase_LOS_11"/>
+                    <include name="testCase_LOS_12"/>
+                    <include name="testCase_LOS_10"/>
                 </methods>
             </class>
         </classes>

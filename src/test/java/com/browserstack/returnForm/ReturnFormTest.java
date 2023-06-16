@@ -29,7 +29,7 @@ public class ReturnFormTest extends BaseTest {
         //commonReturnForm();
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
     }
-    @Test(description = "Next step with customer valid but don't have any order return avaiable")
+    @Test(description = "Next step with customer valid but don't have any order return available")
     public void testCase_LS_05() throws InterruptedException {
         //commonReturnForm();
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL_NO_ORDER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
@@ -87,6 +87,15 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
+    @Test(description = "Submit return request successfully with item has returned")
+    public void testCase_SC_11() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_HAS_RETURNED",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step3In3Screen(true);
+        objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
     @Test(description = "Submit return request successfully with \"I will ship myself\" options")
     public void testCase_SC_14() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
@@ -114,13 +123,30 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
+    @Test(description = "Submit return request for Resize type and didn't choose all required field")
+    public void testCase_SC_20() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(false,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step3In3Screen(false);
+    }
+    @Test(description = "Submit return request successfully for Resize type and the order > 60 days")
+    public void testCase_SC_21() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step3In3Screen(true);
+        objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
 
-    @Test(description = "Add tracking infomation successfully")
+    @Test(description = "Add tracking information successfully")
     public void testCase_MR_04() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.addTrackingInformation("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
-    @Test(description = "not add any tracking infomation")
+    @Test(description = "not add any tracking information")
     public void testCase_MR_05() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.notAddAnyTrackingInformation("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
@@ -130,14 +156,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.editTrackingInformation("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
-    @Test(description = "Submit return request for Resize type and didn't choose all required field")
-    public void testCase_SC_20() throws InterruptedException {
-        keyword.navigateToUrl("URL_RETURN_ORDER");
-        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
-        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(false,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
-        objReturnForm.step3In3Screen(false);
-    }
+
     @Test(description = "View Detail return,Cancel My Return successfully")
     public void testCase_MR_02_MR_03() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
@@ -150,6 +169,21 @@ public class ReturnFormTest extends BaseTest {
     @Test(description = "Reorder return successfully")
     public void testCase_MR_07() throws InterruptedException {
         objReturnForm.clickReopen();
+    }
+    @Test(description = "Next step when enter wrong email adress")
+    public void testCase_LOS_11() throws InterruptedException {
+        keyword.navigateToUrl("https://stage.glamira.com/return/");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL_NO_ORDER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
+    }
+    @Test(description = "Next step when enter wrong password ")
+    public void testCase_LOS_12() throws InterruptedException {
+        keyword.navigateToUrl("https://stage.glamira.com/return/");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",true,"RETURN_FORM_MESS_INVALID_PASSWORD_LOGIN");
+    }
+    @Test(description = "Next step is successful with correct email address and password")
+    public void testCase_LOS_10() throws InterruptedException {
+        keyword.navigateToUrl("https://stage.glamira.com/return/");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
     }
 }
 
