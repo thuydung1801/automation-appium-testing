@@ -12,7 +12,6 @@ public class SignInTest extends BaseTest {
 
     private SignInPage signInPage;
     private LoginPage loginPage;
-    private SignUpPage signUpPage;
     private static final Logger logger = LogHelper.getLogger();
     public SignInTest() {
         super();
@@ -94,8 +93,8 @@ public class SignInTest extends BaseTest {
     }
     @Test(priority = 8, description = "Forgot password success with email")
     public void testCase_SNI_13_14_15_16() throws InterruptedException {
-        startLogin("");
-//        signInPage.goToSignIn("");
+//        startLogin("");
+        signInPage.goToSignIn("");
         signInPage.forgotPassWord("email");
 //        signInPage.openNewTab();
     }

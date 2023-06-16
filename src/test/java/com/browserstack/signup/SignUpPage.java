@@ -27,6 +27,9 @@ public class SignUpPage extends BasePage {
         signInPage = new SignInPage(this.keyword);
         loginPage = new LoginPage(this.keyword);
     }
+    public SignUpPage(){
+        super();
+    }
 
     public String createNewEmail() {
         String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -57,8 +60,8 @@ public class SignUpPage extends BasePage {
     }
     public void inputDataFirstSignUpScreen(String firstName, String lastName, String phoneNumber, String email, String emailConfirm) throws InterruptedException{
         keyword.webDriverWaitForElementPresent("SIGNUP_FIRST_NAME_TXT",20);
-        keyword.sendKeys("SIGNUP_FIRST_NAME_TXT", firstName);
-        keyword.sendKeys("SIGNUP_LAST_NAME_TXT", lastName);
+        clearTextAndSendKey("SIGNUP_FIRST_NAME_TXT", firstName);
+        clearTextAndSendKey("SIGNUP_LAST_NAME_TXT", lastName);
         if (keyword.verifyElementVisible("SIGNUP_PHONE_NUMBER_TXT")) {
             keyword.click("SIGNUP_FLAG_DROPDOWN");
             Thread.sleep(3000);
@@ -90,10 +93,7 @@ public class SignUpPage extends BasePage {
             keyword.navigateToUrl("EMAIL_LOG_URL");
         }
         else{
-            keyword.webDriverWaitForElementPresent("BE_CLOSE_BTN",20);
-            keyword.click("BE_CLOSE_BTN");
             keyword.navigateToUrl("EMAIL_LOG_URL");
-            keyword.untilJqueryIsDone(50L);
         }
         keyword.webDriverWaitForElementPresent("BE_SELECT_DROPDOWN", 20);
         keyword.click("BE_SELECT_DROPDOWN");
@@ -126,6 +126,7 @@ public class SignUpPage extends BasePage {
         if(keyword.verifyElementVisible("LOGIN_INFORMATION_SCREEN")){
             loginPage.login(account,"PASSWORD");
         }
+        keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",20);
         keyword.sendKeys("SIGNUP_VERIFY_CODE_TXT", codeActive);
         keyword.click("SIGNUP_ACTIVE_BTN");
         keyword.webDriverWaitForElementPresent("HELLO_MESSAGE",20);
@@ -292,7 +293,7 @@ public class SignUpPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.webDriverWaitForElementPresent("SIGNUP_VERIFY_CODE_TXT",20);
         String urlFe = keyword.getUrl();
-        Thread.sleep(60000);//60s
+        Thread.sleep(55000);//60s
         String Code = takeActiveGmailCode("BE_URL",urlFe,"resend");
         keyword.untilJqueryIsDone(50L);
         keyword.navigateToUrl("BASE_URL_UK");
@@ -308,9 +309,9 @@ public class SignUpPage extends BasePage {
         loginToBackEnd("BE_URL");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(8000);
-        if(keyword.verifyElementVisible("BE_CLOSE_BTN")) {
-            keyword.click("BE_CLOSE_BTN");
-        }
+//        if(keyword.verifyElementVisible("BE_CLOSE_BTN")) {
+//            keyword.click("BE_CLOSE_BTN");
+//        }
         keyword.navigateToUrl("SMS_LOG_URL");
         keyword.webDriverWaitForElementPresent("DATA_ROW_BE",20);
         String s = keyword.getText(xpath);

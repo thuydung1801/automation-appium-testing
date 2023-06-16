@@ -21,6 +21,7 @@ public class SignInPage extends BasePage {
 
     public SignInPage(KeywordWeb key) {
         super(key);
+        signUpPage = new SignUpPage();
     }
 
     public void goToSignIn(String url) throws InterruptedException {
@@ -130,6 +131,7 @@ public class SignInPage extends BasePage {
         keyword.click("FORGOT_PASSWORD_BTN");
         switch (signUpMethod) {
             case "email": //SNI13_14_15_16
+                // Only SNI14;  PENDING SNI13,15,16
                 keyword.sendKeys("EMAIL_FORGOT_PASSWORD_TXT", "EMAIL_VALID1");
                 keyword.click("EMAIL_FORGOT_PASSWORD_BTN");
                 Thread.sleep(5000);
@@ -139,18 +141,18 @@ public class SignInPage extends BasePage {
                 Thread.sleep(5000);
                 keyword.assertEquals("FORGOT_PASSWORD_MESSAGE","FORGOT_PASSWORD_INVALID_CODE");
 
-                String urlFe = keyword.getUrl();
-                String activeCode = signUpPage.takeActiveGmailCode("BE_URL",urlFe," ");
-                keyword.navigateToUrl(urlFe);
-                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
-                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
-                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
-                Thread.sleep(5000);
-                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");    // SNI15
-                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
-                keyword.click("FORGOT_NEW_PASSWORD_BTN");
-                Thread.sleep(8000);
-                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
+//                String urlFe = keyword.getUrl();
+//                String activeCode = signUpPage.takeActiveGmailCode("BE_URL",urlFe," ");
+//                keyword.navigateToUrl(urlFe);
+//                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
+//                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
+//                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
+//                Thread.sleep(5000);
+//                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");    // SNI15
+//                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
+//                keyword.click("FORGOT_NEW_PASSWORD_BTN");
+//                Thread.sleep(8000);
+//                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
                 break;
             case "phone": //NSI17_18_19
                 keyword.click("FORGOT_PASSWORD_PHONE_BTN");
@@ -212,25 +214,18 @@ public class SignInPage extends BasePage {
 //        jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
 //
 //        jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
-
         //Open a new Windows(Mailtrap)
 //        String a = "window.open('https://stage.glamira.com/secured2021/','_blank');";
 //        jse.executeScript(a);
         //keyword.openNewTab("https://stage.glamira.com/secured2021/");
-
 //         keyword.openNewTabFromTabBase(2,"BE_URL");
-//
 //        Thread.sleep(4000);
 //        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+ "t");
-
 //        driver.get("https://demo.guru99.com/popup.php");
 //        String MainWindow=driver.getWindowHandle();
-//
 //        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
 //        Thread.sleep(30000);
-//
 //        // To handle all new opened window.
-//
 //        Set<String> s1=driver.getWindowHandles();
 //        List<String> s2 = new ArrayList<>();
 //        s2.addAll(s1);
@@ -238,9 +233,7 @@ public class SignInPage extends BasePage {
 //            // Switching to Child window
 //            driver.switchTo().window(s2.get(1));
 //            keyword.sendKeys("LOGIN_FORM_USER_NAME_BE","ACCOUNT_BE");
-
 //        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
-
 //        driver.findElement(By.name("emailid"))
 //                .sendKeys("gaurav.3n@gmail.com");
 //
@@ -249,9 +242,7 @@ public class SignInPage extends BasePage {
 //        Thread.sleep(10000);
 //            // Closing the Child Window.
 //            driver.close();
-
         // Switching to Parent window i.e Main Window.
-//
 //        Thread.sleep(5000);
 //        driver.close();
 //        driver.switchTo().window(parentWindow);

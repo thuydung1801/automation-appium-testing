@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 public class SignUpTest extends BaseTest {
     private SignUpPage signUpPage;
     private LoginPage loginPage;
-    private static final Logger logger = LogHelper.getLogger();
+
     public SignUpTest() {
         super();
         signUpPage = new SignUpPage(this.keyword);
@@ -73,8 +73,8 @@ public class SignUpTest extends BaseTest {
     @Test(priority = 9, description = "Create new customer and leave with blank form for required form")
     @Parameters("baseUrl")
     public void testCase_NSU15(String baseUrl) throws InterruptedException {
-//        startCreateAccount(baseUrl);
-        keyword.navigateToUrl("BASE_URL");
+        startCreateAccount(baseUrl);
+//        keyword.navigateToUrl("BASE_URL");
         signUpPage.isSignUpSuccessOrFail("fullBlankField");
     }
 
@@ -101,7 +101,7 @@ public class SignUpTest extends BaseTest {
     @Test(priority = 13, description = "Check error fields in password when sign up with phone number")
     @Parameters("baseUrl")
     public void testCase_NSU18_19_20_21_22(String baseUrl) throws InterruptedException {
-//        startCreateAccount(baseUrl);
+        startCreateAccount(baseUrl);
         signUpPage.checkInputErrorPassWord("phone");
     }
 }
