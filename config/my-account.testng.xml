@@ -8,9 +8,10 @@
 
             <class name="com.browserstack.myAccount.MyAccountTest" >
                 <methods>
-                    <include name="testCase_PI_01"/>
-                    <include name="testCase_PI_02"/>
-                    <include name="testCase_PI_03"/>
+<!--                    <include name="testCase_PI_01"/>-->
+<!--                    <include name="testCase_PI_02"/>-->
+<!--                    <include name="testCase_PI_03"/>-->
+                    <include name="testCase_PI_04_LO_01"/>
                 </methods>
 
             </class>

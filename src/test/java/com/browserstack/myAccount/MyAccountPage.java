@@ -44,7 +44,7 @@ public class MyAccountPage extends BasePage{
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
     }
     public void checkVerifyChangeSuccess(String element, String message, String change, String eleChange, String verify) throws InterruptedException {
-
+        Thread.sleep(5000);
         if(keyword.verifyElementVisible(element)){
             boolean test ;
             keyword.assertEquals(message,element);
@@ -82,7 +82,9 @@ public class MyAccountPage extends BasePage{
 
                     break;
                 case "pass":
-//                    logOutLogIn();
+                    logOutLogIn();
+                    jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
                     break;
                 case "null":
                     logger.info("NULL....");
@@ -95,12 +97,37 @@ public class MyAccountPage extends BasePage{
             logger.info("Erorr....");
         }
     }
+    public void logOut() throws InterruptedException {
+        Thread.sleep(5000);
+        keyword.click("MAC_BTN_LOGOUT");
+        keyword.untilJqueryIsDone(60L);
+        keyword.click("MAC_LOGOUT_OK");
+        keyword.untilJqueryIsDone(60L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        if(keyword.verifyElementVisible("MAC_LOGOUT_VERIFY_MESSAGE")){
+            keyword.assertEquals("MAC_LOGOUT_DATA_MESSAGE","MAC_LOGOUT_VERIFY_MESSAGE");
+        }
+        Thread.sleep(5000);
+        keyword.verifyElementVisible("MAC_LOGOUT_VERIFY_HOMEPAGE");
+
+    }
+    public void logOutLogIn() throws InterruptedException {
+        logOut();
+        keyword.untilJqueryIsDone(60L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        objLogin.login("COM_INP_DATA_EMAIL_STAGE", "COM_INP_DATA_PASS_STAGE");
+        keyword.untilJqueryIsDone(60L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.verifyElementVisible("SIGNUP_VERIFY_SIGNUP");
+
+    }
     public void changeFullnameWithData() throws InterruptedException {
         inpFullName("MAC_DATA_FIRST_NAME_STAGE","MAC_DATA_LAST_NAME_STAGE");
         checkVerifyChangeSuccess("CUS_VERIFY_NEWSLETTER_UNSUBSCRIBE","MAC_VERIFY_DATA_FULLNAME","name","MAC_VERIFY_NAME",null);
 
     }
     public void commonPersonalInf(String checkBox) throws InterruptedException {
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(70L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.click("MAC_PERSONAL_INF_MOBILE");
@@ -121,10 +148,11 @@ public class MyAccountPage extends BasePage{
         }
     }
     public void changeFullNameWithDataNUll() throws InterruptedException {
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(60, "//div[@class='loading-mask']");
-        keyword.click("BTN_MYACCOUNT_ON_MOBILE");
-        commonPersonalInf(null);
+//        keyword.click("BTN_MYACCOUNT_ON_MOBILE");
+//        commonPersonalInf(null);
         inpFullName("COM_DATA_NULL", "COM_DATA_NULL");
         checkVerifyInputNull();
     }
@@ -141,14 +169,34 @@ public class MyAccountPage extends BasePage{
         keyword.untilJqueryIsDone(60L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
 //        PropertiesFile.serPropValue("COM_INP_DATA_EMAIL_STAGE",mail);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         keyword.untilJqueryIsDone(60L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         PropertiesFile.serPropValue("COM_INP_DATA_EMAIL_STAGE",mail);
     }
+    public void inpChangePassword() throws InterruptedException {
+        Thread.sleep(5000);
+        commonPersonalInf("MAC_CLICK_CHECKBOX_PASS");
+        String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String pass = "Dung*"+timestamp;
+        keyword.sendKeys("MAC_INP_PASS_CURENT_2","COM_INP_DATA_PASS_STAGE");
+//        PropertiesFile.serPropValue("COM_INP_DATA_PASS_STAGE",pass);
+        keyword.sendKeys("MAC_INP_PASS_NEW",pass);
+        keyword.sendKeys("MAC_INP_PASS_CONFIRM",pass);
+        keyword.click("MAC_BTN_SAVE_3");
+        keyword.untilJqueryIsDone(60L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        PropertiesFile.serPropValue("COM_INP_DATA_PASS_STAGE",pass);
+    }
     public void changeEmail() throws InterruptedException {
         inputChangeMail();
         checkVerifyChangeSuccess("CUS_VERIFY_NEWSLETTER_UNSUBSCRIBE", "MAC_VERIFY_DATA_FULLNAME", "email", "MAC_VERIFY_EMAIL_CHANGE", "COM_INP_DATA_EMAIL_STAGE");
+
+    }
+    public void changePassword() throws InterruptedException {
+//        keyword.navigateToUrl("https://stage.glamira.co.uk/customer/account/edit");
+        inpChangePassword();
+        checkVerifyChangeSuccess("CUS_VERIFY_NEWSLETTER_UNSUBSCRIBE", "MAC_VERIFY_DATA_FULLNAME", "pass", "MAC_VERIFY_PASS_CHANGE", "COM_INP_DATA_PASS_STAGE");
 
     }
 

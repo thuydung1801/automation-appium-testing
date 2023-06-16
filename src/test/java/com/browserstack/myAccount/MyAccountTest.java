@@ -36,13 +36,18 @@ public class MyAccountTest extends BaseTest {
     }
     @Test(priority = 2, description = "Change PERSONAL INFORMATION : forgot enter value First/last name  ")
     public void testCase_PI_02() throws InterruptedException {
-//        commonMyAccount();
+        commonMyAccount();
         testMyAccount.changeFullNameWithDataNUll();
     }
 
     @Test(priority = 3, description = "Change email ")
     public void testCase_PI_03() throws InterruptedException {
         testMyAccount.changeEmail();
+    }
+    @Test(priority = 4,description = "CHANGE PASSWORD")
+    public void testCase_PI_04_LO_01() throws InterruptedException {
+        commonMyAccount();
+        testMyAccount.changePassword();
     }
 
 
