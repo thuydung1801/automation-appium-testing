@@ -27,17 +27,37 @@ public class MyAccountPage extends BasePage {
         signUpPage = new SignUpPage(key);
         signInPage = new SignInPage(key);
     }
+    public void chooseScreenTest(String Screen) {
+        keyword.click("MY_ACCOUNT_BTN");
+        switch (Screen) {
+            case "personInformation" :
+                keyword.click("MAC_PERSONAL_INFORM_BTN");
+                keyword.webDriverWaitForElementPresent("MAC_PERSONAL_INFORM_SCREEN", 20);
+                break;
+            case "myAddress" :
+                keyword.click("MAC_MY_ADDRESS_BTN");
+                keyword.webDriverWaitForElementPresent("MAC_MY_ADDRESS_SCREEN",20);
+                break;
+            case "myWishlist" :
+                keyword.click("MAC_MY_WISHLIST_BTN");
+                keyword.webDriverWaitForElementPresent("MAC_MY_WISHLIST_SCREEN",20);
+                break;
+            case "myOverview" :
+                keyword.click("MAC_MY_OVERVIEW_BTN");
+                keyword.webDriverWaitForElementPresent("MAC_MY_OVERVIEW_SCREEN",20);
+                break;
+        }
+    }
 
     public void inputPersonalInform(String firstName, String lastName,String newPass, String newMail, String change)  {
-        keyword.click("MAC_PERSONAL_INFORM_BTN");
-        keyword.webDriverWaitForElementPresent("MAC_PERSONAL_INFORM_SCREEN", 20);
+        chooseScreenTest("personInformation");
         if (change.equals("Email")) {
-            keyword.sendKeys("MAC_FIRST_NAME_TXT","FIRST_NAME");
-            keyword.sendKeys("MAC_LAST_NAME_TXT","LAST_NAME");
+            keyword.sendKeys("MAC_FIRST_NAME_TXT",firstName);
+            keyword.sendKeys("MAC_LAST_NAME_TXT",lastName);
             keyword.click("MAC_CHANGE_EMAIl_BTN");
-            keyword.sendKeys("MAC_CURRENT_PASS_TXT", "CURRENT_PASSWORD");
+            keyword.sendKeys("MAC_CHANGE_MAIL_CURRENT_PASS_TXT", "CURRENT_PASSWORD");
             keyword.sendKeys("MAC_EMAIL_TXT", newMail);
-            PropertiesFile.serPropValue("EMAIL_VALID2", newMail);
+            PropertiesFile.serPropValue("CURRENT_EMAIL", newMail);
             keyword.click("MAC_SAVE_CHANGE_MAIL_BTN");
         }
         else if (change.equals("Pass")) {
@@ -55,17 +75,21 @@ public class MyAccountPage extends BasePage {
         }
     }
 
-    public void checkChangePersonInform(String flag, String firstName, String lastName,String newPass, String newMail) throws InterruptedException{
+    public void checkChangePersonInform(String flag, String newPass, String newMail) throws InterruptedException{
         if(flag.equals("blank")) {
             keyword.assertEquals("MAC_SAVE_INFORM_ERROR_MESSAGE","MAC_ERROR_MESS1");
             keyword.assertEquals("MAC_SAVE_INFORM_ERROR_MESSAGE","MAC_ERROR_MESS2");
         }
         else {
             keyword.webDriverWaitForElementPresent("HELLO_MESSAGE", 20);
-            keyword.assertEquals("MAC_CHANGE_SUCCESS_MESS", "MAC_VERIFY_CHANGE_SUCCESS");
+            keyword.assertEquals("MAC_VERIFY_CHANGE_SUCCESS","MAC_CHANGE_SUCCESS_MESS");
             if (flag.equals("successfully")) {
                 String hello = keyword.getText("HELLO_MESSAGE");
-                boolean check = hello.contains(firstName + " " + lastName) ? true : false;
+                String firstName = PropertiesFile.getPropValue("FIRST_NAME");
+                String lastName = PropertiesFile.getPropValue("LAST_NAME");
+                boolean check = hello.contains(firstName + " " +  lastName) ? true : false;
+                System.out.println(firstName);
+                System.out.println(lastName);
                 Assert.assertEquals(check, true);
             }
             else if (flag.equals("successfullyWithEmail")) {
@@ -77,6 +101,7 @@ public class MyAccountPage extends BasePage {
                 signInPage.logOut();
                 signInPage.goToSignIn("");
                 signInPage.signIn(newMail,newPass,"email");
+                keyword.webDriverWaitForElementPresent("HELLO_MESSAGE",20);
             }
         }
 
@@ -88,37 +113,36 @@ public class MyAccountPage extends BasePage {
         switch (flag) {
             case "successfully":
                 inputPersonalInform("FIRST_NAME", "LAST_NAME", " ","","");
-                checkChangePersonInform("successfully", "FIRST_NAME","LAST_NAME","","");
+                checkChangePersonInform("successfully","","");
                 break;
             case "blank":
                 inputPersonalInform(" ", " ", " ","","");
-                checkChangePersonInform("blank", "","","","");
+                checkChangePersonInform("blank", "","");
                 break;
             case "successfullyWithEmail":
                 inputPersonalInform(" ", " ", "",newEmail,"Email");
-                checkChangePersonInform("blank", "","","",newEmail);
+                checkChangePersonInform("successfullyWithEmail", "",newEmail);
                 break;
             case "successfullyWithPass":
                 inputPersonalInform(" ", " ", newPass,"","Pass");
-                checkChangePersonInform("blank", "","",newPass,newEmail);
+                checkChangePersonInform("successfullyWithPass", newPass,"CURRENT_EMAIL");
                 break;
         }
     }
     public void goToDelete(String passWord){
-        keyword.click("MY_ACCOUNT_BTN");
-        keyword.click("MAC_PERSONAL_INFORM_BTN");
-        keyword.webDriverWaitForElementPresent("MAC_PERSONAL_INFORM_SCREEN", 20);
+        chooseScreenTest("personInformation");
         keyword.click("MAC_DELETE_ACCOUNT_BTN");
         keyword.sendKeys("MAC_DELETE_ACCOUNT_TXT", passWord);
         keyword.click("MAC_DELETE_ACCOUNT_BTN2");
         keyword.click("MAC_DELETE_ACCOUNT_OK_BTN");
         if(passWord.equals("PASSWORD")) {
             keyword.webDriverWaitForElementPresent("MY_ACCOUNT_BTN", 20);
-            keyword.assertEquals("MAC_DELETE_ACC_FAIL_MESS", "MAC_DELETE_ACCOUNT_SUCCESS");
+            keyword.assertEquals("MAC_DELETE_ACC_FAIL_MESS","MAC_DELETE_ACCOUNT_FAIL");
         }
         else{
             keyword.webDriverWaitForElementPresent("MAC_UNDO_ACTION_BTN", 20);
-            keyword.assertEquals("MAC_DELETE_ACC_SUCCESS_MESS", "MAC_DELETE_ACCOUNT_FAIL");
+            keyword.assertEquals("MAC_DELETE_ACC_SUCCESS_MESS", "MAC_DELETE_ACCOUNT_SUCCESS");
+            keyword.click("MAC_UNDO_ACTION_BTN");
         }
     }
     public void isDeleteAccount(String flag)  throws InterruptedException{
@@ -133,9 +157,21 @@ public class MyAccountPage extends BasePage {
         }
     }
     public void isDisablePhoneNumberTxt(){
-        keyword.click("MAC_PERSONAL_INFORM_BTN");
-        keyword.webDriverWaitForElementPresent("MAC_PERSONAL_INFORM_SCREEN",20);
+        chooseScreenTest("personInformation");
         boolean check = driver.findElement(By.xpath("MAC_PHONE_NUMBER_TXT")).isEnabled() ? true : false;
         Assert.assertEquals(check, false);
         }
+    public void setAsDefaultAddress(){
+        chooseScreenTest("myAddress");
+        keyword.click("MAC_SET_AS_DEFAULT_BTN");
+        keyword.webDriverWaitForElementPresent("MAC_CHANGE_SUCCESS_MESS",20);
+        String billingAdd = keyword.getText("MAC_DEFAULT_BILLING_ADDRESS_LBL");
+        String shippingAdd = keyword.getText("MAC_DEFAULT_BILLING_ADDRESS_LBL");
+        String addAddress = keyword.getText("MAC_ADDITIONAL_ADDRESS_ROW");
+        boolean check = (billingAdd.equals(addAddress) && shippingAdd.equals(addAddress)) ? true : false;
+        Assert.assertEquals(check, true);
     }
+    public void editAddress(){
+
+    }
+}

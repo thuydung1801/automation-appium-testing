@@ -21,25 +21,24 @@ public class MyAccountTest extends BaseTest {
         }
         loginPage.acceptAllCookies();
         loginPage.login("CURRENT_EMAIL","CURRENT_PASSWORD");
-        keyword.click("MY_ACCOUNT_BTN");
     }
-    @Test(priority = 2, description = "Change PERSONAL INFORMATION ")
+    @Test(priority = 1, description = "Change PERSONAL INFORMATION ")
     public void testCase_PI_1() throws InterruptedException {
-        //setUp(" ");
+        setUp(" ");
         myAccountPage.isChangePersonalInform("successfully");
     }
-    @Test(priority = 1, description = "Change PERSONAL INFORMATION: forgot enter value first/last name")
+    @Test(priority = 4, description = "Change PERSONAL INFORMATION: forgot enter value first/last name")
     public void testCase_PI_2() throws InterruptedException {
-        setUp(" ");
+        //setUp(" ");
         myAccountPage.isChangePersonalInform("blank");
     }
-    @Test(priority = 3, description = "Change email ")
+    @Test(priority = 2, description = "Change email ")
     public void testCase_PI_3() throws InterruptedException {
-//        setUp(" ");
+        //setUp(" ");
         myAccountPage.isChangePersonalInform("successfullyWithEmail");
     }
-    @Test(priority = 4, description = "Change password")
-    public void testCase_PI_4() throws InterruptedException {
+    @Test(priority = 3, description = "Change password")
+    public void testCase_PI_4_LO_1() throws InterruptedException {
 //        setUp(" ");
         myAccountPage.isChangePersonalInform("successfullyWithPass");
     }
@@ -50,11 +49,9 @@ public class MyAccountTest extends BaseTest {
     }
     @Test(priority = 6, description = "Delete my account unsuccessfully")
     public void testCase_PI_6() throws InterruptedException {   // login with account have orders
-        setUp(" ");
         myAccountPage.isDeleteAccount("");
-
     }
-    @Test(priority = 7, description = "Disable mobile text box")
+    @Test(priority = 16, description = "Disable mobile text box")
     @Parameters("baseUrl")
     public void testCase_PI_7(String baseUrl) throws InterruptedException {
         setUp(baseUrl);

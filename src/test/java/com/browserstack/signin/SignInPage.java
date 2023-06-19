@@ -59,6 +59,7 @@ public class SignInPage extends BasePage {
         keyword.webDriverWaitForElementPresent("SIGNUP_LOGOUT_BTN",10);
         keyword.click("SIGNUP_LOGOUT_BTN");
         keyword.click("SIGNUP_CONFIRM_LOGOUT_BTN");
+
     }
     public void checkFieldsSignIn(String flag, String expect, String actual){
         if(flag.equals("fullBlankField")) {
