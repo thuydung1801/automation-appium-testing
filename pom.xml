@@ -28,13 +28,6 @@
     <dependencies>
 
 
-        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-<!--        <dependency>-->
-<!--            <groupId>io.appium</groupId>-->
-<!--            <artifactId>java-client</artifactId>-->
-<!--            <version>7.6.0</version>-->
-<!--        </dependency>-->
-
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -48,6 +41,12 @@
             <groupId>org.apache.maven.shared</groupId>
             <artifactId>maven-dependency-tree</artifactId>
             <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.6.0</version>
         </dependency>
 
         <dependency>
