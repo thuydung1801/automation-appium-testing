@@ -29,12 +29,31 @@ public class ReturnFormPage extends BasePage {
     }
     public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
+        Thread.sleep(10000);
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        keyword.clearText("RETURN_FORM_INP_EMAIL_FORM");
+        keyword.sendKeys("RETURN_FORM_INP_EMAIL_FORM", dataEmail);
+        Thread.sleep(5000);
+        keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
+        keyword.untilJqueryIsDone(50L);
+        if(checkEmail ==true) {
+            keyword.untilJqueryIsDone(50L);
+            keyword.clearText("RETURN_FORM_INP_PASSWORD_FORM");
+            keyword.sendKeys("RETURN_FORM_INP_PASSWORD_FORM", dataPassword);
+            keyword.untilJqueryIsDone(50L);
+            keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
+        }
+        keyword.untilJqueryIsDone(50L);
+        keyword.verifyElementVisible(message);
+    }
+    public void inputPhoneReturnForm(String dataPhone,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
         keyword.reLoadPage();
         keyword.untilJqueryIsDone(50L);
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(10000);
         keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
-        keyword.sendKeys("RETURN_FORM_INP_EMAIL_FORM", dataEmail);
+        keyword.sendKeys("RETURN_FORM_INP_EMAIL_FORM", dataPhone);
         Thread.sleep(5000);
         keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
         keyword.untilJqueryIsDone(50L);
@@ -112,7 +131,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(30L);
         keyword.selectDropDownListByName("RETURN_FORM_DDL_METHOD_PAYMENT", "RETURN_FORM_TXT_METHOD_OPTION");
         keyword.untilJqueryIsDone(50L);
-        getCodeReturn();
+        //getCodeReturn();
     }
     //STEP 2 / 3
     public void step2In3Screen(boolean clickBtnShipFree,String methodShip) throws InterruptedException {
@@ -248,41 +267,16 @@ public class ReturnFormPage extends BasePage {
         keyword.checkElementIsDisplayed("RETURN_FORM_CHECKBOX_CONFIRM_ADDRESS");
         keyword.checkElementIsNotDisplayed("RETURN_FORM_BTN_SUBMIT_RETURN_FORM_ORDER");
     }
-    public void getCodeReturn() throws InterruptedException {
-        String getOrderId = keyword.numberOnly("RETURN_FORM_TXT_ORDER_NUMBER");
+    //Going my return on My account
+    public void goToMyReturnOnMyAccount() throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
-        String originalWindow = driver.getWindowHandle();
-        //open a new tab to login on admin site
-        keyword.openNewTab("BE_URL");
-        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
-        Thread.sleep(5000);
-        objShoppingBagPage.loginAdmin("LOGIN_DATA_USER_NAME_LY", "LOGIN_DATA_PASS_WORD_LY");
+        keyword.click("RETURN_FORM_TXT_MY_ACCOUNT");
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
-        keyword.navigateToUrl("https://stage.glamira.com/secured2021/production/manage_request/");
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
-        if (keyword.verifyElementPresent("BE_CHECK_SHOW_INCOMING_MODAL")) {
-            keyword.click("BE_BTN_CLOSE_INCOMING");
-        }
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(10000);
-        keyword.sendKeys("BE_TBX_SEARCH_ORDER_ID_PRODUCT", getOrderId + "\n");
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
-        String getCode = keyword.getText("BE_TXT_CODE_RETURN_PRODUCT");
-        Thread.sleep(5000);
-        driver.switchTo().defaultContent();
-        //keyword.switchToWindowByIndex(1);
-        //keyword.switchToTab(1);
-//        Set<String> contextView = driver.getWindowHandles();
-//        ArrayList<String> s = new ArrayList<String>(contextView);
-//        driver.get(s.get(contextView.size()-1));
-
-        Thread.sleep(10000);
-        keyword.sendKeys("RETURN_FORM_TBX_INP_CODE_RETURN", getCode);
+        keyword.click("RETURN_FORM_HREF_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
     }
+
+
 
 
 }

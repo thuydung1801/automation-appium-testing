@@ -17,7 +17,8 @@
 <!--                    <include name="testCase_LS_07"/>-->
 <!--                    <include name="testCase_SC_07"/>-->
 <!--                    <include name="testCase_SC_08"/>-->
-<!--                    <include name="testCase_SC_09"/>-->
+                    <include name="testCase_SC_09"/>
+                    <include name="testCase_SC_10"/>
 <!--                    <include name="testCase_SC_14"/>-->
 <!--                    <include name="testCase_SC_18"/>-->
 <!--                    <include name="testCase_SC_19"/>-->
@@ -29,9 +30,13 @@
 <!--                    <include name="testCase_SC_20"/>-->
 <!--                    <include name="testCase_SC_23"/>-->
 <!--                    <include name="testCase_SC_04"/>-->
+                    <include name="testCase_MR_01"/>
                     <include name="testCase_LOS_11"/>
-                    <include name="testCase_LOS_12"/>
-                    <include name="testCase_LOS_10"/>
+<!--                    <include name="testCase_LOS_12"/>-->
+<!--                    <include name="testCase_LOS_10"/>-->
+<!--                    <include name="testCase_LOS_14"/>-->
+<!--                    <include name="testCase_LOS_15"/>-->
+<!--                    <include name="testCase_LOS_13"/>-->
                 </methods>
             </class>
         </classes>

@@ -19,6 +19,13 @@ public class ReturnFormTest extends BaseTest {
         objLogin.acceptAllCookies();
         objReturnForm.goToReturnForm();
     }
+    //go to return form and login with phone number
+    public void commonReturnForm1() throws InterruptedException {
+        keyword.deleteAllCookies();
+        keyword.navigateToUrl("https://stage.glamira.com/return/");
+        objLogin.acceptAllCookies();
+        keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
+    }
     @Test(description = "Submit Return form, Next step and not input Email")
     public void testCase_LS_06() throws InterruptedException {
         commonReturnForm();
@@ -87,6 +94,16 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
+    @Test(description = "Submit return request successfully with multiple items")
+    public void testCase_SC_10() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MULTIPLE_ITEM",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step3In3Screen(true);
+        objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
+
     @Test(description = "Submit return request successfully with item has returned")
     public void testCase_SC_11() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
@@ -170,20 +187,40 @@ public class ReturnFormTest extends BaseTest {
     public void testCase_MR_07() throws InterruptedException {
         objReturnForm.clickReopen();
     }
+    @Test(description = "Next to Return form successfully")
+    public void testCase_MR_01() throws InterruptedException {
+        keyword.deleteAllCookies();
+        keyword.navigateToUrl("https://stage.glamira.co.uk/");
+        objLogin.login("RETURN_FORM_DATA_EMAIL", "RETURN_FORM_DATA_PASSWORD");
+        objReturnForm.goToMyReturnOnMyAccount();
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+    }
     @Test(description = "Next step when enter wrong email adress")
     public void testCase_LOS_11() throws InterruptedException {
         keyword.navigateToUrl("https://stage.glamira.com/return/");
+        objLogin.acceptAllCookies();
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL_NO_ORDER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
     }
     @Test(description = "Next step when enter wrong password ")
     public void testCase_LOS_12() throws InterruptedException {
-        keyword.navigateToUrl("https://stage.glamira.com/return/");
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",true,"RETURN_FORM_MESS_INVALID_PASSWORD_LOGIN");
     }
     @Test(description = "Next step is successful with correct email address and password")
     public void testCase_LOS_10() throws InterruptedException {
-        keyword.navigateToUrl("https://stage.glamira.com/return/");
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
+    }
+    @Test(description = "Next step when enter wrong mobile number")
+    public void testCase_LOS_14() throws InterruptedException {
+        commonReturnForm1();
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
+    }
+    @Test(description = "Next step when enter wrong password ")
+    public void testCase_LOS_15() throws InterruptedException {
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",true,"RETURN_FORM_MESS_INVALID_PASSWORD_LOGIN");
+    }
+    @Test(description = " Next step is successful with correct mobile number and password")
+    public void testCase_LOS_13() throws InterruptedException {
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_PHONE_NUMBER","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
     }
 }
 
