@@ -2,6 +2,8 @@ package com.browserstack.myaccount;
 
 import com.browserstack.home.LoginPage;
 import core.BaseTest;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -57,4 +59,41 @@ public class MyAccountTest extends BaseTest {
         setUp(baseUrl);
         myAccountPage.isDisablePhoneNumberTxt();
     }
+    @Test(priority = 7, description = "Set as default")
+    public void testCase_MA_5() throws InterruptedException {
+        //        setUp(" ");
+        myAccountPage.setAsDefaultAddress();
+    }
+    @Test(priority = 8, description = "Edit billing address")
+    public void testCase_MA_1() {
+        //        setUp(" ");
+        myAccountPage.checkAddress ("defaultBilling"," ");
+    }
+    @Test(priority = 9, description = "Edit Shipping address")
+    public void testCase_MA_2() throws InterruptedException {
+        //        setUp(" ");
+        myAccountPage.checkAddress("defaultShipping"," ");
+    }
+    @Test(priority = 10, description = "Edit Shipping address")
+    public void testCase_MA_3() throws InterruptedException {
+        //        setUp(" ");
+        myAccountPage.checkAddress(" "," ");
+    }
+    @Test(priority = 11, description = "Set Default Billing Address when edit address")
+    public void testCase_MA_6() throws InterruptedException {
+        //        setUp(" ");
+        myAccountPage.checkAddress("","setBilling");
+    }
+    @Test(priority = 12, description = "Set Default Shipping Address when edit address")
+    public void testCase_MA_7() throws InterruptedException {
+        //        setUp(" ");
+        myAccountPage.checkAddress("","setShipping");
+    }
+//    @Test(priority = 13, description = "Add new address")
+//    public void testCase_MA_8() throws InterruptedException {
+//        //        setUp(" ");
+//        myAccountPage.checkAddress("","setShipping");
+//    }
+
+
 }

@@ -10,6 +10,9 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static core.BaseTest.driver;
 
 public class MyAccountPage extends BasePage {
@@ -108,7 +111,7 @@ public class MyAccountPage extends BasePage {
     }
     public void isChangePersonalInform(String flag) throws InterruptedException {
         String newEmail = signUpPage.createNewEmail();
-        String randomNumbers = RandomStringUtils.randomNumeric(5);
+        String randomNumbers = RandomStringUtils.randomNumeric(3);
         String newPass = "Duccuong@" + randomNumbers;
         switch (flag) {
             case "successfully":
@@ -171,7 +174,50 @@ public class MyAccountPage extends BasePage {
         boolean check = (billingAdd.equals(addAddress) && shippingAdd.equals(addAddress)) ? true : false;
         Assert.assertEquals(check, true);
     }
-    public void editAddress(){
-
+    public void gotoEdit(String method){
+        if(method.equals("defaultShipping")){
+            keyword.click("MAC_DEFAULT_SHIPPING_BTN");
+        }
+        else if(method.equals("defaultBilling")){
+            keyword.click("MAC_DEFAULT_BILLING_BTN");
+        }
+        else{
+            keyword.click("MAC_EDIT_ADDITIONAL_ADDRESS");
+        }
+        keyword.webDriverWaitForElementPresent("MAC_MY_ADDRESS_SCREEN",20);
+    }
+    public void editAddress(String method, String flag){
+        gotoEdit(method);
+        signUpPage.clearTextAndSendKey("MAC_FIRST_NAME_TXT","FIRST_NAME");
+        signUpPage.clearTextAndSendKey("MAC_LAST_NAME_TXT","LAST_NAME");
+        signUpPage.clearTextAndSendKey("MAC_COMPANY_TXT","MY_ACCOUNT_COMPANY");
+        signUpPage.clearTextAndSendKey("MAC_STREET_TXT","MY_ACCOUNT_STREET");
+        signUpPage.clearTextAndSendKey("MAC_STATE_TXT","MY_ACCOUNT_STATE");
+        signUpPage.clearTextAndSendKey("MAC_ZIP_CODE_TXT","MY_ACCOUNT_ZIP_CODE");
+        if(flag.equals("setBilling")){
+            keyword.click("MAC_DEFAULT_BILLING_RADIO_BTN");
+        }
+        else {
+            keyword.click("MAC_DEFAULT_SHIPPING_RADIO_BTN");
+        }
+        keyword.click("MAC_SAVE_ADDRESS_BTN");
+    }
+    public void checkAddress(String method, String flag){
+        editAddress(method, flag);
+        List<String> informEdit = new ArrayList<>();
+        informEdit.add("FIRST_NAME"); informEdit.add("LAST_NAME"); informEdit.add("MY_ACCOUNT_COMPANY"); informEdit.add("MY_ACCOUNT_STREET");
+        informEdit.add("MY_ACCOUNT_STATE"); informEdit.add("MY_ACCOUNT_ZIP_CODE");
+        keyword.webDriverWaitForElementPresent("MAC_MY_ADDRESS_SCREEN",20);
+        keyword.assertEquals("MAC_VERIFY_CHANGE_SUCCESS","MAC_CHANGE_SUCCESS_MESS");
+        if(method.equals("defaultShipping") || flag.equals("setBilling")){
+            String billingAdd = keyword.getText("MAC_DEFAULT_BILLING_ADDRESS_LBL");
+            boolean check = (billingAdd.contains(informEdit.toString())) ? true : false;
+            Assert.assertEquals(check , true);
+        }
+        else {
+            String shippingAdd = keyword.getText("MAC_DEFAULT_SHIPPING_ADDRESS_LBL");
+            boolean check = (shippingAdd.contains(informEdit.toString())) ? true : false;
+            Assert.assertEquals(check, true);
+        }
     }
 }
