@@ -20,12 +20,6 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.goToReturnForm();
     }
     //go to return form and login with phone number
-    public void commonReturnForm1() throws InterruptedException {
-        keyword.deleteAllCookies();
-        keyword.navigateToUrl("https://stage.glamira.com/return/");
-        objLogin.acceptAllCookies();
-        keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
-    }
     @Test(description = "Submit Return form, Next step and not input Email")
     public void testCase_LS_06() throws InterruptedException {
         commonReturnForm();
@@ -195,6 +189,7 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.goToMyReturnOnMyAccount();
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
     }
+    //Login With Mobile Number
     @Test(description = "Next step when enter wrong email adress")
     public void testCase_LOS_11() throws InterruptedException {
         keyword.navigateToUrl("https://stage.glamira.com/return/");
@@ -211,7 +206,7 @@ public class ReturnFormTest extends BaseTest {
     }
     @Test(description = "Next step when enter wrong mobile number")
     public void testCase_LOS_14() throws InterruptedException {
-        commonReturnForm1();
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/");
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
     }
     @Test(description = "Next step when enter wrong password ")
@@ -221,6 +216,17 @@ public class ReturnFormTest extends BaseTest {
     @Test(description = " Next step is successful with correct mobile number and password")
     public void testCase_LOS_13() throws InterruptedException {
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_PHONE_NUMBER","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
+    }
+
+    //Login With Mobile Number The store check is different from the store that creates the order
+    @Test(description = "Next step when entering  email value")
+    public void testCase_LOS_33() throws InterruptedException {
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
+    }
+    @Test(description = " Next step when entering mobile number valid")
+    public void testCase_LOS_34() throws InterruptedException {
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
     }
 }
 

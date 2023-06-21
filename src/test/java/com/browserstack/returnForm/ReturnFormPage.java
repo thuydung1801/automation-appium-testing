@@ -2,6 +2,7 @@ package com.browserstack.returnForm;
 
 
 import com.browserstack.checkout.shoppingbag.ShoppingBagPage;
+import com.browserstack.common.LoginPage;
 import com.microsoft.playwright.S;
 import core.BasePage;
 
@@ -10,6 +11,7 @@ import static core.BaseTest.driver;
 
 
 public class ReturnFormPage extends BasePage {
+    private LoginPage objLogin = new LoginPage(this.keyword);
     private ShoppingBagPage objShoppingBagPage = new ShoppingBagPage(this.keyword);
     public ReturnFormPage() {
         super();
@@ -274,6 +276,12 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_HREF_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
+    }
+    public void commonReturnFormWithPhoneNumber(String url) throws InterruptedException {
+        keyword.deleteAllCookies();
+        keyword.navigateToUrl(url);
+        objLogin.acceptAllCookies();
+        keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
     }
 
 
