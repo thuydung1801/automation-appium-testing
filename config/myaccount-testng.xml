@@ -6,13 +6,13 @@
         <classes>
             <class name="com.browserstack.myaccount.MyAccountTest" >
                 <methods>
-                    <include name="testCase_PI_1"/>
-                    <include name="testCase_PI_3"/>
-                    <include name="testCase_PI_4_LO_1"/>
-                    <include name="testCase_PI_2"/>
-                    <include name="testCase_PI_5"/>
-                    <include name="testCase_PI_6"/>
-                    <include name="testCase_PI_7"/>
+<!--                    <include name="testCase_PI_1"/>-->
+<!--                    <include name="testCase_PI_3"/>-->
+<!--                    <include name="testCase_PI_4_LO_1"/>-->
+<!--                    <include name="testCase_PI_2"/>-->
+<!--                    <include name="testCase_PI_5"/>-->
+<!--                    <include name="testCase_PI_6"/>-->
+<!--                    <include name="testCase_PI_7"/>-->
                 </methods>
             </class>
         </classes>

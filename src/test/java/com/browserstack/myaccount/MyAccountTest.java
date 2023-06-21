@@ -65,8 +65,8 @@ public class MyAccountTest extends BaseTest {
         myAccountPage.setAsDefaultAddress();
     }
     @Test(priority = 8, description = "Edit billing address")
-    public void testCase_MA_1() {
-        //        setUp(" ");
+    public void testCase_MA_1() throws InterruptedException {
+        //setUp(" ");
         myAccountPage.checkAddress ("defaultBilling"," ");
     }
     @Test(priority = 9, description = "Edit Shipping address")

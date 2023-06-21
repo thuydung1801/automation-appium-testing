@@ -165,6 +165,7 @@ public class MyAccountPage extends BasePage {
         Assert.assertEquals(check, false);
         }
     public void setAsDefaultAddress(){
+        keyword.navigateToUrl("https://stage.glamira.co.uk/customer/account/");
         chooseScreenTest("myAddress");
         keyword.click("MAC_SET_AS_DEFAULT_BTN");
         keyword.webDriverWaitForElementPresent("MAC_CHANGE_SUCCESS_MESS",20);
@@ -181,20 +182,22 @@ public class MyAccountPage extends BasePage {
         else if(method.equals("defaultBilling")){
             keyword.click("MAC_DEFAULT_BILLING_BTN");
         }
+        else if(method.equals("addNewAddress")){
+            keyword.click("MAC_ADD_NEW_ADDRESS_BTN");
+        }
         else{
             keyword.click("MAC_EDIT_ADDITIONAL_ADDRESS");
         }
         keyword.webDriverWaitForElementPresent("MAC_MY_ADDRESS_SCREEN",20);
     }
     public void editAddress(String method, String flag){
-        gotoEdit(method);
         signUpPage.clearTextAndSendKey("MAC_FIRST_NAME_TXT","FIRST_NAME");
         signUpPage.clearTextAndSendKey("MAC_LAST_NAME_TXT","LAST_NAME");
         signUpPage.clearTextAndSendKey("MAC_COMPANY_TXT","MY_ACCOUNT_COMPANY");
         signUpPage.clearTextAndSendKey("MAC_STREET_TXT","MY_ACCOUNT_STREET");
         signUpPage.clearTextAndSendKey("MAC_STATE_TXT","MY_ACCOUNT_STATE");
         signUpPage.clearTextAndSendKey("MAC_ZIP_CODE_TXT","MY_ACCOUNT_ZIP_CODE");
-        if(flag.equals("setBilling")){
+        if(flag.equals("setBilling") && method.equals(" ")){
             keyword.click("MAC_DEFAULT_BILLING_RADIO_BTN");
         }
         else {
@@ -202,22 +205,26 @@ public class MyAccountPage extends BasePage {
         }
         keyword.click("MAC_SAVE_ADDRESS_BTN");
     }
+
     public void checkAddress(String method, String flag){
+        gotoEdit(method);
         editAddress(method, flag);
         List<String> informEdit = new ArrayList<>();
         informEdit.add("FIRST_NAME"); informEdit.add("LAST_NAME"); informEdit.add("MY_ACCOUNT_COMPANY"); informEdit.add("MY_ACCOUNT_STREET");
         informEdit.add("MY_ACCOUNT_STATE"); informEdit.add("MY_ACCOUNT_ZIP_CODE");
         keyword.webDriverWaitForElementPresent("MAC_MY_ADDRESS_SCREEN",20);
         keyword.assertEquals("MAC_VERIFY_CHANGE_SUCCESS","MAC_CHANGE_SUCCESS_MESS");
+        String actual ;
         if(method.equals("defaultShipping") || flag.equals("setBilling")){
-            String billingAdd = keyword.getText("MAC_DEFAULT_BILLING_ADDRESS_LBL");
-            boolean check = (billingAdd.contains(informEdit.toString())) ? true : false;
-            Assert.assertEquals(check , true);
+            actual = keyword.getText("MAC_DEFAULT_BILLING_ADDRESS_LBL");
+        }
+        else if(method.equals("addNewAddress")){
+            actual = keyword.getText("MAC_ADDITIONAL_ADDRESS_ROW");
         }
         else {
-            String shippingAdd = keyword.getText("MAC_DEFAULT_SHIPPING_ADDRESS_LBL");
-            boolean check = (shippingAdd.contains(informEdit.toString())) ? true : false;
-            Assert.assertEquals(check, true);
+            actual = keyword.getText("MAC_DEFAULT_SHIPPING_ADDRESS_LBL");
         }
+        boolean check = (actual.contains(informEdit.toString())) ? true : false;
+        Assert.assertEquals(check , true);
     }
 }
