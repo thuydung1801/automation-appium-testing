@@ -45,31 +45,13 @@ public class ReturnFormPage extends BasePage {
             keyword.untilJqueryIsDone(50L);
             keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
         }
-        keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementVisible(message);
-    }
-    public void inputPhoneReturnForm(String dataPhone,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
-        keyword.untilJqueryIsDone(50L);
-        keyword.reLoadPage();
-        keyword.untilJqueryIsDone(50L);
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(10000);
-        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
-        keyword.sendKeys("RETURN_FORM_INP_EMAIL_FORM", dataPhone);
         Thread.sleep(5000);
-        keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
-        keyword.untilJqueryIsDone(50L);
-        if(checkEmail ==true) {
-            keyword.untilJqueryIsDone(50L);
-            keyword.sendKeys("RETURN_FORM_INP_PASSWORD_FORM", dataPassword);
-            keyword.untilJqueryIsDone(50L);
-            keyword.click("RETURN_FORM_BTN_SUBMIT_RETURN_FORM");
-        }
         keyword.untilJqueryIsDone(50L);
         keyword.verifyElementVisible(message);
     }
     //select type return in DDL
     public void selectOrderReturn(String orderSelected,boolean clickConfirmAddress,String typeSelect,String typeNotShow) throws InterruptedException {
+        Thread.sleep(10000);
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(50,"//div[@class='loading-mask']");
         keyword.selectDropDownListByName("RETURN_FORM_DDL_ORDER",orderSelected);
@@ -136,12 +118,15 @@ public class ReturnFormPage extends BasePage {
         //getCodeReturn();
     }
     //STEP 2 / 3
-    public void step2In3Screen(boolean clickBtnShipFree,String methodShip) throws InterruptedException {
+    public void step2In3Screen(boolean clickBtnShipFree,String methodShip,boolean clickShipNotRefund) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.webDriverWaitForElementPresent("RETURN_FORM_CHECKTEXT_SHIP_FREE",60);
-        clickConfirmConditions(clickBtnShipFree,"RETURN_FORM_MESS_SELECT_SHIP_FREE",methodShip);
+        clickConfirmConditions(clickBtnShipFree,"RETURN_FORM_MESS_SELECT_SHIP",methodShip);
+        keyword.untilJqueryIsDone(50L);
+        if(keyword.verifyElementPresent("RETURN_FORM_CHECKBOX_SHIP_FEE")) {
+            clickConfirmConditions(clickShipNotRefund, "RETURN_FORM_MESS_SELECT_SHIP", "RETURN_FORM_CHECKBOX_SHIP_FEE");
+        }
         keyword.untilJqueryIsDone(30L);
     }
     //STEP 3 / 3
@@ -171,6 +156,7 @@ public class ReturnFormPage extends BasePage {
             keyword.untilJqueryIsDone(30L);
             keyword.click(viewDetail);
         }
+        Thread.sleep(3000);
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.untilJqueryIsDone(50L);
@@ -184,6 +170,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.verifyElementVisible("RETURN_FORM_TXT_CANCELED");
         keyword.untilJqueryIsDone(30L);
+        Thread.sleep(3000);
     }
     public void clickReopen() throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
@@ -193,7 +180,6 @@ public class ReturnFormPage extends BasePage {
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
 
     }
-
     public void notAddAnyTrackingInformation(String viewDetailOrder) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
         keyword.navigateToUrl("URL_RETURN_ORDER");
@@ -277,15 +263,46 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RETURN_FORM_HREF_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
     }
-    public void commonReturnFormWithPhoneNumber(String url) throws InterruptedException {
+    // return form on stage.com
+    public void commonReturnFormWithPhoneNumber(String url,String typeLogin) throws InterruptedException {
         keyword.deleteAllCookies();
         keyword.navigateToUrl(url);
         objLogin.acceptAllCookies();
-        keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
+        keyword.click(typeLogin);
     }
-
-
-
+    //change shipping label fee(with SKU= G100620)-> free(SKU=Courier)
+    public void changeShippingLabel(String sku) throws InterruptedException {
+        openNewTab();
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/admin/system_config/edit/section/return/");
+        keyword.untilJqueryIsDone(50L);
+        Thread.sleep(5000);
+        keyword.clearText("BE_TBX_SKU_COURIER");
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("BE_TBX_SKU_COURIER",sku);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click("BE_BTN_SAVE_CONFIG");
+        Thread.sleep(10000);
+    }
+    //login admin BackEnd
+    public void loginAdmin(String userName, String passWord) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("LOGIN_FORM_USER_NAME_BACKEND", userName);
+        keyword.sendKeys("LOGIN_FORM_PASSWORD_BACKEND", passWord);
+        keyword.click("LOGIN_FORM_BTN_SUBMIT_BACKEND");
+    }
+    public void openNewTab() throws InterruptedException {
+        keyword.openNewTab("BE_URL");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        Thread.sleep(5000);
+        loginAdmin("LOGIN_DATA_USER_NAME_LY","LOGIN_DATA_PASS_WORD_LY");
+        Thread.sleep(5000);
+    }
+    // Change the option Login email <-> phone number( after the error message is displayed)
+    public void changeOptionLogin(String dataEmail,String dataPhone,String messEmail, String messPhone) throws InterruptedException {
+        inputDataReturnForm(dataEmail,"RETURN_FORM_DATA_PASSWORD",false,messEmail);
+        keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
+        inputDataReturnForm(dataPhone,"RETURN_FORM_DATA_PASSWORD",false,messPhone);
+    }
 
 }
 

@@ -19,7 +19,6 @@ public class ReturnFormTest extends BaseTest {
         objLogin.acceptAllCookies();
         objReturnForm.goToReturnForm();
     }
-    //go to return form and login with phone number
     @Test(description = "Submit Return form, Next step and not input Email")
     public void testCase_LS_06() throws InterruptedException {
         commonReturnForm();
@@ -79,12 +78,40 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_NO_RESIZE",false,"RETURN_FORM_SELECT_TYPE_WITHDRAWAL","RETURN_FORM_SELECT_TYPE_RESIZING");
     }
+    @Test(description = "Submit return request successfully with \"Shipping label\" option, with store having shipping free")
+    public void testCase_SC_17() throws InterruptedException {
+        objReturnForm.changeShippingLabel("Courier");
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE_L","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE",true);
+        objReturnForm.step3In3Screen(true);
+        objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
+    @Test(description = "Submit return request successfully with \"Shipping label\" option, with store having shipping fee")
+    public void testCase_SC_15() throws InterruptedException {
+        objReturnForm.changeShippingLabel("G100620");
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE_L","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
+        objReturnForm.step3In3Screen(true);
+        objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
+    @Test(description = "Submit return request with \"Shipping label\" option and didn't checkbox \"The shipment fee will not be refunded.\" , with store having shipping fee")
+    public void testCase_SC_16() throws InterruptedException {
+        keyword.navigateToUrl("URL_RETURN_ORDER");
+        objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
+        objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE_L","RETURN_FORM_TXT_RING_SIZE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",false);
+        objReturnForm.step3In3Screen(true);
+    }
     @Test(description = "Submit return request successfully with 1 normal item")
     public void testCase_SC_09() throws InterruptedException {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -93,7 +120,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MULTIPLE_ITEM",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -103,7 +130,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_HAS_RETURNED",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -112,7 +139,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_MYSELF");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_MYSELF",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -121,7 +148,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -130,7 +157,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -139,7 +166,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(false,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(false,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(false);
     }
     @Test(description = "Submit return request successfully for Resize type and the order > 60 days")
@@ -147,7 +174,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -173,7 +200,7 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl("URL_RETURN_ORDER");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
         objReturnForm.updateTypeResizingOrder("RETURN_FORM_TXT_SIZE_L","RETURN_FORM_TXT_RING_SIZE");
-        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FREE");
+        objReturnForm.step2In3Screen(true,"RETURN_FORM_CHECKTEXT_SHIP_FEE",true);
         objReturnForm.step3In3Screen(true);
         objReturnForm.cancelOrderReturn("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
@@ -189,11 +216,10 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.goToMyReturnOnMyAccount();
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,"RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
     }
-    //Login With Mobile Number
+    //Login on stage.com With email
     @Test(description = "Next step when enter wrong email adress")
     public void testCase_LOS_11() throws InterruptedException {
-        keyword.navigateToUrl("https://stage.glamira.com/return/");
-        objLogin.acceptAllCookies();
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/","RETURN_FORM_BTN_EMAIL_USER");
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL_NO_ORDER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
     }
     @Test(description = "Next step when enter wrong password ")
@@ -204,9 +230,10 @@ public class ReturnFormTest extends BaseTest {
     public void testCase_LOS_10() throws InterruptedException {
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
     }
+    //Login on stage.com With Mobile Number
     @Test(description = "Next step when enter wrong mobile number")
     public void testCase_LOS_14() throws InterruptedException {
-        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/");
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/","RETURN_FORM_BTN_PHONE_NUMBER");
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
     }
     @Test(description = "Next step when enter wrong password ")
@@ -218,15 +245,21 @@ public class ReturnFormTest extends BaseTest {
         objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_PHONE_NUMBER","RETURN_FORM_DATA_PASSWORD",true,"RETURN_FORM_LBL_NEW_RETURN_REQUEST");
     }
 
-    //Login With Mobile Number The store check is different from the store that creates the order
+    //Login -The store check is different from the store that creates the order
     @Test(description = "Next step when entering  email value")
     public void testCase_LOS_33() throws InterruptedException {
-        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/");
-        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_EMAIL","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/","RETURN_FORM_BTN_EMAIL_USER");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_EMAIL2","RETURN_FORM_DATA_PASSWORD",false,"RETURN_FORM_MESS_INVALID_EMAIL_LOGIN");
     }
     @Test(description = " Next step when entering mobile number valid")
     public void testCase_LOS_34() throws InterruptedException {
-        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_INVALID_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/","RETURN_FORM_BTN_PHONE_NUMBER");
+        objReturnForm.inputDataReturnForm("RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_DATA_PASSWORD",false,"RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
+    }
+    @Test(description = " Change the option after the error message is displayed")
+    public void testCase_LOS_20() throws InterruptedException {
+        objReturnForm.commonReturnFormWithPhoneNumber("https://stage.glamira.com/return/","RETURN_FORM_BTN_EMAIL_USER");
+        objReturnForm.changeOptionLogin("RETURN_FORM_DATA_EMAIL2","RETURN_FORM_DATA_INVALID_PHONE_NUMBER","RETURN_FORM_MESS_INVALID_EMAIL_LOGIN","RETURN_FORM_MESS_INVALID_PHONE_NUMBER");
     }
 }
 
