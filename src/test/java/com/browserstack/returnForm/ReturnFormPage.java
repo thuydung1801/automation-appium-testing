@@ -29,7 +29,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.verifyElementVisible("RETURN_FORM_INP_EMAIL_FORM");
     }
-    public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String message) throws InterruptedException {
+    public void inputDataReturnForm(String dataEmail,String dataPassword,boolean checkEmail, String messExpected, String messActual) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(10000);
         keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
@@ -47,7 +47,7 @@ public class ReturnFormPage extends BasePage {
         }
         Thread.sleep(5000);
         keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementVisible(message);
+        keyword.assertEquals(messExpected, messActual);
     }
     //select type return in DDL
     public void selectOrderReturn(String orderSelected,boolean clickConfirmAddress,String typeSelect,String typeNotShow) throws InterruptedException {
@@ -61,7 +61,7 @@ public class ReturnFormPage extends BasePage {
         //STEP 1/3
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
         if(!clickConfirmAddress) {
-            keyword.verifyElementVisible("RETURN_FORM_MESS_NOTE_CONFIRM_ADDRESS");
+            keyword.assertEquals("RETURN_FORM_MESSAGE_EXPECTED_NOTE_CONFIRM_ADDRESS","RETURN_FORM_MESSAGE_ACTUAL_NOTE_CONFIRM_ADDRESS");
             keyword.untilJqueryIsDone(50L);
         }
         keyword.untilJqueryIsDone(50L);
@@ -90,7 +90,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(30L);
         String size = keyword.getText(sizeOriginal);
         if (size.contains(text)) {
-            keyword.verifyElementVisible("RETURN_FORM_MESS_SELECTED_SAME");
+            keyword.assertEquals("RETURN_FORM_MESS_SELECTED_SAME","RETURN_FORM_MESS_ACTUAL_SELECTED_SAME");
         }
         keyword.untilJqueryIsDone(30L);
     }
@@ -122,22 +122,23 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        clickConfirmConditions(clickBtnShipFree,"RETURN_FORM_MESS_SELECT_SHIP",methodShip);
+        clickConfirmConditions(clickBtnShipFree,"RETURN_FORM_MESS_SELECT_SHIP","RETURN_FORM_MESS_ACTUAL_SELECT_SHIP",methodShip);
         keyword.untilJqueryIsDone(50L);
         if(keyword.verifyElementPresent("RETURN_FORM_CHECKBOX_SHIP_FEE")) {
-            clickConfirmConditions(clickShipNotRefund, "RETURN_FORM_MESS_SELECT_SHIP", "RETURN_FORM_CHECKBOX_SHIP_FEE");
+            clickConfirmConditions(clickShipNotRefund, "RETURN_FORM_MESS_SELECT_SHIP","RETURN_FORM_MESS_ACTUAL_SELECT_SHIP" ,"RETURN_FORM_CHECKBOX_SHIP_FEE");
         }
         keyword.untilJqueryIsDone(30L);
     }
     //STEP 3 / 3
     public void step3In3Screen(boolean clickConfirm) throws InterruptedException {
-        clickConfirmConditions(clickConfirm,"RETURN_FORM_MESS_SELECT_CONDITIONS","RETURN_FORM_CHECKBOX_TERM_CONDITION");
+        clickConfirmConditions(clickConfirm,"RETURN_FORM_MESS_SELECT_CONDITIONS","RETURN_FORM_MESS_ACTUAL_SELECT_CONDITIONS","RETURN_FORM_CHECKBOX_TERM_CONDITION");
         keyword.untilJqueryIsDone(30L);
         keyword.click("RETURN_FORM_BTN_SUBMIT");
     }
-    public void clickConfirmConditions(boolean clickConfirmConditions, String message, String clickCondition) {
+    public void clickConfirmConditions(boolean clickConfirmConditions, String messExpected, String messActual, String clickCondition) {
         if(!clickConfirmConditions) {
-            keyword.verifyElementPresent(message);
+            keyword.assertEquals(messExpected,messActual);
+
         }
         else {
             keyword.click(clickCondition);
@@ -191,7 +192,7 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_BTN_SAVE_INFO_COURIER");
         keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementVisible("RETURN_FORM_MESS_ERROR_CARRIER");
+        keyword.assertEquals("RETURN_FORM_MESS_ERROR_CARRIER","RETURN_FORM_MESS_ACTUAL_ERROR_CARRIER");
         keyword.untilJqueryIsDone(50L);
     }
     public void addTrackingInformation(String viewDetailOrder) throws InterruptedException {
@@ -229,7 +230,7 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RETURN_FORM_BTN_SAVE_INFO_COURIER");
         keyword.untilJqueryIsDone(50L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.verifyElementVisible("RETURN_FORM_MESS_SAVE_CARRIER_SUCCESS");
+        keyword.assertEquals("RETURN_FORM_MESS_SAVE_CARRIER_SUCCESS","RETURN_FORM_MESS_ACTUAL_ERROR_CARRIER");
     }
     public void editShippingAddress(String stress,String city) throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -298,10 +299,10 @@ public class ReturnFormPage extends BasePage {
         Thread.sleep(5000);
     }
     // Change the option Login email <-> phone number( after the error message is displayed)
-    public void changeOptionLogin(String dataEmail,String dataPhone,String messEmail, String messPhone) throws InterruptedException {
-        inputDataReturnForm(dataEmail,"RETURN_FORM_DATA_PASSWORD",false,messEmail);
+    public void changeOptionLogin(String dataEmail,String dataPhone,String messEmail, String messActualEmail,String messPhone, String messActualPhone) throws InterruptedException {
+        inputDataReturnForm(dataEmail,"RETURN_FORM_DATA_PASSWORD",false,messEmail, messActualEmail);
         keyword.click("RETURN_FORM_BTN_PHONE_NUMBER");
-        inputDataReturnForm(dataPhone,"RETURN_FORM_DATA_PASSWORD",false,messPhone);
+        inputDataReturnForm(dataPhone,"RETURN_FORM_DATA_PASSWORD",false,messPhone, messActualPhone);
     }
 
 }
