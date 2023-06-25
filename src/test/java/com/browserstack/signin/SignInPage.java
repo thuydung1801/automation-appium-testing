@@ -39,7 +39,7 @@ public class SignInPage extends BasePage {
         keyword.click("MOBILE_BTN_LOGIN");
         keyword.untilJqueryIsDone(50L);
     }
-    public void signIn(String account, String password, String method) {
+    public void signIn(String account, String password, String method)throws InterruptedException {
         if(method.equals("phone")){
             keyword.click("MOBILE_NUMBER_BTN");
             keyword.click("LOGIN_FLAG_DROPDOWN");
@@ -59,7 +59,8 @@ public class SignInPage extends BasePage {
         keyword.webDriverWaitForElementPresent("SIGNUP_LOGOUT_BTN",10);
         keyword.click("SIGNUP_LOGOUT_BTN");
         keyword.click("SIGNUP_CONFIRM_LOGOUT_BTN");
-
+        keyword.webDriverWaitForElementPresent("SIGN_IN_LOGOUT_SUCCESS",10);
+        keyword.assertEquals("SIGN_IN_LOGOUT_MESS","SIGN_IN_LOGOUT_SUCCESS");
     }
     public void checkFieldsSignIn(String flag, String expect, String actual){
         if(flag.equals("fullBlankField")) {
@@ -211,44 +212,5 @@ public class SignInPage extends BasePage {
         Thread.sleep(20000);
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
-
-        //Store the parent window
-//        String parentWindow = driver.getWindowHandle();
-//
-//        jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
-//
-//        jse.executeScript("document.getElementsByClassName('action primary')[4].click();");
-        //Open a new Windows(Mailtrap)
-//        String a = "window.open('https://stage.glamira.com/secured2021/','_blank');";
-//        jse.executeScript(a);
-        //keyword.openNewTab("https://stage.glamira.com/secured2021/");
-//         keyword.openNewTabFromTabBase(2,"BE_URL");
-//        Thread.sleep(4000);
-//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+ "t");
-//        driver.get("https://demo.guru99.com/popup.php");
-//        String MainWindow=driver.getWindowHandle();
-//        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
-//        Thread.sleep(30000);
-//        // To handle all new opened window.
-//        Set<String> s1=driver.getWindowHandles();
-//        List<String> s2 = new ArrayList<>();
-//        s2.addAll(s1);
-//        Thread.sleep(20000);
-//            // Switching to Child window
-//            driver.switchTo().window(s2.get(1));
-//            keyword.sendKeys("LOGIN_FORM_USER_NAME_BE","ACCOUNT_BE");
-//        driver.findElement(By.xpath("//a[text()='Click Here']")).click();
-//        driver.findElement(By.name("emailid"))
-//                .sendKeys("gaurav.3n@gmail.com");
-//
-//        driver.findElement(By.name("btnLogin")).click();
-//
-//        Thread.sleep(10000);
-//            // Closing the Child Window.
-//            driver.close();
-        // Switching to Parent window i.e Main Window.
-//        Thread.sleep(5000);
-//        driver.close();
-//        driver.switchTo().window(parentWindow);
     }
 }

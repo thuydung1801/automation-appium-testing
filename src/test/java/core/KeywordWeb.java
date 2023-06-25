@@ -63,10 +63,6 @@ public class KeywordWeb {
         }
         driver.findElement(By.xpath(xPathElement)).click();
     }
-    public void clickByJs(String element){
-        jse.executeScript("arguments[0].click();", element);
-    }
-
     public void clickByCss(String element) {
         logger.info("click" + element);
         String xPathElement = PropertiesFile.getPropValue(element);

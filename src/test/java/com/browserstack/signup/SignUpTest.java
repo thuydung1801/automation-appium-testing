@@ -59,7 +59,7 @@ public class SignUpTest extends BaseTest {
     }
     @Test(priority = 7, description = "Check error fields in password and resend code when sign up with email")
     public void testCase_NSU7_8_9_10_11_13() throws InterruptedException {
-        startCreateAccount("");
+        //startCreateAccount("");
         signUpPage.checkInputErrorPassWord("email");
     }
 
@@ -101,7 +101,7 @@ public class SignUpTest extends BaseTest {
     @Test(priority = 13, description = "Check error fields in password when sign up with phone number")
     @Parameters("baseUrl")
     public void testCase_NSU18_19_20_21_22(String baseUrl) throws InterruptedException {
-        startCreateAccount(baseUrl);
+        //startCreateAccount(baseUrl);
         signUpPage.checkInputErrorPassWord("phone");
     }
 }
