@@ -59,7 +59,7 @@ public class ReturnFormPage extends BasePage {
         keyword.click("RETURN_FORM_BTN_RETURN_ORDER");
         keyword.untilJqueryIsDone(50L);
         //STEP 1/3
-        keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
+        keyword.assertEquals("RETURN_FORM_LBL_STEP_1/3","RETURN_FORM_LBL_ACTUAL_STEP_1/3");
         if(!clickConfirmAddress) {
             keyword.assertEquals("RETURN_FORM_MESSAGE_EXPECTED_NOTE_CONFIRM_ADDRESS","RETURN_FORM_MESSAGE_ACTUAL_NOTE_CONFIRM_ADDRESS");
             keyword.untilJqueryIsDone(50L);
@@ -163,59 +163,59 @@ public class ReturnFormPage extends BasePage {
         keyword.untilJqueryIsDone(50L);
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.untilJqueryIsDone(50L);
-        keyword.click("RETURN_FORM_BTN_CANCEL_RETURN");
+        keyword.assertEquals("RETURN_FORM_BTN_CANCEL_RETURN","RETURN_FORM_BTN_ACTUAL_CANCEL_RETURN");
+        keyword.click("RETURN_FORM_BTN_ACTUAL_CANCEL_RETURN");
         keyword.untilJqueryIsDone(50L);
         keyword.untilJqueryIsDone(50L);
         keyword.click("RETURN_FORM_BTN_OK_CANCEL");
         keyword.untilJqueryIsDone(50L);
         keyword.untilJqueryIsDone(50L);
-        keyword.verifyElementVisible("RETURN_FORM_TXT_CANCELED");
+        keyword.assertEquals("RETURN_FORM_TXT_CANCELED","RETURN_FORM_TXT_ACTUAL_CANCELED");
         keyword.untilJqueryIsDone(30L);
         Thread.sleep(3000);
     }
     public void clickReopen() throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
-        keyword.webDriverWaitForElementPresent("RETURN_FORM_TXT_REOPEN",60);
-        keyword.click("RETURN_FORM_TXT_REOPEN");
+        keyword.assertEquals("RETURN_FORM_TXT_REOPEN","RETURN_FORM_TXT_ACTUAL_REOPEN");
+        keyword.click("RETURN_FORM_TXT_ACTUAL_REOPEN");
         keyword.untilJqueryIsDone(30L);
         keyword.webDriverWaitForElementPresent("RETURN_FORM_LBL_STEP_1/3",60);
 
     }
-    public void notAddAnyTrackingInformation(String viewDetailOrder) throws InterruptedException {
+    public void gotoReturnDetailPage(String url,String viewDetailOrder) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
-        keyword.navigateToUrl("URL_RETURN_ORDER");
+        keyword.navigateToUrl(url);
         keyword.untilJqueryIsDone(30L);
         keyword.click(viewDetailOrder);
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
         keyword.scrollToPositionByScript("window.scrollBy(0,300)");
         keyword.untilJqueryIsDone(50L);
+    }
+    //print return label on store de
+    public void clickPrintReturnLabel(String viewDetailOrder) throws InterruptedException {
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/sales/order/view/order_id/1607536/");
+        Thread.sleep(5000);
+        keyword.verifyElementPresent("BE_BTN_LOGIN_AS_CUSTOMER");
+        keyword.click("BE_BTN_LOGIN_AS_CUSTOMER");
+        gotoReturnDetailPage("https://stage.glamira.de/return/order/",viewDetailOrder);
+        keyword.verifyElementVisible("RETURN_FORM_BTN_PRINT_RETURN_LABEL");
+        keyword.click("RETURN_FORM_BTN_PRINT_RETURN_LABEL");
+    }
+    public void notAddAnyTrackingInformation(String viewDetailOrder) throws InterruptedException {
+        gotoReturnDetailPage("URL_RETURN_ORDER",viewDetailOrder);
         keyword.click("RETURN_FORM_BTN_SAVE_INFO_COURIER");
         keyword.untilJqueryIsDone(50L);
         keyword.assertEquals("RETURN_FORM_MESS_ERROR_CARRIER","RETURN_FORM_MESS_ACTUAL_ERROR_CARRIER");
         keyword.untilJqueryIsDone(50L);
     }
     public void addTrackingInformation(String viewDetailOrder) throws InterruptedException {
-        keyword.untilJqueryIsDone(30L);
-        keyword.navigateToUrl("URL_RETURN_ORDER");
-        keyword.untilJqueryIsDone(30L);
-        keyword.click(viewDetailOrder);
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
-        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
-        keyword.untilJqueryIsDone(50L);
+        gotoReturnDetailPage("URL_RETURN_ORDER",viewDetailOrder);
         keyword.verifyElementVisible("RETURN_FORM_ICON_INACTIVE_EDIT");
         inputTrackingInformation("RETURN_FORM_TXT_CARRIER_CODE1", "RETURN_FORM_TXB_NUMBER_TRACKING","RETURN_FORM_TXT_NUMBER_TRACKING");
     }
     public void editTrackingInformation(String viewDetailOrder) throws InterruptedException {
-        keyword.untilJqueryIsDone(30L);
-        keyword.navigateToUrl("URL_RETURN_ORDER");
-        keyword.untilJqueryIsDone(30L);
-        keyword.click(viewDetailOrder);
-        keyword.untilJqueryIsDone(50L);
-        Thread.sleep(5000);
-        keyword.scrollToPositionByScript("window.scrollBy(0,300)");
-        keyword.untilJqueryIsDone(50L);
+        gotoReturnDetailPage("URL_RETURN_ORDER",viewDetailOrder);
         keyword.click("RETURN_FORM_ICON_EDIT_TRACKING_INFO");
         inputTrackingInformation("RETURN_FORM_TXT_CARRIER_CODE2", "RETURN_FORM_TXB_EDIT_NUMBER_TRACKING","RETURN_FORM_TXT_NUMBER_TRACKING");
     }
@@ -256,6 +256,7 @@ public class ReturnFormPage extends BasePage {
         keyword.checkElementIsDisplayed("RETURN_FORM_CHECKBOX_CONFIRM_ADDRESS");
         keyword.checkElementIsNotDisplayed("RETURN_FORM_BTN_SUBMIT_RETURN_FORM_ORDER");
     }
+
     //Going my return on My account
     public void goToMyReturnOnMyAccount() throws InterruptedException {
         keyword.untilJqueryIsDone(50L);
@@ -271,15 +272,15 @@ public class ReturnFormPage extends BasePage {
         objLogin.acceptAllCookies();
         keyword.click(typeLogin);
     }
-    //change shipping label fee(with SKU= G100620)-> free(SKU=Courier)
+    //change shipping label fee(with price!=0)-> free(price=0)
     public void changeShippingLabel(String sku) throws InterruptedException {
         openNewTab();
-        keyword.navigateToUrl("https://stage.glamira.com/secured2021/admin/system_config/edit/section/return/");
+        keyword.navigateToUrl("https://stage.glamira.com/secured2021/catalog/product/edit/id/103896/");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
-        keyword.clearText("BE_TBX_SKU_COURIER");
+        keyword.clearText("BE_TBX_PRICE_SHIP_LABEL");
         keyword.untilJqueryIsDone(50L);
-        keyword.sendKeys("BE_TBX_SKU_COURIER",sku);
+        keyword.sendKeys("BE_TBX_PRICE_SHIP_LABEL",sku);
         keyword.untilJqueryIsDone(50L);
         keyword.click("BE_BTN_SAVE_CONFIG");
         Thread.sleep(10000);

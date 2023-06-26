@@ -106,7 +106,7 @@ public class ReturnFormTest extends BaseTest {
     @Test(description = "Submit return request successfully with \"Shipping label\" option, with store having shipping free")
     @Parameters("baseURL")
     public void testCase_SC_17(String baseURL) throws InterruptedException {
-        objReturnForm.changeShippingLabel("Courier");
+        objReturnForm.changeShippingLabel("0.00");
         keyword.navigateToUrl(baseURL+"order/index/");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,
                 "RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
@@ -118,7 +118,7 @@ public class ReturnFormTest extends BaseTest {
     @Test(description = "Submit return request successfully with \"Shipping label\" option, with store having shipping fee")
     @Parameters("baseURL")
     public void testCase_SC_15(String baseURL) throws InterruptedException {
-        objReturnForm.changeShippingLabel("G100620");
+        objReturnForm.changeShippingLabel("10.00");
         keyword.navigateToUrl(baseURL+"order/index/");
         objReturnForm.selectOrderReturn("RETURN_FORM_TXT_ORDER_MORE_60DAY",true,
                 "RETURN_FORM_SELECT_TYPE_RESIZING","RETURN_FORM_SELECT_TYPE_WITHDRAWAL");
@@ -266,7 +266,11 @@ public class ReturnFormTest extends BaseTest {
         keyword.navigateToUrl(baseURL+"order/index/");
         objReturnForm.editTrackingInformation("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
     }
-
+    @Test(description = "Print Return Label successfully")
+    @Parameters("baseURL")
+    public void testCase_MR_08() throws InterruptedException {
+        objReturnForm.clickPrintReturnLabel("RETURN_FORM_ICON_VIEW_DETAIL_ORDER");
+    }
     @Test(description = "View Detail return,Cancel My Return successfully")
     @Parameters("baseURL")
     public void testCase_MR_02_MR_03(String baseURL) throws InterruptedException {
