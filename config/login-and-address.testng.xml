@@ -6,9 +6,12 @@
         <!--        <parameter name="baseURL" value="https://stage.glamira.co.uk/"></parameter>-->
         <classes>
             <class name="com.browserstack.checkout.loginaddress.LoginAndAddressTest" >
-<!--                <methods>-->
-<!--                    -->
-<!--                </methods>-->
+                <methods>
+                    <include name="testCase_LA_02"/>
+                    <include name="testCase_LA_11"/>
+                    <include name="testCase_LA_12"/>
+                    <include name="testCase_LA_06"/>
+                </methods>
             </class>
         </classes>
     </test>

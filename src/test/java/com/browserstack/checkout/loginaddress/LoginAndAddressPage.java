@@ -110,6 +110,65 @@ public class LoginAndAddressPage extends BasePage {
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
         Thread.sleep(5000);
     }
+    //clear all
+    public void clearAllData() throws InterruptedException {
+        keyword.clearText("LP_INPUT_FIRST_NAME");
+        keyword.clearText("LP_INPUT_LAST_NAME");
+        keyword.clearText("LP_INPUT_EMAIL");
+        keyword.clearText("LP_INPUT_TELEPHONE");
+        keyword.clearText("LP_INPUT_COMPANY");
+        keyword.clearText("LP_INPUT_STREET");
+        keyword.clearText("LP_INPUT_POSTAL");
+        keyword.clearText("LP_INPUT_CITY");
+    }
+    //verify All  required field
+    public void verifyAllRequiredField() throws InterruptedException {
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LP_MESSAGE_FIELD_FIRST_NAME");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_LAST_NAME");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_EMAIL");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_CONFIRM_EMAIL");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_PHONE");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_STREET_FIELD");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_ZIP_CODE");
+        keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_MESSAGE_FIELD_CITY");
+    }
+    //    leaveBlankRequiredForm
+    public void leaveBlankRequiredForm() throws InterruptedException {
+        keyword.click("LP_BTN_CONTINUE");
+        keyword.untilJqueryIsDone(20L);
+        clearAllData();
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+        keyword.untilJqueryIsDone(30L);
+        verifyAllRequiredField();
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+
+    }
+    //    enterInvalidPhone
+    public void enterInvalidPhone() throws InterruptedException {
+        Thread.sleep(5000);
+        sendAllDataForm("LA_DATA_FIRST_NAME", "LA_DATA_LAST_NAME", "LA_DATA_EMAIL",
+                "LA_DATA_CONFIRM_EMAIL", "LA_DATA_PHONE_INVALID", "LP_DATA_COMPANY",
+                "LP_DATA_STREET", "LP_POSTAL_CODE_MALTA", "LP_COUNTRY");
+        keyword.assertEquals("LA_DATA_MESSAGE_PHONE_FIELD", "LA_MESSAGE_FIELD_PHONE");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+    public void nextToPaymentSuccess() throws InterruptedException {
+        Thread.sleep(5000);
+        clearTextAndSendKey("LP_INPUT_TELEPHONE", "LP_INPUT_TELEPHONE", "LA_DATA_PHONE");
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+        Thread.sleep(5000);
+        keyword.untilJqueryIsDone(100L);
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
+        keyword.untilJqueryIsDone(20L);
+        String textShipping = keyword.getText("LP_INPUT_MESSAGE_SHOPPING_ADDRESS").replaceAll("\\s", " ");
+        System.out.printf("=====" + textShipping );
+        keyword.simpleAssertEquals("LA_SHIPPING_ADDRESS_MESSAGE", textShipping);
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+
 
 
 }
