@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cross-Platform">
+    <test name="ReturnForm">
+        <parameter name="baseURL" value="https://stage.glamira.co.uk/return/"></parameter>
+        <classes>
+            <class name="com.browserstack.returnForm.ReturnFormTest">
+                <methods>
+                    <include name="testCase_LS_06"/>
+<!--                    <include name="testCase_LS_04"/>-->
+<!--                    <include name="testCase_LS_05"/>-->
+<!--                    <include name="testCase_LS_03"/>-->
+<!--                    <include name="testCase_LS_02"/>-->
+<!--                    <include name="testCase_LS_01"/>-->
+<!--                    <include name="testCase_LS_08"/>-->
+<!--                    <include name="testCase_LS_09"/>-->
+<!--                    <include name="testCase_LS_10"/>-->
+<!--                    <include name="testCase_LS_07"/>-->
+<!--                    <include name="testCase_SC_07"/>-->
+<!--                    <include name="testCase_SC_08"/>-->
+<!--                    <include name="testCase_SC_17"/>-->
+<!--                    <include name="testCase_SC_15"/>-->
+<!--                    <include name="testCase_SC_16"/>-->
+<!--                    <include name="testCase_SC_09"/>-->
+<!--                    <include name="testCase_SC_10"/>-->
+<!--                    <include name="testCase_SC_11"/>-->
+<!--                    <include name="testCase_SC_12"/>-->
+<!--                    <include name="testCase_SC_13"/>-->
+<!--                    <include name="testCase_SC_14"/>-->
+<!--                    <include name="testCase_SC_18"/>-->
+<!--                    <include name="testCase_SC_19"/>-->
+<!--                    <include name="testCase_MR_05"/>-->
+<!--                    <include name="testCase_MR_04"/>-->
+<!--                    <include name="testCase_MR_06"/>-->
+<!--                    <include name="testCase_MR_08"/>-->
+<!--                    <include name="testCase_MR_02_MR_03"/>-->
+<!--                    <include name="testCase_MR_07"/>-->
+<!--                    <include name="testCase_SC_20"/>-->
+<!--                    <include name="testCase_SC_23"/>-->
+<!--                    <include name="testCase_SC_04"/>-->
+<!--                    <include name="testCase_MR_01"/>-->
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="ReturnFormWithPhone">
+        <parameter name="baseURL" value="https://stage.glamira.com/return/"></parameter>
+        <classes>
+            <class name="com.browserstack.returnForm.ReturnFormTest">
+                <methods>
+                   <include name="testCase_LOS_11"/>
+<!--                    <include name="testCase_LOS_12"/>-->
+<!--                    <include name="testCase_LOS_10"/>-->
+<!--                    <include name="testCase_LOS_14"/>-->
+<!--                    <include name="testCase_LOS_15"/>-->
+<!--                    <include name="testCase_LOS_13"/>-->
+                    <include name="testCase_LOS_20"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

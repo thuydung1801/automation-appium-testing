@@ -7,11 +7,14 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.TouchAction;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
 
 import org.slf4j.Logger;
 import org.testng.Assert;
+import org.openqa.selenium.remote.LocalFileDetector;
 
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
@@ -32,6 +35,8 @@ import static core.BaseTest.jse;
 import static java.awt.SystemColor.window;
 import static java.sql.DriverManager.getDriver;
 import static java.sql.DriverManager.getDrivers;
+import static org.openqa.selenium.Keys.SHIFT;
+import static org.openqa.selenium.Keys.TAB;
 
 
 public class KeywordWeb {
@@ -425,7 +430,6 @@ public class KeywordWeb {
         logger.info("SwitchTODefaultContent");
         driver.switchTo().defaultContent();
     }
-
 //    public void recaptchaClick() {
 //        logger.info("click recaptcha");
 //        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
@@ -543,7 +547,6 @@ public class KeywordWeb {
         return stt;
     }
 
-
     public void deleteAllCookies() {
         logger.info("deleteAllCookies");
         driver.manage().deleteAllCookies();
@@ -620,6 +623,7 @@ public class KeywordWeb {
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
 //        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
+        //webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
             webDriverWait.until(waitCondition);
         } catch (Exception e) {
@@ -627,7 +631,6 @@ public class KeywordWeb {
 
         }
     }
-
 
     public void untilJqueryIsDone(Long timeoutInSeconds) throws InterruptedException {
         until((d) ->
