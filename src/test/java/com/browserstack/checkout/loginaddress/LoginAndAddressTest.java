@@ -73,6 +73,46 @@ public class LoginAndAddressTest extends BaseTest {
         logger.info("testCase_LA_06");
         objLoginAdrPage.nextToPaymentSuccess();
     }
+//    @Test(priority = 11, description = "Next to Payment page successfully with Guest option and Ship to this address is yes ,select button sip to address ")
+//    public void testCase_LA_07() throws InterruptedException {
+//        logger.info("testCase_LA_07");
+//        objLoginAdrPage.nextToPaymentSuccessOnChangeNoShipToAddress();
+//    }
+
+    @Test
+//            (priority = 12, description = "Edit Address successfully with customer not login")
+    public void testCase_LA_18() throws InterruptedException {
+        logger.info("testCase_LA_18");
+        objLoginAdrPage.editAddressWithCustomerNotLogin();
+    }
+    @Test
+//            (priority = 13, description = "Add New Address successfully with customer login")
+    public void testCase_LA_21_And_Case_LA_01() throws InterruptedException {
+        logger.info("testCase_LA_021_And_Case_LA_01");
+        objLoginAdrPage.addNewAddress();
+    }
+
+    @Test
+//            (priority = 14, description = "Add New Address and didn't fill all required field")
+    public void testCase_LA_22() throws InterruptedException {
+        logger.info("testCase_LA_022");
+        objLoginAdrPage.addNewAddressFillAllRequiredField();
+    }
+
+    @Test
+//            (priority = 15, description = "Remove Address successfully with customer login")
+    public void testCase_LA_19() throws InterruptedException {
+        logger.info("testCase_LA_019");
+        objLoginAdrPage.removeAddressWithCustomerLogin();
+    }
+
+    @Test
+//            (priority = 16, description = "Edit Address successfully with customer login")
+    public void testCase_LA_20() throws InterruptedException {
+        logger.info("testCase_LA_020");
+        objLoginAdrPage.editAddressWithCustomerLogin();
+    }
+
 
 
 

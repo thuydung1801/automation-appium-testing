@@ -11,6 +11,11 @@
                     <include name="testCase_LA_11"/>
                     <include name="testCase_LA_12"/>
                     <include name="testCase_LA_06"/>
+                    <include name="testCase_LA_18"/>
+                    <include name="testCase_LA_21_And_Case_LA_01"/>
+                    <include name="testCase_LA_22"/>
+                    <include name="testCase_LA_19"/>
+                    <include name="testCase_LA_20"/>
                 </methods>
             </class>
         </classes>
