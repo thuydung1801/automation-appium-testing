@@ -247,17 +247,25 @@ public class SignUpPage extends BasePage {
                 break;
         }
     }
-    public void inputPassword(String xpath) throws InterruptedException {
+    public void inputPassword(String xpath,String numberFieldsError) throws InterruptedException {
         List<String> errorPassWordList = new ArrayList<>();
         errorPassWordList.add("PASS_LESS_8_CHARACTER");
         errorPassWordList.add("PASS_WITHOUT_NUMBER");
         errorPassWordList.add("PASS_WITHOUT_LOWERCASE");
         errorPassWordList.add("PASS_WITHOUT_UPPERCASE");
         errorPassWordList.add("PASS_WITHOUT_SPECIAL_CHARACTER");
-        for (int i = 0; i < errorPassWordList.size(); i++) {
-            clearTextAndSendKey(xpath, errorPassWordList.get(i));
+        errorPassWordList.add("PASSWORD_2_ERROR");
+        if(numberFieldsError.contains("1")) {
+            for (int i = 0; i < errorPassWordList.size() - 1; i++) {
+                clearTextAndSendKey(xpath, errorPassWordList.get(i));
+                Thread.sleep(2000);
+                checkFieldErrorPassWord(numberFieldsError);
+            }
+        }
+        else {
+            clearTextAndSendKey(xpath, errorPassWordList.get(errorPassWordList.size() - 1));
             Thread.sleep(2000);
-            checkFieldErrorPassWord("1fieldErrorPassWord");
+            checkFieldErrorPassWord(numberFieldsError);
         }
     }
     public void checkInputErrorPassWord( String signUpMethod) throws InterruptedException {
@@ -267,7 +275,7 @@ public class SignUpPage extends BasePage {
         Thread.sleep(3000);
         inputDataFirstSignUpScreen("FIRST_NAME","LAST_NAME",phoneNumber,email, email);
         keyword.untilJqueryIsDone(50L);
-        inputPassword("SIGNUP_PASSWORD_TXT");
+        inputPassword("SIGNUP_PASSWORD_TXT","1fieldErrorPassWord");
         if(signUpMethod.equals("email")){
             resendActiveCode("email",email);
         }

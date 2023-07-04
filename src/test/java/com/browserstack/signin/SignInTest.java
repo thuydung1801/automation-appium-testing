@@ -22,7 +22,7 @@ public class SignInTest extends BaseTest {
         if(baseUrl.equals("https://stage.glamira.com/")){
             keyword.navigateToUrl(baseUrl);
         }
-        loginPage.acceptAllCookies();
+        //loginPage.acceptAllCookies();
         signInPage.goToSignIn(baseUrl);
     }
     @Test(priority = 7, description = "Login success with email")
@@ -93,15 +93,15 @@ public class SignInTest extends BaseTest {
     }
     @Test(priority = 8, description = "Forgot password success with email")
     public void testCase_SNI_13_14_15_16() throws InterruptedException {
-//        startLogin("");
         signInPage.goToSignIn("");
+        //setUpRealDevice("app","16.5.1","1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
         signInPage.forgotPassWord("email");
-//        signInPage.openNewTab();
     }
     @Test(priority = 14, description = "Forgot password success with phone number")
     @Parameters("baseUrl")
     public void testCase_SNI_17_18_19(String baseUrl) throws InterruptedException {
-        signInPage.goToSignIn("baseUrl");
+        signInPage.goToSignIn(baseUrl);
+        //setUpRealDevice("app","16.5.1","1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
         signInPage.forgotPassWord("phone");
     }
 

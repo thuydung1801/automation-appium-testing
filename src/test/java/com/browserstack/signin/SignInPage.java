@@ -18,6 +18,7 @@ import static core.BaseTest.jse;
 
 public class SignInPage extends BasePage {
     private SignUpPage signUpPage;
+    private LoginPage loginPage;
     public SignInPage(){
         super();
     }
@@ -25,8 +26,13 @@ public class SignInPage extends BasePage {
     public SignInPage(KeywordWeb key) {
         super(key);
         signUpPage = new SignUpPage();
-    }
+        loginPage = new LoginPage(this.keyword);
 
+    }
+    public int numberTabDisplay(){
+        Set<String> window = driver.getWindowHandles();
+        return window.size();
+    }
     public void goToSignIn(String url) throws InterruptedException {
         if(url.equals("https://stage.glamira.com/")){
         keyword.webDriverWaitForElementPresent("BANNER_WEB",20);
@@ -134,51 +140,54 @@ public class SignInPage extends BasePage {
 
     public void forgotPassWord(String signUpMethod) throws InterruptedException {
         keyword.click("FORGOT_PASSWORD_BTN");
+        Thread.sleep(3000);
         switch (signUpMethod) {
             case "email": //SNI13_14_15_16
-                // Only SNI14;  PENDING SNI13,15,16
                 keyword.sendKeys("EMAIL_FORGOT_PASSWORD_TXT", "EMAIL_VALID1");
                 keyword.click("EMAIL_FORGOT_PASSWORD_BTN");
-                Thread.sleep(5000);
-                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_CODE_MESSAGE",20);
-                jse.executeScript("document.getElementsByClassName('input-text l-letter-space')[0].value='123456';");
+                Thread.sleep(3000);
+                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT","123456");
                 keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
                 Thread.sleep(5000);
                 keyword.assertEquals("FORGOT_PASSWORD_MESSAGE","FORGOT_PASSWORD_INVALID_CODE");
-
-//                String urlFe = keyword.getUrl();
-//                String activeCode = signUpPage.takeActiveGmailCode("BE_URL",urlFe," ");
-//                keyword.navigateToUrl(urlFe);
-//                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
-//                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
-//                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
-//                Thread.sleep(5000);
-//                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");    // SNI15
-//                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
-//                keyword.click("FORGOT_NEW_PASSWORD_BTN");
-//                Thread.sleep(8000);
-//                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
-                break;
-            case "phone": //NSI17_18_19
-                keyword.click("FORGOT_PASSWORD_PHONE_BTN");
-                keyword.click("FORGOT_PASSWORD_FLAG_DROPDOWN");
-                keyword.scrollToPositionByScript("window.scrollBy(0,200)");
-                keyword.click("FORGOT_PASSWORD_FLAG_VIETNAM");
-                keyword.sendKeys("FORGOT_PASSWORD_MOBILE_TXT","VALID_PHONE_NUMBER"); // NSI17
-                keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
-                String codeSMS = getSMSCodeCreateNewPass("CODE_RESET_PASSWORD");
-
-                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_PHONE_SUBMIT_BTN",20);
-                keyword.sendKeys("FORGOT_PASSWORD_CODE_MOBILE_TXT",codeSMS);
-                keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
+                keyword.openTabRealDevice();
+                String activeCode = signUpPage.takeActiveGmailCode("BE_URL"," "," ");
+                keyword.switchTabRealDevice("0");
+                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
+                keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
+                keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
                 Thread.sleep(5000);
-
-                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT");  //NSI19
-
+                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT", "2fieldErrorPassWord");
                 signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
                 keyword.click("FORGOT_NEW_PASSWORD_BTN");
                 Thread.sleep(8000);
                 keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
+                break;
+            case "phone": //NSI17_18_19
+                keyword.click("FORGOT_PASSWORD_PHONE_BTN");
+                Thread.sleep(3000);
+                keyword.sendKeys("FORGOT_PASSWORD_MOBILE_TXT","LOGIN_INVALID_PHONE_NUMBER");
+                keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
+                Thread.sleep(5000);
+                keyword.assertEquals("FORGOT_PASSWORD_INVALID_PHONE_MESS","FORGOT_PASSWORD_INVALID_PHONE");
+                if(numberTabDisplay() > 1){
+                    keyword.switchTabRealDevice("1");
+                }
+                else {
+                    keyword.openTabRealDevice();
+                }
+                String codeSMS = getSMSCodeCreateNewPass("CODE_RESET_PASSWORD");
+                keyword.switchTabRealDevice("0");
+                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_PHONE_SUBMIT_BTN",20);
+                keyword.sendKeys("FORGOT_PASSWORD_CODE_MOBILE_TXT",codeSMS);
+                keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
+                Thread.sleep(5000);
+                signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT","2fieldErrorPassWord");  //NSI19
+                signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
+                keyword.click("FORGOT_NEW_PASSWORD_BTN");
+                Thread.sleep(8000);
+                keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
+                loginPage.login("EMAIL_VALID1","PASSWORD");
                 break;
         }
     }

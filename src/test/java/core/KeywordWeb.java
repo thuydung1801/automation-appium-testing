@@ -1,15 +1,10 @@
 package core;
 
-import lombok.var;
-import org.im4java.core.IM4JavaException;
-import org.openqa.selenium.*;
+import io.appium.java_client.AppiumBy;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.TouchAction;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.*;
-
 import org.slf4j.Logger;
 import org.testng.Assert;
 
@@ -28,25 +23,31 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import static core.BaseTest.driver;
+import static core.BaseTest.iosDriver;
 import static core.BaseTest.jse;
-import static java.awt.SystemColor.window;
-import static java.sql.DriverManager.getDriver;
-import static java.sql.DriverManager.getDrivers;
 
 
 public class KeywordWeb {
     private static Logger logger = LogHelper.getLogger();
 
     public KeywordWeb() {
-
     }
 
     public String getUrl() {
         return driver.getCurrentUrl();
     }
 
+    public void openTabRealDevice() throws InterruptedException{
+        iosDriver.findElement(new AppiumBy.ByAccessibilityId("Tabs")).click();
+        Thread.sleep(2000);
+        iosDriver.findElement(new AppiumBy.ByAccessibilityId("AddTabButton")).click();
+    }
+    public void switchTabRealDevice(String index) throws InterruptedException{
+        iosDriver.findElement(new AppiumBy.ByAccessibilityId("Tabs")).click();
+        Thread.sleep(2000);
+        iosDriver.findElement(new By.ByXPath("//XCUIElementTypeOther[@index='" + index + "']")).click();
+    }
     public void clearText(String element) {
-
         logger.info("clearText");
         String xPathElement = PropertiesFile.getPropValue(element);
         if (xPathElement == null) {
@@ -63,6 +64,10 @@ public class KeywordWeb {
         }
         driver.findElement(By.xpath(xPathElement)).click();
     }
+    public void clickByJs(String element){
+        jse.executeScript("arguments[0].click();", element);
+    }
+
     public void clickByCss(String element) {
         logger.info("click" + element);
         String xPathElement = PropertiesFile.getPropValue(element);
@@ -600,7 +605,7 @@ public class KeywordWeb {
         if (xPathElement == null) {
             xPathElement = element;
         }
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xPathElement)));
     }
 
@@ -612,7 +617,7 @@ public class KeywordWeb {
     public void waitForAjaxToFinish() throws InterruptedException {
         logger.info("waitForAjaxToFinish");
 
-        WebDriverWait wait = new WebDriverWait(driver, 3000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3000));
 
         wait.until((ExpectedCondition<Boolean>) wdriver -> ((JavascriptExecutor) driver).executeScript(
                 "return !!window.jQuery && !!window.jQuery.active == 0;").equals(true));
@@ -620,7 +625,7 @@ public class KeywordWeb {
     }
 
     private static void until(Function<WebDriver, Boolean> waitCondition, Long timeoutInSeconds) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, timeoutInSeconds);
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
 //        webDriverWait.withTimeout(timeoutInSeconds, TimeUnit.SECONDS);
         try {
             webDriverWait.until(waitCondition);
@@ -648,7 +653,7 @@ public class KeywordWeb {
             return "Wrong usage of WaitforElementNotVisible()";
         }
         try {
-            (new WebDriverWait(driver, timeOutInSeconds)).until(ExpectedConditions.invisibilityOfElementLocated(By
+            (new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds))).until(ExpectedConditions.invisibilityOfElementLocated(By
                     .xpath(elementXPath)));
             return null;
         } catch (TimeoutException e) {
@@ -662,7 +667,7 @@ public class KeywordWeb {
         if (xPathElement == null) {
             xPathElement = element;
         }
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(xPathElement)));
     }
 
@@ -719,10 +724,10 @@ public class KeywordWeb {
 
     public void recaptchaClickSubmit() {
         logger.info("click recaptcha");
-        new WebDriverWait(driver, 10).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha/api2/anchor?ar=1')]")));
 
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("#footer_newsletter_recaptcha > div.box-recatpcha-actions > button"))).click();
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-border"))).click();
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(By.xpath("#footer_newsletter_recaptcha > div.box-recatpcha-actions > button"))).click();
 
     }
 
@@ -936,7 +941,7 @@ public class KeywordWeb {
                     ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[1].value='linh';");
 
                 }
-                  break;
+                break;
             case "test":
                 if(type.equals("couple")){
                     ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'test'");
@@ -950,7 +955,7 @@ public class KeywordWeb {
                     ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('product-custom-option hidden-nospace error-anchor')[0].value='test';");
 
                 }
-                 break;
+                break;
             case "sophie test limit 25 chara":
                 if(type.equals("couple")){
                     ((JavascriptExecutor) driver).executeScript("document.getElementsByClassName('input-field-editable ')[1].textContent = 'sophie test limit 25 chara'");
