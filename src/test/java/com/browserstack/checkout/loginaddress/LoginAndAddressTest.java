@@ -69,7 +69,7 @@ public class LoginAndAddressTest extends BaseTest {
 
     @Test
 //            (priority = 10, description = "Next to Payment page successfully with Guest option and Ship to this address is yes")
-    public void testCase_LA_06() throws InterruptedException {
+    public void testCase_LA_06_23() throws InterruptedException {
         logger.info("testCase_LA_06");
         objLoginAdrPage.nextToPaymentSuccess();
     }
@@ -111,6 +111,11 @@ public class LoginAndAddressTest extends BaseTest {
     public void testCase_LA_20() throws InterruptedException {
         logger.info("testCase_LA_020");
         objLoginAdrPage.editAddressWithCustomerLogin();
+    }
+    @Test(priority = 19, description = "Next to Process To Checkout with Billing not same Shipping address")
+    public void testCase_LA_24_25() throws InterruptedException {
+        logger.info("testCase_LA_025");
+        objLoginAdrPage.nexToProcessToCheckOutcheckedSameAsShipping();
     }
 
 

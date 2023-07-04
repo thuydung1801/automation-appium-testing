@@ -61,6 +61,8 @@ public class LoginAndAddressPage extends BasePage {
         keyword.clearText("LA_INPUT_EMAIL");
         keyword.clearText("LA_INPUT_PASSWORD");
         keyword.click("CHECKOUT_LA_BTN_LOGIN");
+        keyword.untilJqueryIsDone(100L);
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "CHECKOUT_LA_LBL_ERROR_MAIL");
         keyword.assertEquals("LA_LIST_MESSAGE_REQUIRED_FIELD", "LA_ERROR_PASSWORD");
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
@@ -148,7 +150,8 @@ public class LoginAndAddressPage extends BasePage {
         keyword.untilJqueryIsDone(20L);
         clearAllData();
         keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
-        keyword.untilJqueryIsDone(30L);
+        keyword.untilJqueryIsDone(100L);
+        keyword.waitForElementNotVisible(10, "//div[@class='loading-mask']");
         verifyAllRequiredField();
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
@@ -265,13 +268,48 @@ public class LoginAndAddressPage extends BasePage {
         keyword.click("LA_BTN_EDIT_CUSTOMER_LOGIN");
         clearTextAndSendKey("LA_EDIT_INPUT_FIRST_NAME", "LA_EDIT_INPUT_FIRST_NAME", "LA_DATA_EDIT_INPUT_FIRST_NAME");
         keyword.click("CHECKOUT_LA_BTN_SAVE_ADDRESS_2");
-        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(100L);
         keyword.assertEquals("LA_MESSAGE_SAVE_SUCCESS", "LA_INPUT_MESSAGE_SAVE_SUCCESS");
+        keyword.untilJqueryIsDone(70L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.click("CHECKOUT_BTN_CHECKOUT_ADDRESS");
+        keyword.untilJqueryIsDone(70L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
     }
+    public void nexToProcessToCheckOutcheckedSameAsShipping() throws InterruptedException {
+        Thread.sleep(5000);
+        keyword.click("LA_CLICK_CHOOSE_ADDRESS_SHIPPMENT");
+        keyword.untilJqueryIsDone(70L);
+        keyword.click("CHECKOUT_BTN_CHECKOUT_SHIPMENT");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+    public void img01(String baseURL) throws InterruptedException {
+        keyword.navigateToUrl(baseURL + "exclusive-deals/#");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        keyword.untilJqueryIsDone(60L);
+        keyword.verifyElementVisible("PRD_NEW_PAGE_IMG");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        keyword.verifyElementVisible("PRD_NEW_PAGE_IMG");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
+
+    }
+    public void img02(String baseURL) throws InterruptedException {
+        keyword.navigateToUrl(baseURL + "classic-choice.html");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        keyword.untilJqueryIsDone(60L);
+        keyword.click("PRD_NEW_PAGE_IMG_BTN_CHOOSE_STONE");
+        keyword.untilJqueryIsDone(60L);
+        keyword.click("PRD_NEW_PAGE_IMG_BTN_CHOOSE_STONE_DIAMOND");
+        keyword.reLoadPage();
+        keyword.click("PRD_NEW_PAGE_IMG_BTN_CHOOSE_STONE");
+        keyword.verifyElementVisible("PRD_NEW_PAGE_IMG_VERIFY_BTN_CHOOSE_STONE_DIAMOND");
+        keyword.waitForElementNotVisible(60,"//div[@class='loading-mask']");
+        jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Results found!\"}}");
 
 
-
+    }
 
 }
