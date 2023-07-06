@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import static core.BaseTest.driver;
-import static core.BaseTest.jse;
+
 
 
 public class SignInPage extends BasePage {
@@ -153,6 +153,7 @@ public class SignInPage extends BasePage {
                 keyword.openTabRealDevice();
                 String activeCode = signUpPage.takeActiveGmailCode("BE_URL"," "," ");
                 keyword.switchTabRealDevice("0");
+                keyword.switchTab(0);
                 keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
                 keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
                 keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
@@ -178,16 +179,22 @@ public class SignInPage extends BasePage {
                 }
                 String codeSMS = getSMSCodeCreateNewPass("CODE_RESET_PASSWORD");
                 keyword.switchTabRealDevice("0");
-                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_PHONE_SUBMIT_BTN",20);
+                keyword.switchTab(0);
+                keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_CODE_BTN",20);
                 keyword.sendKeys("FORGOT_PASSWORD_CODE_MOBILE_TXT",codeSMS);
-                keyword.click("FORGOT_PASSWORD_PHONE_SUBMIT_BTN");
+                keyword.click("FORGOT_PASSWORD_SUBMIT_CODE_BTN");
                 Thread.sleep(5000);
                 signUpPage.inputPassword("FORGOT_NEW_PASSWORD_TXT","2fieldErrorPassWord");  //NSI19
                 signUpPage.clearTextAndSendKey("FORGOT_NEW_PASSWORD_TXT","PASSWORD");
                 keyword.click("FORGOT_NEW_PASSWORD_BTN");
-                Thread.sleep(8000);
+                Thread.sleep(7000);
                 keyword.assertEquals("UPDATE_PASSWORD_SUCCESS_MESSAGE","UPDATE_PASSWORD_SUCCESS");
-                loginPage.login("EMAIL_VALID1","PASSWORD");
+                Thread.sleep(5000);
+                keyword.click("LOGIN_PHONE_BTN");
+                keyword.sendKeys("LOGIN_PHONE_TXT","VALID_PHONE_NUMBER");
+                keyword.sendKeys("LOGIN_PASSWORD_TXT","PASSWORD");
+                keyword.click("LOGIN_BTN");
+                keyword.webDriverWaitForElementPresent("SIGN_IN_SUCCESS_MESSAGE",20);
                 break;
         }
     }
@@ -201,25 +208,8 @@ public class SignInPage extends BasePage {
         }
         keyword.navigateToUrl("SMS_LOG_URL");
         keyword.webDriverWaitForElementPresent("DATA_ROW_BE",20);
+        Thread.sleep(5000);
         String s = keyword.getText(xpath);
         return s.substring(s.length() - 6, s.length());
-    }
-
-    public void openNewTab() throws InterruptedException{
-        keyword.navigateToUrl("https://www.guru99.com/alert-popup-handling-selenium.html");
-//        String a = "window.open('https://www.yahoo.com', '_blank');";
-//        jse.executeScript(a);
-//        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-//        driver.switchTo().window(tabs.get(1));
-        jse.executeScript("window.open('http://www.google.com');");
-        Thread.sleep(20000);
-        jse.executeScript("window.location.href = 'http://www.google.com';");
-        String url = "https://login.salesforce.com";
-        String script = "window.location = \'" + url + "\'";
-        jse.executeScript(script);
-
-        Thread.sleep(20000);
-        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
     }
 }

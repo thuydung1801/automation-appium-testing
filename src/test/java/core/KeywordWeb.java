@@ -24,8 +24,6 @@ import java.util.function.Function;
 
 import static core.BaseTest.driver;
 import static core.BaseTest.iosDriver;
-import static core.BaseTest.jse;
-
 
 public class KeywordWeb {
     private static Logger logger = LogHelper.getLogger();
@@ -37,15 +35,23 @@ public class KeywordWeb {
         return driver.getCurrentUrl();
     }
 
+    // TabOverviewButton , XCUIElementTypeButton[@index='" + index + "']    ios16.5
+    // Tabs  , //XCUIElementTypeOther[@index='" + index + "']      ios12.5
     public void openTabRealDevice() throws InterruptedException{
-        iosDriver.findElement(new AppiumBy.ByAccessibilityId("Tabs")).click();
+        iosDriver.findElement(new AppiumBy.ByAccessibilityId("TabOverviewButton")).click();
         Thread.sleep(2000);
         iosDriver.findElement(new AppiumBy.ByAccessibilityId("AddTabButton")).click();
     }
     public void switchTabRealDevice(String index) throws InterruptedException{
-        iosDriver.findElement(new AppiumBy.ByAccessibilityId("Tabs")).click();
+        iosDriver.findElement(new AppiumBy.ByAccessibilityId("TabOverviewButton")).click();
         Thread.sleep(2000);
-        iosDriver.findElement(new By.ByXPath("//XCUIElementTypeOther[@index='" + index + "']")).click();
+        iosDriver.findElement(new By.ByXPath("//XCUIElementTypeButton[@index='" + index + "']")).click();
+    }
+    public void switchTab(int index){
+        Set<String> window = driver.getWindowHandles();
+        List<String> listWindow = new ArrayList<>();
+        listWindow.addAll(window);
+        driver.switchTo().window(listWindow.get(index));
     }
     public void clearText(String element) {
         logger.info("clearText");
@@ -64,10 +70,6 @@ public class KeywordWeb {
         }
         driver.findElement(By.xpath(xPathElement)).click();
     }
-    public void clickByJs(String element){
-        jse.executeScript("arguments[0].click();", element);
-    }
-
     public void clickByCss(String element) {
         logger.info("click" + element);
         String xPathElement = PropertiesFile.getPropValue(element);

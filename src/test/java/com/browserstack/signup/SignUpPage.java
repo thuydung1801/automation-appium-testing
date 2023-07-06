@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 import static core.BaseTest.driver;
-import static core.BaseTest.jse;
 
 public class SignUpPage extends BasePage {
     private LoginPage loginPage;
