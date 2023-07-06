@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Cross-Platform">
+    <test name="Marketing">
+        <!--        <parameter name="devices" value="mobile"></parameter>-->
+        <!--        <parameter name="baseURL" value="https://stage.glamira.co.uk/"></parameter>-->
+        <classes>
+            <class name="com.browserstack.marketing.MarketingTest" >
+                <methods>
+                    <include name="testCase_GC_03"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
