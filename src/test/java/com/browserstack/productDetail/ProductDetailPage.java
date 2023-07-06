@@ -25,13 +25,6 @@ public class ProductDetailPage extends BasePage {
         objLogin.acceptAllCookies();
         objLogin.login("PRODUCT_DETAIL_DATA_EMAIL","RETURN_FORM_DATA_PASSWORD");
     }
-
-    public void clickChooseSize() throws InterruptedException {
-        keyword.click("PRODUCT_DETAIL_DRD_OPTION_SIZE");
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-        keyword.untilJqueryIsDone(30L);
-        keyword.randomElement("PRODUCT_DETAIL_CLICK_OPTION_SIZE");
-    }
     public void optionSize() throws InterruptedException {
         keyword.scrollToPositionByScript("window.scrollBy(0,500)");
         keyword.click("PRODUCT_DETAIL_DRD_OPTION_SIZE");
@@ -46,6 +39,11 @@ public class ProductDetailPage extends BasePage {
         keyword.webDriverWaitForElementPresent("PRODUCT_DETAIL_REQUEST_FREE_SIZE",20);
         keyword.click("PRODUCT_DETAIL_REQUEST_FREE_SIZE");
     }
+    public void clickChooseSize(String size) throws InterruptedException {
+        keyword.click("PRODUCT_DETAIL_DRD_OPTION_SIZE");
+        keyword.untilJqueryIsDone(30L);
+        keyword.randomElement(size);
+    }
     public void checkVerifySizeRing() throws InterruptedException {
         String exp = keyword.getText("PRODUCT_DETAIL_DRD_OPTION_SIZE");
         String expected = exp.substring(0,2);
@@ -55,60 +53,39 @@ public class ProductDetailPage extends BasePage {
         Assert.assertEquals(expected, actual);
         Thread.sleep(1000);
     }
-    public void ringSize1() throws InterruptedException {
-        keyword.reLoadPage();
-        clickChooseSize();
-        keyword.untilJqueryIsDone(30L);
-        checkVerifySizeRing();
-        keyword.click("PRD_BTN_ADDCART");
-
-    }
-    public void ringSize2() throws InterruptedException {
+    public void selectRingSize(String size) throws InterruptedException {
         keyword.reLoadPage();
         keyword.untilJqueryIsDone(30L);
-        keyword.click("PRD_BTN_ADDCART");
-        keyword.click("PRD_BTN_CLOSE_POPUP_SIZE");
-        keyword.untilJqueryIsDone(30L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-
-        checkVerifyInputNull();
+        keyword.scrollToPositionByScript("window.scrollBy(0,500)");
+        if(size!=null) {
+            clickChooseSize(size);
+            keyword.untilJqueryIsDone(30L);
+            checkVerifySizeRing();
+            keyword.click("PRODUCT_DETAIL_BTN_ADD_CART");
+        }
+        else {
+            keyword.click("PRODUCT_DETAIL_BTN_ADD_CART");
+            keyword.untilJqueryIsDone(30L);
+            keyword.click("PRODUCT_DETAIL_BTN_CLOSE_POPUP_SIZE");
+            keyword.untilJqueryIsDone(30L);
+            checkVerifyInputNull();
+        }
     }
-    public void ringSize3() throws InterruptedException {
-        keyword.click("PRD_DROPDOWN");
-        keyword.untilJqueryIsDone(30L);
-        keyword.click("PRD_OPTION_SIZE_AVERAGE");
-        keyword.untilJqueryIsDone(30L);
-        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
-
-        checkVerifySizeRing();
-        keyword.click("PRD_BTN_ADDCART");
+    public void checkVerifyInputNull(){
+        keyword.assertEquals("COM_DATA_MESS_NULL", "COM_TXT_MESS_ERROR");
     }
-    public void optionFindSizeWithInpSuccess() throws InterruptedException {
+    public void orderAFreeRingSize(String code,String address,String city ,boolean clickRecaptcha) throws InterruptedException {
         commonFindSize();
-        inputFindSize( Integer.parseInt(PropertiesFile.getPropValue("PRODUCT_DETAIL_DATA_CODE")),
-                "PRODUCT_DETAIL_DATA_CITY");
-
-    }
-    public void optionFindSizeWithInpNull() throws InterruptedException{
-        commonFindSize();
-//        keyword.openNewTab(PropertiesFile.getPropValue("URL_PRODUCT_DETAIL"));
-        inputFindSize( Integer.parseInt((PropertiesFile.getPropValue("PRD_DATA_CODE"))),
-                "COM_DATA_NULL");
-        checkVerifyInputNull();
-    }
-    public void optionFindSizeWithInpEmailError() throws InterruptedException{
-        commonFindSize();
-        inputFindSize( Integer.parseInt(PropertiesFile.getPropValue("PRD_DATA_CODE")),
-                "PRD_DATA_CITY");
-        checkVerifyInputWithEmailError();
+        inputFindSize( code,address,city,clickRecaptcha);
+        if(address==null || address==null || city==null || !clickRecaptcha ) {
+            checkVerifyInputNull();
+        }
     }
     public void optionDimensionGuide() throws InterruptedException {
-        setUp();
         keyword.untilJqueryIsDone(50L);
         keyword.navigateToUrl("URL_PRODUCT_DETAIL");
         keyword.untilJqueryIsDone(50L);
         Thread.sleep(5000);
-        objLogin.acceptAllCookies();
         optionSize();
         keyword.click("PRODUCT_DETAIL_FIND_SIZE");
         keyword.imWait(2);
@@ -118,32 +95,30 @@ public class ProductDetailPage extends BasePage {
         keyword.verifyElementVisible("PRODUCT_DETAIL_VERIFY_LINK");
         keyword.untilJqueryIsDone(30L);
     }
-    public void checkVerifyInputNull(){
-        keyword.assertEquals("COM_DATA_MESSAGES_NULL",
-                "COM_TEXT_ERROR");
-    }
-    public void checkVerifyInputWithEmailError(){
-        keyword.assertEquals("COM_DATA_MESSAGES_EMAIL",
-                "COM_TEXT_ERROR_EMAIL");
-    }
-    public void inputFindSize(int code, String city) throws InterruptedException {
+    public void inputFindSize(String code,String address, String city, boolean clickRecaptcha) throws InterruptedException {
         keyword.untilJqueryIsDone(30L);
         Thread.sleep(3000);
-        keyword.sendKeys("PRODUCT_DETAIL_INP_CITY", city);
-        keyword.sendKeys("PRODUCT_DETAIL_INP_CODE",String.valueOf(code) );
-        keyword.switchToIFrameByXpath("PRODUCT_DETAIL_IFRAME_RECAPTCHA");
-        keyword.click("PRODUCT_DETAIL_CHECKBOX_RECAPTCHA");
-        keyword.switchToDefaultContent();
-
-//        keyword.recaptchaClick();
+        checkInputField("PRODUCT_DETAIL_INP_ADDRESS",address);
+        checkInputField("PRODUCT_DETAIL_INP_CITY", city);
+        checkInputField("PRODUCT_DETAIL_INP_CODE",code);
+//        keyword.switchToIFrameByXpath("PRODUCT_DETAIL_IFRAME_RECAPTCHA");
+        if(clickRecaptcha==true) {
+            keyword.recaptchaClick();
+//            keyword.click("PRODUCT_DETAIL_CHECKBOX_RECAPTCHA");
+        }
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.untilJqueryIsDone(30L);
-
 //        keyword.webDriverWaitForElementPresent(PropertiesFile.getPropValue("PRD_CHECK_VERYFI"), 10);
 //        if(keyword.verifyElementVisible(PropertiesFile.getPropValue("PRD_CHECK_VERYFI"))){
-
-        keyword.click("PRD_CHECK");
-        keyword.click("PRD_BTN_SUBMIT");
+//        keyword.click("PRD_CHECK");
+        keyword.scrollToPositionByScript("window.scrollBy(0,200)");
+        keyword.click("PRODUCT_DETAIL_BTN_SUBMIT");
+    }
+    public void checkInputField( String field,String content) {
+        if(content!=null) {
+            keyword.clearText(field);
+            keyword.sendKeys(field, content);
+        }
     }
 }
 
