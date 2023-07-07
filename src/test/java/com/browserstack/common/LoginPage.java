@@ -49,4 +49,10 @@ public class LoginPage extends BasePage {
         keyword.click("LOGIN_BTN_SUBMITLOGIN");
         keyword.untilJqueryIsDone(50L);
     }
+    public void loginAdmin(String userName, String passWord) throws InterruptedException {
+        keyword.untilJqueryIsDone(50L);
+        keyword.sendKeys("LOGIN_FORM_USER_NAME_BACKEND", userName);
+        keyword.sendKeys("LOGIN_FORM_PASSWORD_BACKEND", passWord);
+        keyword.click("LOGIN_FORM_BTN_SUBMIT_BACKEND");
+    }
 }

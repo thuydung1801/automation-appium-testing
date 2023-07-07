@@ -89,7 +89,7 @@ public class MarketingPage extends BasePage {
 
     }
     public void commonGirftCetificate() throws InterruptedException {
-//        keyword.navigateToUrl("https://dev3.glamira.com/glgb/customer/account/index/");
+
         keyword.click("CGE_CLICK_ORDER");
         keyword.untilJqueryIsDone(30L);
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
@@ -145,6 +145,92 @@ public class MarketingPage extends BasePage {
         keyword.reLoadPage();
         ipDataGirftCetificate("LA_DATA_LAST_NAME","COM_INP_DATA_EMAIL","COM_DATA_TITLE","COM_INP_DATA_MESSAGE",null,"GCE_BTN_DOWNLOAD");
 
+    }
+    //go to section customer after login admin BE.
+    public void chooseItemCustomer(String scrollToElement, String clickItem, String verifyItem, String clickItemSub, String verifyItemSub) throws InterruptedException {
+        keyword.untilJqueryIsDone(30L);
+        keyword.scrollToPosition();
+        keyword.scrollDownToElement(scrollToElement);
+        keyword.click(clickItem);
+        keyword.webDriverWaitForElementPresent(verifyItem, 20);
+        keyword.untilJqueryIsDone(50L);
+        keyword.untilJqueryIsDone(50L);
+        keyword.click(clickItemSub);
+        keyword.webDriverWaitForElementPresent(verifyItemSub, 20);
+    }
+    public void createNewGriftCetificateFormEmailWithLogin() throws InterruptedException {
+//        setUp();
+//        loginPage.loginOnWebsite("COM_INP_DATA_EMAIL", "COM_INP_DATA_PASS",null,null,true);
+//        keyword.untilJqueryIsDone(30L);
+//        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+//        keyword.click("GCE_BTN_ACCOUNT");
+//        keyword.imWait(5);
+//
+        keyword.navigateToUrl("https://stage.glamira.co.uk/customer/account/index/");
+//        keyword.back();
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        String getIdOrder = keyword.getText("GCE_TEXT_ORDER");
+        String text = getIdOrder.substring(1,getIdOrder.length());
+        keyword.navigateToUrl("BE_URL");
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        loginPage.loginAdmin("LOGIN_DATA_USER_NAME_DUNG", "LOGIN_DATA_PASS_WORD_DUNG");
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        chooseItemCustomer("LOGIN_BTN_CUSTOMER","LOGIN_BTN_CUSTOMER",
+                "SIGNUP_VERIFY_CUSTOMER","LOGIN_BTN_EMAIL_LOG",
+                "SIGNUP_VERIFY_EMAIL_LOG");
+        adminChooseEmailLog(text);
+        ipDataGirftCetificate("LA_DATA_LAST_NAME","COM_INP_DATA_EMAIL","COM_DATA_TITLE","COM_INP_DATA_MESSAGE",null,"GCE_BTN_SUBMIT");
+        keyword.untilJqueryIsDone(30L);
+    }
+    public void adminChooseEmailLog(String text) throws InterruptedException {
+
+//        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.untilJqueryIsDone(30L);
+        keyword.webDriverWaitForElementPresent("ADMIN_CUS_EMAILLOG_BTN_FILTER",20);
+        Thread.sleep(2000);
+        keyword.click("ADMIN_CUS_EMAILLOG_BTN_FILTER");
+
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        keyword.clearText("ADMIN_CUS_EMAILLOG_FILTER_INP_SUBJECT");
+        keyword.sendKeys("ADMIN_CUS_EMAILLOG_FILTER_INP_SUBJECT",text);
+
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+        keyword.click("ADMIN_CUS_EMAILLOG_ENTER_FILTER");
+        keyword.untilJqueryIsDone(30L);
+        keyword.click("ADMIN_CUS_EMAILLOG_ACTION_SELECT");
+        keyword.click("ADMIN_CUS_EMAILLOG_ACTION_SELECT_VIEW");
+
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+        keyword.switchToIFrameByXpath("//iframe");
+        keyword.scrollDownToElement("ADMIN_CUS_EMAILLOG_ACTION_SELECT_LINK_CREATE");
+
+        keyword.checkStatusIsDisplay("ADMIN_CUS_EMAILLOG_ACTION_SELECT_LINK_CREATE");
+        System.out.printf("===========");
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+
+//        keyword.scrollDownToElement("ADMIN_CUS_EMAILLOG_ACTION_SELECT_LINK_CREATE");
+        keyword.click("ADMIN_CUS_EMAILLOG_ACTION_SELECT_LINK_CREATE");
+        keyword.untilJqueryIsDone(30L);
+        keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
+    }
+    public void createNewGriftCetificateWithDataNull() throws InterruptedException {
+//        commonGirftCetificate();
+        keyword.reLoadPage();
+        ipDataGirftCetificate("COM_DATA_NULL", "COM_DATA_NULL","COM_DATA_NULL","COM_DATA_NULL",null,"GCE_BTN_SUBMIT");
+        checkVerifyInputNull();
     }
 
 }

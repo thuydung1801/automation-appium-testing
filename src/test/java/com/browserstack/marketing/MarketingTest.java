@@ -49,4 +49,12 @@ public class MarketingTest extends BaseTest {
     public void testCase_GCE_05() throws InterruptedException {
         testMarketing.createNewCetificateWithOptionYES();
     }
+    @Test(priority = 8)
+    public void testCase_GCE_04() throws InterruptedException {
+        testMarketing.createNewGriftCetificateWithDataNull();
+    }
+    @Test(priority = 9)
+    public void testCase_GCE_02() throws InterruptedException {
+        testMarketing.createNewGriftCetificateFormEmailWithLogin();
+    }
 }
