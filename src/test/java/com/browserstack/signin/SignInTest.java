@@ -92,17 +92,22 @@ public class SignInTest extends BaseTest {
         signInPage.isSignInSuccessOrFail("fullBlankField","phone");
     }
     @Test(priority = 8, description = "Forgot password success with email")
-    public void testCase_SNI_13_14_15_16() throws InterruptedException {
-        signInPage.goToSignIn("");
-        //setUpRealDevice("app","16.5.1","1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
-        signInPage.forgotPassWord("email");
+    @Parameters("platform")
+    public void testCase_SNI_13_14_15_16(String platform) throws InterruptedException {
+        if(platform.equals("realDevice")) {
+            signInPage.goToSignIn("");
+            setUpRealDevice("app", "16.5.1", "1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
+            signInPage.forgotPassWord("email");
+        }
     }
     @Test(priority = 14, description = "Forgot password success with phone number")
-    @Parameters("baseUrl")
-    public void testCase_SNI_17_18_19(String baseUrl) throws InterruptedException {
-        signInPage.goToSignIn(baseUrl);
-        //setUpRealDevice("app","16.5.1","1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
-        signInPage.forgotPassWord("phone");
+    @Parameters({"baseUrl","platform"})
+    public void testCase_SNI_17_18_19(String baseUrl, String platform) throws InterruptedException {
+        if (platform.equals("realDevice")) {
+            signInPage.goToSignIn(baseUrl);
+//            setUpRealDevice("app", "16.5.1", "1987bcb8658934de6b03ba2a5a1b8d9c79dda580");
+            signInPage.forgotPassWord("phone");
+        }
     }
 
 }

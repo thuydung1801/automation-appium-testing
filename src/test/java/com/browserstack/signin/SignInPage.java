@@ -4,7 +4,6 @@ import com.browserstack.home.LoginPage;
 import com.browserstack.signup.SignUpPage;
 import core.BasePage;
 import core.KeywordWeb;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -33,6 +32,10 @@ public class SignInPage extends BasePage {
         Set<String> window = driver.getWindowHandles();
         return window.size();
     }
+    public void switchTab(String index) throws InterruptedException{
+        keyword.switchTabRealDevice(index);
+        keyword.switchTab(index);
+    }
     public void goToSignIn(String url) throws InterruptedException {
         if(url.equals("https://stage.glamira.com/")){
         keyword.webDriverWaitForElementPresent("BANNER_WEB",20);
@@ -40,6 +43,7 @@ public class SignInPage extends BasePage {
         else {
         keyword.webDriverWaitForElementPresent("BANNER_UK_WEB", 20);
         }
+        Thread.sleep(3000);
         keyword.click("LOGIN_MENU_LEFT");
         keyword.untilJqueryIsDone(50L);
         keyword.click("MOBILE_BTN_LOGIN");
@@ -145,15 +149,14 @@ public class SignInPage extends BasePage {
             case "email": //SNI13_14_15_16
                 keyword.sendKeys("EMAIL_FORGOT_PASSWORD_TXT", "EMAIL_VALID1");
                 keyword.click("EMAIL_FORGOT_PASSWORD_BTN");
-                Thread.sleep(3000);
+                Thread.sleep(5000);
                 keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT","123456");
                 keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
                 Thread.sleep(5000);
                 keyword.assertEquals("FORGOT_PASSWORD_MESSAGE","FORGOT_PASSWORD_INVALID_CODE");
                 keyword.openTabRealDevice();
                 String activeCode = signUpPage.takeActiveGmailCode("BE_URL"," "," ");
-                keyword.switchTabRealDevice("0");
-                keyword.switchTab(0);
+                switchTab("0");
                 keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_BTN",20);
                 keyword.sendKeys("FORGOT_PASSWORD_CODE_TXT",activeCode);
                 keyword.click("FORGOT_PASSWORD_SUBMIT_BTN");
@@ -178,8 +181,7 @@ public class SignInPage extends BasePage {
                     keyword.openTabRealDevice();
                 }
                 String codeSMS = getSMSCodeCreateNewPass("CODE_RESET_PASSWORD");
-                keyword.switchTabRealDevice("0");
-                keyword.switchTab(0);
+                switchTab("0");
                 keyword.webDriverWaitForElementPresent("FORGOT_PASSWORD_SUBMIT_CODE_BTN",20);
                 keyword.sendKeys("FORGOT_PASSWORD_CODE_MOBILE_TXT",codeSMS);
                 keyword.click("FORGOT_PASSWORD_SUBMIT_CODE_BTN");
@@ -198,7 +200,6 @@ public class SignInPage extends BasePage {
                 break;
         }
     }
-
     public String getSMSCodeCreateNewPass(String xpath) throws InterruptedException{
         signUpPage.loginToBackEnd("BE_URL");
         keyword.untilJqueryIsDone(50L);
@@ -212,4 +213,5 @@ public class SignInPage extends BasePage {
         String s = keyword.getText(xpath);
         return s.substring(s.length() - 6, s.length());
     }
+
 }

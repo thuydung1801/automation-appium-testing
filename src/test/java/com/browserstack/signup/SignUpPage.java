@@ -50,7 +50,7 @@ public class SignUpPage extends BasePage {
     public void loginToBackEnd(String urlBe) throws InterruptedException {
         keyword.navigateToUrl(urlBe);
         keyword.untilJqueryIsDone(50L);
-        Thread.sleep(10000);
+        Thread.sleep(8000);
         if(keyword.verifyElementVisible("LOGIN_FORM_PASSWORD_BE")) {
             keyword.sendKeys("LOGIN_FORM_USER_NAME_BE", "ACCOUNT_BE");
             keyword.sendKeys("LOGIN_FORM_PASSWORD_BE", "PASS_BE");

@@ -2,7 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cross-Platform">
     <test name="SignUpTest">
-        <parameter name="baseUrl" value="https://stage.glamira.com/"></parameter>
+        <parameter name="baseUrl"  value="https://stage.glamira.com/"></parameter>
+        <parameter name="platform" value="realDevice"></parameter>
         <classes>
             <class name="com.browserstack.signup.SignUpTest" >
                 <methods>

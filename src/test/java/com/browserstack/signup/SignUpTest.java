@@ -21,16 +21,14 @@ public class SignUpTest extends BaseTest {
         if(baseUrl.equals("https://stage.glamira.com/")){
             keyword.navigateToUrl(baseUrl);
         }
-        loginPage.acceptAllCookies();
+        //loginPage.acceptAllCookies();
         signUpPage.goToSignUp(baseUrl);
     }
-
     @Test (priority = 1, description = "Enter wrong code and create new customer successfully with store enable email confirm")
     public void testCase_NSU1_12() throws InterruptedException {
         startCreateAccount(" ");
         signUpPage.isSignUpSuccessOrFail("successfullyWithEmail");
     }
-
     @Test(priority = 2, description = "Create new customer and leave with blank form for required form")
     public void testCase_NSU2() throws InterruptedException {
         //startCreateAccount("");

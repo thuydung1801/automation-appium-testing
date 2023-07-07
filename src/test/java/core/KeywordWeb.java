@@ -47,11 +47,11 @@ public class KeywordWeb {
         Thread.sleep(2000);
         iosDriver.findElement(new By.ByXPath("//XCUIElementTypeButton[@index='" + index + "']")).click();
     }
-    public void switchTab(int index){
+    public void switchTab(String index){
         Set<String> window = driver.getWindowHandles();
         List<String> listWindow = new ArrayList<>();
         listWindow.addAll(window);
-        driver.switchTo().window(listWindow.get(index));
+        driver.switchTo().window(listWindow.get(Integer.parseInt(index)));
     }
     public void clearText(String element) {
         logger.info("clearText");
