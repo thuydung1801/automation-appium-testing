@@ -101,16 +101,11 @@ public class ProductDetailPage extends BasePage {
         checkInputField("PRODUCT_DETAIL_INP_ADDRESS",address);
         checkInputField("PRODUCT_DETAIL_INP_CITY", city);
         checkInputField("PRODUCT_DETAIL_INP_CODE",code);
-//        keyword.switchToIFrameByXpath("PRODUCT_DETAIL_IFRAME_RECAPTCHA");
         if(clickRecaptcha==true) {
             keyword.recaptchaClick();
-//            keyword.click("PRODUCT_DETAIL_CHECKBOX_RECAPTCHA");
         }
         keyword.waitForElementNotVisible(10,"//div[@class='loading-mask']");
         keyword.untilJqueryIsDone(30L);
-//        keyword.webDriverWaitForElementPresent(PropertiesFile.getPropValue("PRD_CHECK_VERYFI"), 10);
-//        if(keyword.verifyElementVisible(PropertiesFile.getPropValue("PRD_CHECK_VERYFI"))){
-//        keyword.click("PRD_CHECK");
         keyword.scrollToPositionByScript("window.scrollBy(0,200)");
         keyword.click("PRODUCT_DETAIL_BTN_SUBMIT");
     }

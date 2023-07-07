@@ -22,11 +22,11 @@ public class ProductDetailTest extends BaseTest {
         objProductDetail.setUp();
         objProductDetail.optionDimensionGuide();
     }
-//    @Test (priority = 11,description = "- Click in REQUEST A FREE RING SIZER to enable poup")
-//    public void testCase_DG_03() throws InterruptedException {
-//        objProductDetail.orderAFreeRingSize("PRODUCT_DETAIL_DATA_CODE",
-//                "PRODUCT_DETAIL_DATA_ADDRESS", "PRODUCT_DETAIL_DATA_CITY",true);
-//    }
+    @Test (priority = 11,description = "- Click in REQUEST A FREE RING SIZER to enable poup")
+    public void testCase_DG_03() throws InterruptedException {
+        objProductDetail.orderAFreeRingSize("PRODUCT_DETAIL_DATA_CODE",
+                "PRODUCT_DETAIL_DATA_ADDRESS", "PRODUCT_DETAIL_DATA_CITY",true);
+    }
     @Test (priority = 12,description = "Add to cart a single Ring item - selected ring size")
     public void testCase_RS_01() throws InterruptedException {
         objProductDetail.selectRingSize("PRODUCT_DETAIL_CHECKBOX_SIZE");
@@ -43,10 +43,10 @@ public class ProductDetailTest extends BaseTest {
     public void testCase_RS_form_02() throws InterruptedException {
         objProductDetail.orderAFreeRingSize(null,null,null,false);
     }
-//    @Test (priority = 18, description = "ORDER A FREE RING SIZER - enter correct values")
-//    public void testCase_RS_form_01() throws InterruptedException {
-//        objProductDetail.orderAFreeRingSize(Integer.parseInt(PropertiesFile.getPropValue("PRODUCT_DETAIL_DATA_CODE")),
-//                "PRODUCT_DETAIL_DATA_ADDRESS", "PRODUCT_DETAIL_DATA_CITY",true);
-//    }
+    @Test (priority = 18, description = "ORDER A FREE RING SIZER - enter correct values")
+    public void testCase_RS_form_01() throws InterruptedException {
+        objProductDetail.orderAFreeRingSize("PRODUCT_DETAIL_DATA_CODE",
+                "PRODUCT_DETAIL_DATA_ADDRESS", "PRODUCT_DETAIL_DATA_CITY",true);
+    }
 }
 
